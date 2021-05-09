@@ -1,7 +1,7 @@
 {
-  "name": "proshop",
+  "name": "Farmy",
   "version": "1.0.0",
-  "description": "MERN shopping cart app",
+  "description": "Farmy - Your local sourcing provider of the freshest seasonal vegetables!",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -11,7 +11,9 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node backend/seeder",
     "data:destroy": "node backend/seeder -d",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend",
+    "lint:fix": "eslint \"**/*.js\" --fix ",
+    "prepare": "husky install"
   },
   "author": "Brad Traversy",
   "license": "MIT",
@@ -38,14 +40,7 @@
     "nodemon": "^2.0.4",
     "prettier": "^2.2.1"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "**/*.js": [
-      "eslint --fix"
-    ]
+    "*.js": "eslint --cache --fix"
   }
 }
