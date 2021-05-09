@@ -19,6 +19,8 @@
     "consistent-return": "off",
     "no-unused-vars": "off",
     "indent": "off",
-    "max-len": "off"
+    "max-len": "off",
+    "import/extensions": "off",
+    "prefer-destructuring": "off"
   }
 }

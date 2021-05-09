@@ -8,8 +8,8 @@ import {
   deleteUser,
   getUserById,
   updateUser,
-} from '../controllers/userController';
-import { protect, admin } from '../middleware/authMiddleware';
+} from '../controllers/userController.js';
+import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
