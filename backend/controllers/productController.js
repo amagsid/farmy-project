@@ -8,12 +8,29 @@ const getProducts = asyncHandler(async (req, res) => {
   const pageSize = 10;
   const page = Number(req.query.pageNumber) || 1;
 
+  // OR query syntax found at: https://stackoverflow.com/a/41391359
   const keyword = req.query.keyword
     ? {
-        name: {
-          $regex: req.query.keyword,
-          $options: 'i',
-        },
+        $or: [
+          {
+            name: {
+              $regex: req.query.keyword,
+              $options: 'i',
+            },
+          },
+          {
+            category: {
+              $regex: req.query.keyword,
+              $options: 'i',
+            },
+          },
+          {
+            brand: {
+              $regex: req.query.keyword,
+              $options: 'i',
+            },
+          },
+        ],
       }
     : {};
 
