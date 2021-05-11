@@ -40,7 +40,7 @@ const productSchema = mongoose.Schema(
       required: true,
     },
     bundle: {
-      type: String,
+      type: Array,
       required: true,
     },
     description: {
