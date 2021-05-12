@@ -7,9 +7,9 @@ import Loader from '../components/Loader';
 import Meta from '../components/Meta';
 import { listBundlesNewUser } from '../actions/productActions';
 
-const ProductScreen = ({ match }) => {
+const ProductScreen = ({ history, match }) => {
   const [frequency, setFrequency] = useState(1);
-  const [selectedBundle, setSelectedBundle] = useState({});
+  // const [selectedBundle, setSelectedBundle] = useState('');
   const [houseHold, setHouseHold] = useState(1);
 
   //qty     frq+household
@@ -19,13 +19,18 @@ const ProductScreen = ({ match }) => {
   const bundleSignupNewUser = useSelector((state) => state.bundleSignupNewUser);
   const { loading, error, products } = bundleSignupNewUser;
   console.log(products);
-  console.log(selectedBundle);
-  //   const userLogin = useSelector((state) => state.userLogin);
-  //   const { userInfo } = userLogin;
+  // console.log(selectedBundle);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   useEffect(() => {
-    dispatch(listBundlesNewUser());
-  }, [dispatch]);
+    if (userInfo) {
+      dispatch(listBundlesNewUser());
+    } else {
+      history.push(`login`);
+    }
+  }, [dispatch, userInfo, history]);
 
   //   const addToCartHandler = () => {
   //     history.push(`/cart/${selectedBundle}?qty=${qty}`);
@@ -43,14 +48,15 @@ const ProductScreen = ({ match }) => {
             <Col md={6}>
               <h2>Select your First Bundle</h2>
 
-              <ButtonGroup
-                vertical
-                className="pr-5"
-                onClick={(e) => setSelectedBundle(e.target.value)}
-              >
+              <ButtonGroup vertical className="pr-5">
                 {products.map((product) => (
                   <Link key={product._id} to={`/register/bundleplan/${product._id}`}>
-                    <Button value={product._id} variant="dark" className="rounded my-1">
+                    <Button
+                      // onClick={(e) => setSelectedBundle(e.target.value)}
+                      value={product._id}
+                      variant="dark"
+                      className="rounded my-1"
+                    >
                       <Row>
                         <Col md={2}>
                           <Image src={product.image} alt={product.name} fluid rounded />

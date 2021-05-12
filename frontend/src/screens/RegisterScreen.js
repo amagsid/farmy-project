@@ -32,7 +32,7 @@ const RegisterScreen = ({ location, history }) => {
   const userRegister = useSelector((state) => state.userRegister);
   const { loading, error, userInfo } = userRegister;
 
-  const redirect = 'register/bundleplan';
+  const redirect = '/register/bundleplan';
 
   useEffect(() => {
     if (userInfo) {
