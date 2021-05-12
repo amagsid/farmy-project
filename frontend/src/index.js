@@ -6,11 +6,12 @@ import './bootstrap.min.css'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-
+import FarmyHomeScreen from './screens/FarmyHomeScreen'
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  // <Provider store={store}>
+  //   <App />
+  // </Provider>,
+  <FarmyHomeScreen />,
   document.getElementById('root')
 )
 
