@@ -21,11 +21,6 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
-    bundle: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: false,
-      ref: 'Product',
-    },
   },
   {
     timestamps: true,

@@ -7,31 +7,28 @@ import Loader from '../components/Loader';
 import Meta from '../components/Meta';
 import { listBundlesNewUser } from '../actions/productActions';
 
-const ProductScreen = ({ history, match }) => {
+const ProductScreen = ({ match }) => {
   const [frequency, setFrequency] = useState(1);
-  const [selectedBundle, setSelectedBundle] = useState('');
+  const [selectedBundle, setSelectedBundle] = useState({});
   const [houseHold, setHouseHold] = useState(1);
 
-  console.log(frequency);
-  console.log(selectedBundle);
-  console.log(houseHold);
+  //qty     frq+household
+  //qtyTotal  frq+household * price
   const dispatch = useDispatch();
 
   const bundleSignupNewUser = useSelector((state) => state.bundleSignupNewUser);
   const { loading, error, products } = bundleSignupNewUser;
   console.log(products);
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  console.log(selectedBundle);
+  //   const userLogin = useSelector((state) => state.userLogin);
+  //   const { userInfo } = userLogin;
 
   useEffect(() => {
-    if (userInfo) {
-      dispatch(listBundlesNewUser());
-    }
-  }, [dispatch, userInfo]);
+    dispatch(listBundlesNewUser());
+  }, [dispatch]);
 
   //   const addToCartHandler = () => {
-  //     history.push(`/cart/${selectedBundle}?frq=${frequency}&people=${houseHold}`);
+  //     history.push(`/cart/${selectedBundle}?qty=${qty}`);
   //   };
 
   return (
@@ -52,20 +49,17 @@ const ProductScreen = ({ history, match }) => {
                 onClick={(e) => setSelectedBundle(e.target.value)}
               >
                 {products.map((product) => (
-                  <Button
-                    key={product._id}
-                    value={product._id}
-                    variant="dark"
-                    className="rounded my-1"
-                  >
-                    <Row>
-                      <Col md={2}>
-                        <Image src={product.image} alt={product.name} fluid rounded />
-                      </Col>
-                      <Col md={8}>{product.name}</Col>
-                      <Col md={2}>${product.price}</Col>
-                    </Row>
-                  </Button>
+                  <Link key={product._id} to={`/register/bundleplan/${product._id}`}>
+                    <Button value={product._id} variant="dark" className="rounded my-1">
+                      <Row>
+                        <Col md={2}>
+                          <Image src={product.image} alt={product.name} fluid rounded />
+                        </Col>
+                        <Col md={8}>{product.name}</Col>
+                        <Col md={2}>${product.price}</Col>
+                      </Row>
+                    </Button>
+                  </Link>
                 ))}
               </ButtonGroup>
             </Col>
@@ -91,7 +85,7 @@ const ProductScreen = ({ history, match }) => {
                 </ButtonGroup>
               </Row>
               <Row className="pl-5 pb-5">
-                <h3>How many times a week? </h3>
+                <h3>How many Bundles peer week? </h3>
                 <ButtonGroup className="pl-4" onClick={(e) => setFrequency(e.target.value)}>
                   <Button variant="outline-dark" className="rounded mr-2" value="1">
                     1
