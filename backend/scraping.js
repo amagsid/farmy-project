@@ -79,9 +79,6 @@ const prepareBundlesData = () => {
           json[index].category = category;
         }
       });
-    fs.writeFile('./data/bundels.json', JSON.stringify(json, null, 4), (error) => {
-      console.log('success');
-    });
   });
 };
 
@@ -138,10 +135,12 @@ const prepareBundlesDescription = () => {
         .text()
         .replace(/\s\s+/g, '')
         .split('\n')[1];
-  });
-  fs.appendFile('./data/bundels.json', JSON.stringify(json, null, 4), (error) => {
+  })
+  .then(() => {
+      fs.writeFile('./data/bundels.json', JSON.stringify(json, null, 4), (error) => {
       console.log('success');
     });
+  });
 };
 
 prepareBundlesData();
