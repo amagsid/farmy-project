@@ -8,6 +8,7 @@ import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
 import ProductCarousel from '../components/ProductCarousel'
 import Meta from '../components/Meta'
+import Filter from "../components/Filter"
 import { listProducts } from '../actions/productActions'
 
 const HomeScreen = ({ match }) => {
@@ -34,7 +35,9 @@ const HomeScreen = ({ match }) => {
           Go Back
         </Link>
       )}
+      
       <h1>Latest Products</h1>
+      <Filter keyword={keyword} pageNumber={pageNumber}/>
       {loading ? (
         <Loader />
       ) : error ? (

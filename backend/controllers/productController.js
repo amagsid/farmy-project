@@ -17,10 +17,45 @@ const getProducts = asyncHandler(async (req, res) => {
       }
     : {};
 
+  const price = {
+    price: {
+      $gte: Number(req.query.minPrice) || 0,
+      $lt: Number(req.query.maxPrice) || 99999999,
+    },
+  };
+
+  const ratingQuery = Number(req.query.rating);
+  const rating = ratingQuery
+    ? {
+        rating: {
+          $gte: ratingQuery,
+          $lt: ratingQuery + 1,
+        },
+      }
+    : {};
+
+  const category = req.query.category
+    ? {
+        category: req.query.category,
+      }
+    : {};
+
   const count = await Product.countDocuments({ ...keyword });
-  const products = await Product.find({ ...keyword })
+  const products = await Product.find({
+ ...keyword, ...rating, ...price, ...category,
+})
     .limit(pageSize)
     .skip(pageSize * (page - 1));
+
+  if (req.query.sortBy === 'highestPrice') {
+    products.sort((high, low) => low.price - high.price);
+  } else if (req.query.sortBy === 'lowestPrice') {
+    products.sort((high, low) => high.price - low.price);
+  } else if (req.query.sortBy === 'rating') {
+    products.sort((high, low) => low.rating - high.rating);
+  } else if (req.query.sortBy === 'newest') {
+    products.sort((newer, older) => older.createdAt - newer.createdAt);
+  }
 
   res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
