@@ -23,6 +23,13 @@ const bundleSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
+    ingredient: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Ingredient',
+      },
+    ],
     name: {
       type: String,
       required: true,
@@ -39,10 +46,12 @@ const bundleSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    category: {
-      type: String,
-      required: true,
-    },
+    category: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     reviews: [reviewSchema],
     rating: {
       type: Number,
