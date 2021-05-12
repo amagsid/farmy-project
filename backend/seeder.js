@@ -4,9 +4,13 @@ import colors from 'colors';
 import users from './data/users.js';
 import products from './data/products.js';
 import User from './models/userModel.js';
+import Bundle from './models/bundleModel.js';
 import Product from './models/productModel.js';
 import Order from './models/orderModel.js';
 import connectDB from './config/db.js';
+// import bundlesJson from './data/bundles.json';
+
+// const bundles = JSON.parse(bundlesJson);
 
 dotenv.config();
 
@@ -17,14 +21,17 @@ const importData = async () => {
     await Order.deleteMany();
     await Product.deleteMany();
     await User.deleteMany();
+    // await Bundle.deleteMany();
 
     const createdUsers = await User.insertMany(users);
 
     const adminUser = createdUsers[0]._id;
 
     const sampleProducts = products.map((product) => ({ ...product, user: adminUser }));
+    // const sampleBundles = bundles.map((bundle) => ({ ...bundle, user: adminUser }));
 
     await Product.insertMany(sampleProducts);
+    // await Bundles.insertMany(sampleBundles);
 
     console.log('Data Imported!'.green.inverse);
     process.exit();
@@ -39,6 +46,7 @@ const destroyData = async () => {
     await Order.deleteMany();
     await Product.deleteMany();
     await User.deleteMany();
+    // await Bundle.deleteMany();
 
     console.log('Data Destroyed!'.red.inverse);
     process.exit();
@@ -53,3 +61,4 @@ if (process.argv[2] === '-d') {
 } else {
   importData();
 }
+// console.log(bundles);
