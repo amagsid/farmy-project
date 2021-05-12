@@ -31,11 +31,15 @@ const bundleSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    category: {
+    description: {
       type: String,
       required: true,
     },
-    description: {
+    status: {
+      type: String,
+      required: true,
+    },
+    category: {
       type: String,
       required: true,
     },
