@@ -32,7 +32,7 @@ const RegisterScreen = ({ location, history }) => {
   const userRegister = useSelector((state) => state.userRegister);
   const { loading, error, userInfo } = userRegister;
 
-  const redirect = location.search ? location.search.split('=')[1] : '/';
+  const redirect = 'register/bundleplan';
 
   useEffect(() => {
     if (userInfo) {
@@ -103,11 +103,9 @@ const RegisterScreen = ({ location, history }) => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Link to="/newplan">
-          <Button type="submit" variant="primary">
-            Register
-          </Button>
-        </Link>
+        <Button type="submit" variant="primary">
+          Register
+        </Button>
       </Form>
 
       <Row className="py-3">

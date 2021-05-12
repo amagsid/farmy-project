@@ -25,6 +25,15 @@ const getProducts = asyncHandler(async (req, res) => {
   res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
+// @desc    Fetch all products for new User
+// @route   GET /api/products
+// @access  Private
+const getProductsNewUser = asyncHandler(async (req, res) => {
+  const products = await Product.find({});
+
+  res.json(products);
+});
+
 // @desc    Fetch single product
 // @route   GET /api/products/:id
 // @access  Public
@@ -157,4 +166,5 @@ export {
   updateProduct,
   createProductReview,
   getTopProducts,
+  getProductsNewUser,
 };
