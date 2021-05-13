@@ -137,5 +137,111 @@ const prepareBundlesDescription = () => {
     });
 };
 
-prepareBundlesData();
-prepareBundlesDescription();
+// prepareBundlesData();
+// prepareBundlesDescription();
+
+const ingredients = [
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+];
+
+const prepareIngredientsData = () => {
+  axios.get('https://shop.mindfulchef.com/collections/healthy-ready-meals').then((res) => {
+    const $ = cheerio.load(res.data);
+
+    $('.grid__item')
+      .find('.product-grid--title')
+      .each((index, element) => {
+        ingredients[index].name = $(element).text().replace(/\s\s+/g, '');
+      });
+
+    $('.grid__item')
+      .find('.lazyload-blur-wrapper')
+      .each((index, element) => {
+        const link = $(element).children('img').attr('src').replace(/150x/g, '1000x1000');
+        if (link.includes('products') && index % 2 === 0) {
+          bundles[index].image = link;
+        }
+        if (link.includes('products')) {
+          bundles[index].category = link
+            .split('/products/')
+            .pop()
+            .split('_1000x1000')[0]
+            .replace(/_/g, ' ')
+            .toUpperCase();
+        }
+      });
+
+    // $('.grid__item')
+    //   .find('.pricing-unit')
+    //   .last('span')
+    //   .each((index, element) => {
+    //     console.log($(element).text().replace(/\s\s+/g, ''));
+    //   });
+  });
+};
+prepareIngredientsData();
