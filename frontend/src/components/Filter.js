@@ -25,6 +25,9 @@ const Filter = ({ keyword, pageNumber }) => {
   }, [dispatch, keyword, pageNumber, formSubmit]);
 
   // categories will be changed, once we have data
+  // in future instead of hardcoding data, take categories data from bundles state
+  // const bundlesList = useSelector((state) => state.bundlesList)
+  // const { category } = bundlesList;
   const categoriesArray = ['All', 'Electronics', 'Vegetables', 'Fruits'];
   const ratingsArray = ['Any rating', 1, 2, 3, 4, 5];
 
