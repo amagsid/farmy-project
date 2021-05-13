@@ -3,9 +3,11 @@ import dotenv from 'dotenv';
 import colors from 'colors';
 import users from './data/users.js';
 import products from './data/products.js';
+import bundles from './data/bundles.js';
 import User from './models/userModel.js';
 import Product from './models/productModel.js';
 import Order from './models/orderModel.js';
+import Bundle from './models/bundleModel.js';
 import connectDB from './config/db.js';
 
 dotenv.config();
@@ -23,8 +25,10 @@ const importData = async () => {
     const adminUser = createdUsers[0]._id;
 
     const sampleProducts = products.map((product) => ({ ...product, user: adminUser }));
+    const sampleBundles = bundles.map((bundle) => ({ ...bundle, createdByUser: adminUser })); // Later I'll Add Ingredient Ref
 
     await Product.insertMany(sampleProducts);
+    await Bundle.insertMany(sampleBundles);
 
     console.log('Data Imported!'.green.inverse);
     process.exit();
