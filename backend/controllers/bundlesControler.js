@@ -1,6 +1,5 @@
 import asyncHandler from 'express-async-handler';
-
-const Bundles = require('../models/bundleModel');
+import Bundles from '../models/bundleModel.js';
 
 // @desc    Fetch all bundles
 // @route   GET /api/bundles
