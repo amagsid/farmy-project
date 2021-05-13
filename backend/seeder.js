@@ -1,16 +1,18 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import colors from 'colors';
+import { createRequire } from 'module';
 import users from './data/users.js';
 import products from './data/products.js';
 import User from './models/userModel.js';
-import Bundle from './models/bundleModel.js';
 import Product from './models/productModel.js';
 import Order from './models/orderModel.js';
 import connectDB from './config/db.js';
-// import bundlesJson from './data/bundles.json';
+import Bundle from './models/bundleModel.js';
 
-// const bundles = JSON.parse(bundlesJson);
+ // Bring in the ability to create the 'require' method
+const require = createRequire(import.meta.url); // construct the require method
+const bundles = require('./data/bundles.json'); // use the require
 
 dotenv.config();
 
@@ -21,17 +23,17 @@ const importData = async () => {
     await Order.deleteMany();
     await Product.deleteMany();
     await User.deleteMany();
-    // await Bundle.deleteMany();
+    await Bundle.deleteMany();
 
     const createdUsers = await User.insertMany(users);
 
     const adminUser = createdUsers[0]._id;
 
     const sampleProducts = products.map((product) => ({ ...product, user: adminUser }));
-    // const sampleBundles = bundles.map((bundle) => ({ ...bundle, user: adminUser }));
+    const sampleBundles = bundles.map((bundle) => ({ ...bundle, user: adminUser }));
 
     await Product.insertMany(sampleProducts);
-    // await Bundles.insertMany(sampleBundles);
+    await Bundle.insertMany(sampleBundles);
 
     console.log('Data Imported!'.green.inverse);
     process.exit();
@@ -46,7 +48,7 @@ const destroyData = async () => {
     await Order.deleteMany();
     await Product.deleteMany();
     await User.deleteMany();
-    // await Bundle.deleteMany();
+    await Bundle.deleteMany();
 
     console.log('Data Destroyed!'.red.inverse);
     process.exit();
@@ -61,4 +63,3 @@ if (process.argv[2] === '-d') {
 } else {
   importData();
 }
-// console.log(bundles);

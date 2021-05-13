@@ -24,8 +24,8 @@
     {
         "name": "Give the gift of healthy eating made easy!",
         "image": "//cdn.shopify.com/s/files/1/0033/0212/9773/collections/Bags_square_650x650_3ad696a6-8f1d-4a99-aa84-127696c6806b_1000x1000.jpg?v=1583315874",
-        "description": "",
-        "status": "",
+        "description": "Default Description",
+        "status": "Default Status",
         "category": "BAGS SQUARE",
         "price": 0,
         "countInStock": 0,

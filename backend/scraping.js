@@ -115,7 +115,9 @@ const prepareBundlesDescription = () => {
         .text()
         .replace(/\s\s+/g, '')
         .split('\n')[0];
-
+      if (!bundles[2].description) {
+        bundles[2].description = 'Default Description';
+      }
       bundles[2].status = $('.collection-sidebar__description')
         .last('p')
         .last('span')
@@ -123,7 +125,7 @@ const prepareBundlesDescription = () => {
         .replace(/\s\s+/g, '')
         .split('\n')[1];
       if (!bundles[2].status) {
-        bundles[2].status = '';
+        bundles[2].status = 'Default Status';
       }
     })
     .then(() => {

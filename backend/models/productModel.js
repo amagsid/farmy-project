@@ -16,44 +16,29 @@ const reviewSchema = mongoose.Schema(
   },
 );
 
-const bundleSchema = mongoose.Schema(
+const productSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
     },
-    ingredient: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Ingredient',
-      },
-    ],
     name: {
       type: String,
       required: true,
     },
-    image: {
+    brand: {
+      type: String,
+      required: true,
+    },
+    category: {
       type: String,
       required: true,
     },
     description: {
       type: String,
       required: true,
-      default: ' ',
     },
-    status: {
-      type: String,
-      required: true,
-      default: ' ',
-    },
-    category: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
     reviews: [reviewSchema],
     rating: {
       type: Number,
@@ -81,6 +66,6 @@ const bundleSchema = mongoose.Schema(
   },
 );
 
-const Bundle = mongoose.model('Bundle', bundleSchema);
+const Product = mongoose.model('Product', productSchema);
 
-export default Bundle;
+export default Product;
