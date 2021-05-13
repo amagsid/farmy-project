@@ -1,23 +1,30 @@
 import mongoose from 'mongoose';
 
-const orderSchema = mongoose.Schema(
+const subscriptionSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
     },
-    orderItems: [
+    // orderItems: [
+    //   {
+    //     name: { type: String, required: true },
+    //     qty: { type: Number, required: true },
+    //     image: { type: String, required: true },
+    //     price: { type: Number, required: true },
+    //     product: {
+    //       type: mongoose.Schema.Types.ObjectId,
+    //       required: true,
+    //       ref: 'Product',
+    //     },
+    //   },
+    // ],
+    bundle: [
       {
-        name: { type: String, required: true },
-        qty: { type: Number, required: true },
-        image: { type: String, required: true },
-        price: { type: Number, required: true },
-        product: {
-          type: mongoose.Schema.Types.ObjectId,
-          required: true,
-          ref: 'Product',
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Bundle',
       },
     ],
     shippingAddress: {
@@ -73,6 +80,6 @@ const orderSchema = mongoose.Schema(
   },
 );
 
-const Order = mongoose.model('Order', orderSchema);
+const Subscription = mongoose.model('Subscription', subscriptionSchema);
 
-export default Order;
+export default Subscription;

@@ -219,22 +219,22 @@ const prepareIngredientsData = () => {
         ingredients[index].name = $(element).text().replace(/\s\s+/g, '');
       });
 
-    $('.grid__item')
-      .find('.lazyload-blur-wrapper')
-      .each((index, element) => {
-        const link = $(element).children('img').attr('src').replace(/150x/g, '1000x1000');
-        if (link.includes('products') && index % 2 === 0) {
-          bundles[index].image = link;
-        }
-        if (link.includes('products')) {
-          bundles[index].category = link
-            .split('/products/')
-            .pop()
-            .split('_1000x1000')[0]
-            .replace(/_/g, ' ')
-            .toUpperCase();
-        }
-      });
+    // $('.grid__item')
+    //   .find('.lazyload-blur-wrapper')
+    //   .each((index, element) => {
+    //     const link = $(element).children('img').attr('src').replace(/150x/g, '1000x1000');
+    //     if (link.includes('products') && index % 2 === 0) {
+    //       bundles[index].image = link;
+    //     }
+    //     if (link.includes('products')) {
+    //       bundles[index].category = link
+    //         .split('/products/')
+    //         .pop()
+    //         .split('_1000x1000')[0]
+    //         .replace(/_/g, ' ')
+    //         .toUpperCase();
+    //     }
+    //   });
 
     // $('.grid__item')
     //   .find('.pricing-unit')
