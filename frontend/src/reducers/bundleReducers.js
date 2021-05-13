@@ -25,7 +25,7 @@ export const bundleListReducer = (state = { bundles: [] }, action) => {
   }
 };
 
-export const bundleDetailsReducer = (state = { bundle: { reviews: [] } }, action) => {
+export const bundleDetailsReducer = (state = { bundle: [] }, action) => {
   switch (action.type) {
     case BUNDLE_DETAILS_REQUEST:
       return { ...state, loading: true };

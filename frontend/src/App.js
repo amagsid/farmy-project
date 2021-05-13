@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomeScreen from './screens/HomeScreen';
-import ProductScreen from './screens/ProductScreen';
+// import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
@@ -18,6 +18,7 @@ import UserEditScreen from './screens/UserEditScreen';
 import ProductListScreen from './screens/ProductListScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
+import BundleDetailsScreen from "./screens/BundleDetailsScreen";
 
 const App = () => {
   return (
@@ -32,7 +33,8 @@ const App = () => {
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
           <Route path="/profile" component={ProfileScreen} />
-          <Route path="/product/:id" component={ProductScreen} />
+          {/* <Route path="/product/:id" component={ProductScreen} /> */}
+          <Route path="/product/:id" component={BundleDetailsScreen} />
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/admin/userlist" component={UserListScreen} />
           <Route path="/admin/user/:id/edit" component={UserEditScreen} />
