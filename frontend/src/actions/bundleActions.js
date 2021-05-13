@@ -1,47 +1,47 @@
 import axios from 'axios';
 import {
-  PRODUCT_LIST_REQUEST,
-  PRODUCT_LIST_SUCCESS,
-  PRODUCT_LIST_FAIL,
-  PRODUCT_DETAILS_REQUEST,
-  PRODUCT_DETAILS_SUCCESS,
-  PRODUCT_DETAILS_FAIL,
-  PRODUCT_DELETE_SUCCESS,
-  PRODUCT_DELETE_REQUEST,
-  PRODUCT_DELETE_FAIL,
-  PRODUCT_CREATE_REQUEST,
-  PRODUCT_CREATE_SUCCESS,
-  PRODUCT_CREATE_FAIL,
-  PRODUCT_UPDATE_REQUEST,
-  PRODUCT_UPDATE_SUCCESS,
-  PRODUCT_UPDATE_FAIL,
-  PRODUCT_CREATE_REVIEW_REQUEST,
-  PRODUCT_CREATE_REVIEW_SUCCESS,
-  PRODUCT_CREATE_REVIEW_FAIL,
-  PRODUCT_TOP_REQUEST,
-  PRODUCT_TOP_SUCCESS,
-  PRODUCT_TOP_FAIL,
+  BUNDLE_LIST_REQUEST,
+  BUNDLE_LIST_SUCCESS,
+  BUNDLE_LIST_FAIL,
+  BUNDLE_DETAILS_REQUEST,
+  BUNDLE_DETAILS_SUCCESS,
+  BUNDLE_DETAILS_FAIL,
+  BUNDLE_DELETE_SUCCESS,
+  BUNDLE_DELETE_REQUEST,
+  BUNDLE_DELETE_FAIL,
+  BUNDLE_CREATE_REQUEST,
+  BUNDLE_CREATE_SUCCESS,
+  BUNDLE_CREATE_FAIL,
+  BUNDLE_UPDATE_REQUEST,
+  BUNDLE_UPDATE_SUCCESS,
+  BUNDLE_UPDATE_FAIL,
+  BUNDLE_CREATE_REVIEW_REQUEST,
+  BUNDLE_CREATE_REVIEW_SUCCESS,
+  BUNDLE_CREATE_REVIEW_FAIL,
+  BUNDLE_TOP_REQUEST,
+  BUNDLE_TOP_SUCCESS,
+  BUNDLE_TOP_FAIL,
   BUNDLE_SIGNUP_NEW_USER_REQUEST,
   BUNDLE_SIGNUP_NEW_USER_SUCCESS,
   BUNDLE_SIGNUP_NEW_USER_FAIL,
-} from '../constants/productConstants';
+} from '../constants/bundleConstants';
 import { logout } from './userActions';
 
-export const listProducts =
+export const listBundles =
   (keyword = '', pageNumber = '') =>
   async (dispatch) => {
     try {
-      dispatch({ type: PRODUCT_LIST_REQUEST });
+      dispatch({ type: BUNDLE_LIST_REQUEST });
 
-      const { data } = await axios.get(`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`);
+      const { data } = await axios.get(`/api/bundles?keyword=${keyword}&pageNumber=${pageNumber}`);
 
       dispatch({
-        type: PRODUCT_LIST_SUCCESS,
+        type: BUNDLE_LIST_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: PRODUCT_LIST_FAIL,
+        type: BUNDLE_LIST_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
@@ -50,29 +50,29 @@ export const listProducts =
     }
   };
 
-export const listProductDetails = (id) => async (dispatch) => {
+export const listBundleDetails = (id) => async (dispatch) => {
   try {
-    dispatch({ type: PRODUCT_DETAILS_REQUEST });
+    dispatch({ type: BUNDLE_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/api/products/${id}`);
+    const { data } = await axios.get(`/api/bundles/${id}`);
 
     dispatch({
-      type: PRODUCT_DETAILS_SUCCESS,
+      type: BUNDLE_DETAILS_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: PRODUCT_DETAILS_FAIL,
+      type: BUNDLE_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message ? error.response.data.message : error.message,
     });
   }
 };
 
-export const deleteProduct = (id) => async (dispatch, getState) => {
+export const deleteBundle = (id) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: PRODUCT_DELETE_REQUEST,
+      type: BUNDLE_DELETE_REQUEST,
     });
 
     const {
@@ -85,10 +85,10 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`/api/products/${id}`, config);
+    await axios.delete(`/api/bundles/${id}`, config);
 
     dispatch({
-      type: PRODUCT_DELETE_SUCCESS,
+      type: BUNDLE_DELETE_SUCCESS,
     });
   } catch (error) {
     const message =
@@ -97,16 +97,16 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       dispatch(logout());
     }
     dispatch({
-      type: PRODUCT_DELETE_FAIL,
+      type: BUNDLE_DELETE_FAIL,
       payload: message,
     });
   }
 };
 
-export const createProduct = () => async (dispatch, getState) => {
+export const createBundle = () => async (dispatch, getState) => {
   try {
     dispatch({
-      type: PRODUCT_CREATE_REQUEST,
+      type: BUNDLE_CREATE_REQUEST,
     });
 
     const {
@@ -119,10 +119,10 @@ export const createProduct = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post(`/api/products`, {}, config);
+    const { data } = await axios.post(`/api/bundles`, {}, config);
 
     dispatch({
-      type: PRODUCT_CREATE_SUCCESS,
+      type: BUNDLE_CREATE_SUCCESS,
       payload: data,
     });
   } catch (error) {
@@ -132,16 +132,16 @@ export const createProduct = () => async (dispatch, getState) => {
       dispatch(logout());
     }
     dispatch({
-      type: PRODUCT_CREATE_FAIL,
+      type: BUNDLE_CREATE_FAIL,
       payload: message,
     });
   }
 };
 
-export const updateProduct = (product) => async (dispatch, getState) => {
+export const updateBundle = (bundle) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: PRODUCT_UPDATE_REQUEST,
+      type: BUNDLE_UPDATE_REQUEST,
     });
 
     const {
@@ -155,13 +155,13 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put(`/api/products/${product._id}`, product, config);
+    const { data } = await axios.put(`/api/bundles/${bundle._id}`, bundle, config);
 
     dispatch({
-      type: PRODUCT_UPDATE_SUCCESS,
+      type: BUNDLE_UPDATE_SUCCESS,
       payload: data,
     });
-    dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
+    dispatch({ type: BUNDLE_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     const message =
       error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -169,16 +169,16 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       dispatch(logout());
     }
     dispatch({
-      type: PRODUCT_UPDATE_FAIL,
+      type: BUNDLE_UPDATE_FAIL,
       payload: message,
     });
   }
 };
 
-export const createProductReview = (productId, review) => async (dispatch, getState) => {
+export const createBundleReview = (bundleId, review) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: PRODUCT_CREATE_REVIEW_REQUEST,
+      type: BUNDLE_CREATE_REVIEW_REQUEST,
     });
 
     const {
@@ -192,10 +192,10 @@ export const createProductReview = (productId, review) => async (dispatch, getSt
       },
     };
 
-    await axios.post(`/api/products/${productId}/reviews`, review, config);
+    await axios.post(`/api/products/${bundleId}/reviews`, review, config);
 
     dispatch({
-      type: PRODUCT_CREATE_REVIEW_SUCCESS,
+      type: BUNDLE_CREATE_REVIEW_SUCCESS,
     });
   } catch (error) {
     const message =
@@ -204,32 +204,32 @@ export const createProductReview = (productId, review) => async (dispatch, getSt
       dispatch(logout());
     }
     dispatch({
-      type: PRODUCT_CREATE_REVIEW_FAIL,
+      type: BUNDLE_CREATE_REVIEW_FAIL,
       payload: message,
     });
   }
 };
 
-export const listTopProducts = () => async (dispatch) => {
+export const listTopBundles = () => async (dispatch) => {
   try {
-    dispatch({ type: PRODUCT_TOP_REQUEST });
+    dispatch({ type: BUNDLE_TOP_REQUEST });
 
-    const { data } = await axios.get(`/api/products/top`);
+    const { data } = await axios.get(`/api/bundles/top`);
 
     dispatch({
-      type: PRODUCT_TOP_SUCCESS,
+      type: BUNDLE_TOP_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: PRODUCT_TOP_FAIL,
+      type: BUNDLE_TOP_FAIL,
       payload:
         error.response && error.response.data.message ? error.response.data.message : error.message,
     });
   }
 };
 
-export const listBundlesNewUser = () => async (dispatch, getState) => {
+export const listBundlesNewUser = () => async (dispatch) => {
   try {
     dispatch({ type: BUNDLE_SIGNUP_NEW_USER_REQUEST });
 
@@ -243,7 +243,7 @@ export const listBundlesNewUser = () => async (dispatch, getState) => {
     //   },
     // };
 
-    const { data } = await axios.get(`/api/products`);
+    const { data } = await axios.get(`/api/bundles`);
 
     dispatch({
       type: BUNDLE_SIGNUP_NEW_USER_SUCCESS,

@@ -1,6 +1,7 @@
+/* eslint-disable comma-dangle */
 import mongoose from 'mongoose';
 
-const orderSchema = mongoose.Schema(
+const subscriptionSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -18,6 +19,13 @@ const orderSchema = mongoose.Schema(
           required: true,
           ref: 'Product',
         },
+      },
+    ],
+    bundles: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Bundle',
       },
     ],
     shippingAddress: {
@@ -70,9 +78,9 @@ const orderSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
-const Order = mongoose.model('Order', orderSchema);
+const Subscription = mongoose.model('Subscription', subscriptionSchema);
 
-export default Order;
+export default Subscription;

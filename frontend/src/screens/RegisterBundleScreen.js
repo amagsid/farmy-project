@@ -5,9 +5,9 @@ import { Row, Col, ButtonGroup, Image, ListGroup, Card, Button, Form } from 'rea
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Meta from '../components/Meta';
-import { listBundlesNewUser } from '../actions/productActions';
+import { listBundlesNewUser } from '../actions/bundleActions';
 
-const ProductScreen = ({ history, match }) => {
+const RegisterBundleScreen = ({ history, match }) => {
   const [frequency, setFrequency] = useState(1);
   // const [selectedBundle, setSelectedBundle] = useState('');
   const [houseHold, setHouseHold] = useState(1);
@@ -17,8 +17,8 @@ const ProductScreen = ({ history, match }) => {
   const dispatch = useDispatch();
 
   const bundleSignupNewUser = useSelector((state) => state.bundleSignupNewUser);
-  const { loading, error, products } = bundleSignupNewUser;
-  console.log(products);
+  const { loading, error, bundles } = bundleSignupNewUser;
+  console.log(bundles);
   // console.log(selectedBundle);
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -49,20 +49,20 @@ const ProductScreen = ({ history, match }) => {
               <h2>Select your First Bundle</h2>
 
               <ButtonGroup vertical className="pr-5">
-                {products.map((product) => (
-                  <Link key={product._id} to={`/register/bundleplan/${product._id}`}>
+                {bundles.map((bundle) => (
+                  <Link key={bundle._id} to={`/register/bundleplan/${bundle._id}`}>
                     <Button
                       // onClick={(e) => setSelectedBundle(e.target.value)}
-                      value={product._id}
+                      value={bundle._id}
                       variant="dark"
                       className="rounded my-1"
                     >
                       <Row>
                         <Col md={2}>
-                          <Image src={product.image} alt={product.name} fluid rounded />
+                          <Image src={bundle.image} alt={bundle.name} fluid rounded />
                         </Col>
-                        <Col md={8}>{product.name}</Col>
-                        <Col md={2}>${product.price}</Col>
+                        <Col md={8}>{bundle.name}</Col>
+                        <Col md={2}>${bundle.price}</Col>
                       </Row>
                     </Button>
                   </Link>
@@ -115,16 +115,16 @@ const ProductScreen = ({ history, match }) => {
 
           {/* <Row>
             <Col md={6}>
-              <Image src={product.image} alt={product.name} fluid />
+              <Image src={bundle.image} alt={bundle.name} fluid />
             </Col>
             <Col md={3}>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                  <h3>{product.name}</h3>
+                  <h3>{bundle.name}</h3>
                 </ListGroup.Item>
 
-                <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
-                <ListGroup.Item>Description: {product.description}</ListGroup.Item>
+                <ListGroup.Item>Price: ${bundle.price}</ListGroup.Item>
+                <ListGroup.Item>Description: {bundle.description}</ListGroup.Item>
               </ListGroup>
             </Col>
             <Col md={3}>
@@ -134,7 +134,7 @@ const ProductScreen = ({ history, match }) => {
                     <Row>
                       <Col>Price:</Col>
                       <Col>
-                        <strong>${product.price}</strong>
+                        <strong>${bundle.price}</strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -142,11 +142,11 @@ const ProductScreen = ({ history, match }) => {
                   <ListGroup.Item>
                     <Row>
                       <Col>Status:</Col>
-                      <Col>{product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}</Col>
+                      <Col>{bundle.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}</Col>
                     </Row>
                   </ListGroup.Item>
 
-                  {product.countInStock > 0 && (
+                  {bundle.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
                         <Col>Qty</Col>
@@ -156,7 +156,7 @@ const ProductScreen = ({ history, match }) => {
                             value={qty}
                             onChange={(e) => setQty(e.target.value)}
                           >
-                            {[...Array(product.countInStock).keys()].map((x) => (
+                            {[...Array(bundle.countInStock).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>
                                 {x + 1}
                               </option>
@@ -172,7 +172,7 @@ const ProductScreen = ({ history, match }) => {
                       onClick={addToCartHandler}
                       className="btn-block"
                       type="button"
-                      disabled={product.countInStock === 0}
+                      disabled={bundle.countInStock === 0}
                     >
                       Add To Cart
                     </Button>
@@ -188,4 +188,4 @@ const ProductScreen = ({ history, match }) => {
   );
 };
 
-export default ProductScreen;
+export default RegisterBundleScreen;

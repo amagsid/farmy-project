@@ -6,7 +6,7 @@ import Message from '../components/Message';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 
 const CartScreen = ({ match, location, history }) => {
-  const productId = match.params.id;
+  const bundleId = match.params.id;
 
   const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
@@ -16,10 +16,10 @@ const CartScreen = ({ match, location, history }) => {
   const { cartItems } = cart;
 
   useEffect(() => {
-    if (productId) {
-      dispatch(addToCart(productId, qty));
+    if (bundleId) {
+      dispatch(addToCart(bundleId, qty));
     }
-  }, [dispatch, productId, qty]);
+  }, [dispatch, bundleId, qty]);
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
@@ -46,7 +46,7 @@ const CartScreen = ({ match, location, history }) => {
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
                   <Col md={3}>
-                    <Link to={`/product/${item.product}`}>{item.name}</Link>
+                    <Link to={`/bundle/${item.product}`}>{item.name}</Link>
                   </Col>
                   <Col md={2}>${item.price}</Col>
                   <Col md={2}>
