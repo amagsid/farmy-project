@@ -6,7 +6,7 @@ import users from './data/users.js';
 import products from './data/products.js';
 import User from './models/userModel.js';
 import Product from './models/productModel.js';
-import Order from './models/orderModel.js';
+// import Order from './models/orderModel.js';
 import connectDB from './config/db.js';
 import Bundle from './models/bundleModel.js';
 
@@ -19,17 +19,17 @@ connectDB();
 
 const importData = async () => {
   try {
-    await Order.deleteMany();
-    await Product.deleteMany();
-    await User.deleteMany();
-    await Bundle.deleteMany();
+    // await Order.deleteMany();
+    // await Product.deleteMany();
+    // await User.deleteMany();
+    // await Bundle.deleteMany();
 
     const createdUsers = await User.insertMany(users);
 
     const adminUser = createdUsers[0]._id;
 
     const sampleProducts = products.map((product) => ({ ...product, user: adminUser }));
-    const sampleBundles = bundles.map((bundle) => ({ ...bundle, user: adminUser })); // Later I'll Add Ingredient Ref
+    const sampleBundles = bundles.map((bundle) => ({ ...bundle, createdByUser: adminUser })); // Later I'll Add Ingredient Ref
 
     await Product.insertMany(sampleProducts);
     await Bundle.insertMany(sampleBundles);
@@ -44,9 +44,9 @@ const importData = async () => {
 
 const destroyData = async () => {
   try {
-    await Order.deleteMany();
+    // await Order.deleteMany();
     await Product.deleteMany();
-    await User.deleteMany();
+    // await User.deleteMany();
     await Bundle.deleteMany();
 
     console.log('Data Destroyed!'.red.inverse);

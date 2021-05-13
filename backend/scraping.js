@@ -137,8 +137,8 @@ const prepareBundlesDescription = () => {
     });
 };
 
-// prepareBundlesData();
-// prepareBundlesDescription();
+prepareBundlesData();
+prepareBundlesDescription();
 
 const ingredients = [
   {
@@ -244,4 +244,4 @@ const prepareIngredientsData = () => {
     //   });
   });
 };
-prepareIngredientsData();
+// prepareIngredientsData();

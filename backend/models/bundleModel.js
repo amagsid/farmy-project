@@ -18,7 +18,7 @@ const reviewSchema = mongoose.Schema(
 
 const bundleSchema = mongoose.Schema(
   {
-    user: {
+    createdByUser: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',

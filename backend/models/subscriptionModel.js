@@ -20,7 +20,7 @@ const subscriptionSchema = mongoose.Schema(
     //     },
     //   },
     // ],
-    bundle: [
+    bundles: [
       {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
