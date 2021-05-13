@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import colors from 'colors';
-import { createRequire } from 'module';
+import { createRequire } from 'module'; // Bring in the ability to create the 'require' method
 import users from './data/users.js';
 import products from './data/products.js';
 import User from './models/userModel.js';
@@ -10,7 +10,6 @@ import Order from './models/orderModel.js';
 import connectDB from './config/db.js';
 import Bundle from './models/bundleModel.js';
 
- // Bring in the ability to create the 'require' method
 const require = createRequire(import.meta.url); // construct the require method
 const bundles = require('./data/bundles.json'); // use the require
 
@@ -30,7 +29,7 @@ const importData = async () => {
     const adminUser = createdUsers[0]._id;
 
     const sampleProducts = products.map((product) => ({ ...product, user: adminUser }));
-    const sampleBundles = bundles.map((bundle) => ({ ...bundle, user: adminUser }));
+    const sampleBundles = bundles.map((bundle) => ({ ...bundle, user: adminUser })); // Later I'll Add Ingredient Ref
 
     await Product.insertMany(sampleProducts);
     await Bundle.insertMany(sampleBundles);

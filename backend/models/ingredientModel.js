@@ -23,11 +23,22 @@ const ingredientSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    bundle: [
+    // bundle: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required: true,
+    //     ref: 'Bundle',
+    //   },
+    // ],
+    bundlesNames: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Bundle',
+        name: { type: String, required: true },
+        image: { type: String, required: true },
+        bundle: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: 'Bundle',
+        },
       },
     ],
     name: {

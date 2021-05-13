@@ -23,11 +23,23 @@ const bundleSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    ingredient: [
+    // ingredient: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required: true,
+    //     ref: 'Ingredient',
+    //   },
+    // ],
+    bundleItems: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Ingredient',
+        name: { type: String, required: true },
+        image: { type: String, required: true },
+        price: { type: Number, required: true },
+        ingredient: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: 'Ingredient',
+        },
       },
     ],
     name: {
