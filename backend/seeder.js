@@ -6,12 +6,14 @@ import users from './data/users.js';
 import products from './data/products.js';
 import User from './models/userModel.js';
 import Product from './models/productModel.js';
-// import Order from './models/orderModel.js';
+import Order from './models/orderModel.js';
 import connectDB from './config/db.js';
 import Bundle from './models/bundleModel.js';
+import Ingredient from './models/ingredientModel.js';
 
 const require = createRequire(import.meta.url); // construct the require method
 const bundles = require('./data/bundles.json'); // use the require
+const ingredients = require('./data/ingredients.json'); // use the require
 
 dotenv.config();
 
@@ -19,20 +21,25 @@ connectDB();
 
 const importData = async () => {
   try {
-    // await Order.deleteMany();
-    // await Product.deleteMany();
-    // await User.deleteMany();
-    // await Bundle.deleteMany();
-
+    await Order.deleteMany();
+    await Product.deleteMany();
+    await User.deleteMany();
+    await Bundle.deleteMany();
+    await Ingredient.deleteMany();
     const createdUsers = await User.insertMany(users);
 
     const adminUser = createdUsers[0]._id;
 
     const sampleProducts = products.map((product) => ({ ...product, user: adminUser }));
-    const sampleBundles = bundles.map((bundle) => ({ ...bundle, createdByUser: adminUser })); // Later I'll Add Ingredient Ref
+    const sampleBundles = bundles.map((bundle) => ({ ...bundle, createdByUser: adminUser })); // Later I'll Add Ingredients Ref
+    const sampleIngredient = ingredients.map((ingredient) => ({
+      ...ingredient,
+      createdByUser: adminUser,
+    })); // Later I'll Add Bundles Ref
 
     await Product.insertMany(sampleProducts);
     await Bundle.insertMany(sampleBundles);
+    await Ingredient.insertMany(sampleIngredient);
 
     console.log('Data Imported!'.green.inverse);
     process.exit();
@@ -44,10 +51,11 @@ const importData = async () => {
 
 const destroyData = async () => {
   try {
-    // await Order.deleteMany();
+    await Order.deleteMany();
     await Product.deleteMany();
-    // await User.deleteMany();
+    await User.deleteMany();
     await Bundle.deleteMany();
+    await Ingredient.deleteMany();
 
     console.log('Data Destroyed!'.red.inverse);
     process.exit();
