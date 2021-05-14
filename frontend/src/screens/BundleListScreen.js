@@ -5,64 +5,64 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Paginate from '../components/Paginate';
-import { listProducts, deleteProduct, createProduct } from '../actions/productActions';
-import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
+import { listBundles, deleteBundle, createBundle } from '../actions/bundleActions';
+import { BUNDLE_CREATE_RESET } from '../constants/bundleConstants';
 
-const ProductListScreen = ({ history, match }) => {
+const BundleListScreen = ({ history, match }) => {
   const pageNumber = match.params.pageNumber || 1;
 
   const dispatch = useDispatch();
 
-  const productList = useSelector((state) => state.productList);
-  const { loading, error, products, page, pages } = productList;
+  const bundleList = useSelector((state) => state.bundleList);
+  const { loading, error, bundles, page, pages } = bundleList;
 
-  const productDelete = useSelector((state) => state.productDelete);
-  const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete;
+  const bundleDelete = useSelector((state) => state.bundleDelete);
+  const { loading: loadingDelete, error: errorDelete, success: successDelete } = bundleDelete;
 
-  const productCreate = useSelector((state) => state.productCreate);
+  const bundleCreate = useSelector((state) => state.bundleCreate);
   const {
     loading: loadingCreate,
     error: errorCreate,
     success: successCreate,
-    product: createdProduct,
-  } = productCreate;
+    bundle: createdBundle,
+  } = bundleCreate;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    dispatch({ type: PRODUCT_CREATE_RESET });
+    dispatch({ type: BUNDLE_CREATE_RESET });
 
     if (!userInfo || !userInfo.isAdmin) {
       history.push('/login');
     }
 
     if (successCreate) {
-      history.push(`/admin/product/${createdProduct._id}/edit`);
+      history.push(`/admin/bundle/${createdBundle._id}/edit`);
     } else {
-      dispatch(listProducts('', pageNumber));
+      dispatch(listBundles('', pageNumber));
     }
-  }, [dispatch, history, userInfo, successDelete, successCreate, createdProduct, pageNumber]);
+  }, [dispatch, history, userInfo, successDelete, successCreate, createdBundle, pageNumber]);
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
-      dispatch(deleteProduct(id));
+      dispatch(deleteBundle(id));
     }
   };
 
-  const createProductHandler = () => {
-    dispatch(createProduct());
+  const createBundleHandler = () => {
+    dispatch(createBundle());
   };
 
   return (
     <>
       <Row className="align-items-center">
         <Col>
-          <h1>Products</h1>
+          <h1>Bundles</h1>
         </Col>
         <Col className="text-right">
-          <Button className="my-3" onClick={createProductHandler}>
-            <i className="fas fa-plus"></i> Create Product
+          <Button className="my-3" onClick={createBundleHandler}>
+            <i className="fas fa-plus"></i> Create bundle
           </Button>
         </Col>
       </Row>
@@ -88,15 +88,15 @@ const ProductListScreen = ({ history, match }) => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
-                <tr key={product._id}>
-                  <td>{product._id}</td>
-                  <td>{product.name}</td>
-                  <td>${product.price}</td>
-                  <td>{product.category}</td>
-                  <td>{product.brand}</td>
+              {bundles.map((bundle) => (
+                <tr key={bundle._id}>
+                  <td>{bundle._id}</td>
+                  <td>{bundle.name}</td>
+                  <td>${bundle.price}</td>
+                  <td>{bundle.category}</td>
+                  <td>{bundle.brand}</td>
                   <td>
-                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
+                    <LinkContainer to={`/admin/bundle/${bundle._id}/edit`}>
                       <Button variant="light" className="btn-sm">
                         <i className="fas fa-edit"></i>
                       </Button>
@@ -104,7 +104,7 @@ const ProductListScreen = ({ history, match }) => {
                     <Button
                       variant="danger"
                       className="btn-sm"
-                      onClick={() => deleteHandler(product._id)}
+                      onClick={() => deleteHandler(bundle._id)}
                     >
                       <i className="fas fa-trash"></i>
                     </Button>
@@ -120,4 +120,4 @@ const ProductListScreen = ({ history, match }) => {
   );
 };
 
-export default ProductListScreen;
+export default BundleListScreen;

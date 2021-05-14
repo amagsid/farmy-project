@@ -1,76 +1,122 @@
 import asyncHandler from 'express-async-handler';
-// import Product from '../models/productModel.js';
+import Subscription from '../models/subscriptionModel.js';
 
-const subscriptionMockUpData = [
-  {
-    _id: 1,
-    bundleName: 'Healthy',
-    date: '01/05/2021',
-    size: 2,
-    qty: '/week',
-    price: 20,
-    preference: 'edit preferences',
-    address: 'address',
-  },
-  {
-    _id: 2,
-    bundleName: 'weekend',
-    date: '20/04/2021',
-    size: 4,
+// @desc    Create new order
+// @route   POST /api/orders
+// @access  Private
+const addSubscriptionItems = asyncHandler(async (req, res) => {
+  const {
+    bundleItems,
+    shippingAddress,
+    paymentMethod,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+  } = req.body;
 
-    qty: '/week',
-    price: 30,
-    preference: 'edit preferences',
-    address: 'address',
-  },
-  {
-    _id: 3,
-    bundleName: 'dinner',
-    date: '01/03/2021',
-    size: 5,
-    qty: '/week',
-    price: 40,
-    preference: 'edit preferences',
-    address: 'address',
-  },
-];
+  console.log(req.user);
 
-// @desc    Fetch all subscriptions
-// @route   GET /api/subscriptions
-// @access  private
-const getMySubscriptions = asyncHandler(async (req, res) => {
-  res.json(subscriptionMockUpData);
+  if (bundleItems && bundleItems.length === 0) {
+    res.status(400);
+    throw new Error('No order items');
+  } else {
+    const subscription = new Subscription({
+      bundleItems,
+      user: req.user._id,
+      shippingAddress,
+      paymentMethod,
+      itemsPrice,
+      taxPrice,
+      shippingPrice,
+      totalPrice,
+    });
 
-  // here we need to to populate the subscriptions with the model/data
+    const createdSubscription = await subscription.save();
 
-  //   const subscriptions = await Order.find({ user: req.user._id });
-  //   res.json(subscriptions);
+    res.status(201).json(createdSubscription);
+  }
 });
 
-// @desc    cancel a bundle
-// @route   DELETE /api/subscriptions/:id
+// @desc    Get order by ID
+// @route   GET /api/orders/:id
 // @access  Private
-const cancelSubscription = asyncHandler(async (req, res) => {
-  // test for mockup
+const getSubscriptionById = asyncHandler(async (req, res) => {
+  const subscription = await Subscription.findById(req.params.id).populate('user', 'name email');
 
-  const subscriptionsToKeep = subscriptionMockUpData.filter(
-    (sub) => Number(req.params.id) !== sub._id,
-  );
-
-  if (subscriptionsToKeep) {
-    res.json(subscriptionsToKeep);
+  if (subscription) {
+    res.json(subscription);
   } else {
     res.status(404);
-    throw new Error('Subscription not found');
+    throw new Error('Order not found');
   }
-
-  //   if (subscription) {
-  //     await subscriptionMockUpData.remove();
-  //     res.json({ message: 'Subscription canceled' });
-  //   } else {
-  //     res.status(404);
-  //     throw new Error('Subscription not found');
-  //   }
 });
 
-export { getMySubscriptions, cancelSubscription };
+// @desc    Update order to paid
+// @route   GET /api/orders/:id/pay
+// @access  Private
+const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
+  const subscription = await Subscription.findById(req.params.id);
+
+  if (subscription) {
+    subscription.isPaid = true;
+    subscription.paidAt = Date.now();
+    subscription.paymentResult = {
+      id: req.body.id,
+      status: req.body.status,
+      update_time: req.body.update_time,
+      email_address: req.body.payer.email_address,
+    };
+
+    const updatedSubscription = await subscription.save();
+
+    res.json(updatedSubscription);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+});
+
+// @desc    Update order to delivered
+// @route   GET /api/orders/:id/deliver
+// @access  Private/Admin
+const updateSubscriptionToDelivered = asyncHandler(async (req, res) => {
+  const subscription = await Subscription.findById(req.params.id);
+
+  if (subscription) {
+    subscription.isDelivered = true;
+    subscription.deliveredAt = Date.now();
+
+    const updatedSubscription = await subscription.save();
+
+    res.json(updatedSubscription);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+});
+
+// @desc    Get logged in user orders
+// @route   GET /api/orders/myorders
+// @access  Private
+const getMySubscription = asyncHandler(async (req, res) => {
+  const subscription = await Subscription.find({ user: req.user._id });
+  res.json(subscription);
+});
+
+// @desc    Get all orders
+// @route   GET /api/orders
+// @access  Private/Admin
+const getSubscription = asyncHandler(async (req, res) => {
+  const subscription = await Subscription.find({}).populate('user', 'id name');
+  res.json(subscription);
+});
+
+export {
+  addSubscriptionItems,
+  getSubscriptionById,
+  updateSubscriptionToPaid,
+  updateSubscriptionToDelivered,
+  getMySubscription,
+  getSubscription,
+};
