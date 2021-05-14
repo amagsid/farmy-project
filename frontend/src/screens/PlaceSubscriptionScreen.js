@@ -96,8 +96,9 @@ const PlaceSubscriptionScreen = ({ history }) => {
                         <Col>
                           <Link to={`/bundle/${item.product}`}>{item.name}</Link>
                         </Col>
-                        <Col md={4}>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                        <Col md={6}>
+                          {item.qty} people x {item.frq} weekly X ${item.price} = $
+                          {item.qty * item.frq * item.price}
                         </Col>
                       </Row>
                     </ListGroup.Item>

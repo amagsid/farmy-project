@@ -5,7 +5,7 @@ import FormContainer from '../components/FormContainer';
 import Message from '../components/Message';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { saveShippingAddress } from '../actions/cartActions';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import PhoneInput, { isValidPhoneNumber, parsePhoneNumber } from 'react-phone-number-input';
 
 import 'react-phone-number-input/style.css';
 
@@ -21,6 +21,7 @@ const ShippingScreen = ({ history }) => {
   const [phoneNumber, setPhoneNumber] = useState(shippingAddress.phoneNumber);
   const [isValidNumber, setIsValidNumber] = useState(null);
 
+  console.log(phoneNumber);
   const validatePhoneNumber = () => {
     if (isValidPhoneNumber(phoneNumber)) {
       setIsValidNumber(true);
