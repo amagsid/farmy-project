@@ -3,9 +3,14 @@ import React, {useEffect}  from 'react'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import FarmyBundle from '../components/FarmyBundle'
-import { Row, Col } from 'react-bootstrap'
+import FeedBack from '../components/FeedBack'
+import { Row, Col, Container, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { listBundles } from '../actions/bundlesActions'
+import { LinkContainer } from 'react-router-bootstrap'
+import { Link } from 'react-router-dom'
+import feedback from '../feedback.json'
+
 
 const FarmyHomeScreen = () => {
     const dispatch = useDispatch();
@@ -17,7 +22,8 @@ const FarmyHomeScreen = () => {
   }, [dispatch])
   
     return (
-        <>
+      <>
+        <Container>
         <h1>Our Bundles</h1>
       {loading ? (
         <Loader />
@@ -26,15 +32,27 @@ const FarmyHomeScreen = () => {
       ) : (
         
           <Row>
-            {bundles.map((bundle) => (
-              <Col key={bundle._id} sm={12} md={6} lg={4} xl={3}>
-                <FarmyBundle name={bundle.name} image={bundle.image}/>
+            {bundles && bundles.map((bundle) => (
+              <Col>
+              <Link to={`/api/bundles/${bundle._id}`}>
+                <FarmyBundle key={bundle._id} name={bundle.name} image={bundle.image}/>
+              </Link>
+              <LinkContainer to={`/test/${bundle._id}`}>
+              <Button className='mx-5'>Subscribe</Button>
+              </LinkContainer>
               </Col>
             ))}
           </Row>
-          
-        
             )}   
+      </Container>
+      <Container>
+        <h1>Loved by thousands of customers</h1>
+        <Row>
+        {feedback && feedback.map((feed)=>{
+         return <Col><FeedBack text={feed.feedback} name={feed.name} /></Col>
+        })}
+        </Row>
+      </Container>
       </>
     )}
 export default FarmyHomeScreen
