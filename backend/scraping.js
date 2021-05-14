@@ -1,6 +1,7 @@
 import fs from 'fs';
 import axios from 'axios';
 import cheerio from 'cheerio';
+// import { LOADIPHLPAPI } from 'dns';
 
 const bundles = [
   {
@@ -137,8 +138,8 @@ const prepareBundlesDescription = () => {
     });
 };
 
-prepareBundlesData();
-prepareBundlesDescription();
+// prepareBundlesData();
+// prepareBundlesDescription();
 
 const ingredients = [
   {
@@ -210,38 +211,191 @@ const ingredients = [
 ];
 
 const prepareIngredientsData = () => {
-  axios.get('https://shop.mindfulchef.com/collections/healthy-ready-meals').then((res) => {
-    const $ = cheerio.load(res.data);
+  axios
+    .get('https://shop.mindfulchef.com/collections/healthy-ready-meals')
+    .then((res) => {
+      const $ = cheerio.load(res.data);
 
-    $('.grid__item')
-      .find('.product-grid--title')
-      .each((index, element) => {
-        ingredients[index].name = $(element).text().replace(/\s\s+/g, '');
+      $('.grid__item')
+        .find('.product-grid--title')
+        .each((index, element) => {
+          if (index < 6) {
+            ingredients[index].name = $(element).text().replace(/\s\s+/g, '');
+          }
+        });
+
+      $('.grid__item')
+        .find('.lazyload-blur-wrapper')
+        .each((index, element) => {
+          if (index < 6) {
+            const link = $(element).children('img').attr('src').replace(/150x/g, '1000x1000');
+            if (link.includes('products')) {
+              ingredients[index].image = link;
+            }
+            if (link.includes('products')) {
+              ingredients[index].category = link
+                .split('/products/')
+                .pop()
+                .split('_1000x1000')[0]
+                .replace(/_/g, ' ')
+                .toUpperCase();
+            }
+          }
+        });
+
+      $('.grid__item')
+        .find('.pricing-unit')
+        .children('span')
+        .each((index, element) => {
+          if (index < 6) {
+            ingredients[index].price = $(element)
+              .text()
+              .replace(/\s\s+/g, '')
+              .replace(/Regular/g, '')
+              .replace(/Sale price/g, '')
+              .replace(/\s\s+/g, '');
+            if (!ingredients[index].price) {
+              ingredients[index].price = '£9.99';
+            }
+          }
+        });
+    })
+    .then(() => {
+      fs.writeFile('./data/ingredients.json', JSON.stringify(ingredients, null, 4), (error) => {
+        if (error) {
+          throw new Error(error);
+        }
       });
-
-    // $('.grid__item')
-    //   .find('.lazyload-blur-wrapper')
-    //   .each((index, element) => {
-    //     const link = $(element).children('img').attr('src').replace(/150x/g, '1000x1000');
-    //     if (link.includes('products') && index % 2 === 0) {
-    //       bundles[index].image = link;
-    //     }
-    //     if (link.includes('products')) {
-    //       bundles[index].category = link
-    //         .split('/products/')
-    //         .pop()
-    //         .split('_1000x1000')[0]
-    //         .replace(/_/g, ' ')
-    //         .toUpperCase();
-    //     }
-    //   });
-
-    // $('.grid__item')
-    //   .find('.pricing-unit')
-    //   .last('span')
-    //   .each((index, element) => {
-    //     console.log($(element).text().replace(/\s\s+/g, ''));
-    //   });
-  });
+    });
 };
-// prepareIngredientsData();
+
+const prepareFirstIngredientsDescription = () => {
+  axios
+    .get(
+      'https://shop.mindfulchef.com/collections/healthy-ready-meals/products/spicy-panang-chicken-curry-with-black-rice',
+    )
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredients[0].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile('./data/ingredients.json', JSON.stringify(ingredients, null, 4), (error) => {
+        if (error) {
+          throw new Error(error);
+        }
+      });
+    });
+
+  axios
+    .get(
+      'https://shop.mindfulchef.com/collections/healthy-ready-meals/products/creamy-coconut-fish-pie-with-sweet-potato-mash',
+    )
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredients[1].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile('./data/ingredients.json', JSON.stringify(ingredients, null, 4), (error) => {
+        if (error) {
+          throw new Error(error);
+        }
+      });
+    });
+  axios
+    .get(
+      'https://shop.mindfulchef.com/collections/healthy-ready-meals/products/chicken-tikka-masala-with-brown-rice',
+    )
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredients[2].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile('./data/ingredients.json', JSON.stringify(ingredients, null, 4), (error) => {
+        if (error) {
+          throw new Error(error);
+        }
+      });
+    });
+  axios
+    .get(
+      'https://shop.mindfulchef.com/collections/healthy-ready-meals/products/veggie-shepherds-pie-with-chestnuts',
+    )
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredients[3].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile('./data/ingredients.json', JSON.stringify(ingredients, null, 4), (error) => {
+        if (error) {
+          throw new Error(error);
+        }
+      });
+    });
+  axios
+    .get(
+      'https://shop.mindfulchef.com/collections/healthy-ready-meals/products/lentil-moussaka-creamy-coconut-bechamel?variant=29230485864557',
+    )
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredients[4].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile('./data/ingredients.json', JSON.stringify(ingredients, null, 4), (error) => {
+        if (error) {
+          throw new Error(error);
+        }
+      });
+    });
+  axios
+    .get('https://shop.mindfulchef.com/collections/healthy-ready-meals/products/lamb-tagine')
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredients[5].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile('./data/ingredients.json', JSON.stringify(ingredients, null, 4), (error) => {
+        if (error) {
+          throw new Error(error);
+        }
+      });
+    });
+};
+
+prepareIngredientsData();
+prepareFirstIngredientsDescription();
