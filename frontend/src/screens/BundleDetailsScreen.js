@@ -14,7 +14,6 @@ const BundleDetailsScreen = ({ match }) => {
 
   const bundleDetails = useSelector((state) => state.bundleDetails);
   const { loading, error, bundle } = bundleDetails;
-  console.log(bundle.ingredient[0]);
 
   useEffect(() => {
     if (!bundle._id || bundle._id !== match.params.id) {
