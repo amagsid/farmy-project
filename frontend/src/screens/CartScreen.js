@@ -8,18 +8,20 @@ import { addToCart, removeFromCart } from '../actions/cartActions';
 const CartScreen = ({ match, location, history }) => {
   const bundleId = match.params.id;
 
-  const qty = location.search ? Number(location.search.split('=')[1]) : 1;
-
+  const qty = location.search ? Number(location.search.slice(1).split('&')[0].split('=')[1]) : 1;
+  const frq = location.search ? Number(location.search.slice(1).split('&')[1].split('=')[1]) : 1;
   const dispatch = useDispatch();
 
+  console.log(qty);
+  console.log(frq);
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
   useEffect(() => {
     if (bundleId) {
-      dispatch(addToCart(bundleId, qty));
+      dispatch(addToCart(bundleId, qty, frq));
     }
-  }, [dispatch, bundleId, qty]);
+  }, [dispatch, bundleId, qty, frq]);
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
@@ -61,8 +63,23 @@ const CartScreen = ({ match, location, history }) => {
                         </option>
                       ))}
                     </Form.Control>
+                    <small>people</small>
                   </Col>
                   <Col md={2}>
+                    <Form.Control
+                      as="select"
+                      value={item.frq}
+                      onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))}
+                    >
+                      {[...Array(item.countInStock).keys()].map((x) => (
+                        <option key={x + 1} value={x + 1}>
+                          {x + 1}
+                        </option>
+                      ))}
+                    </Form.Control>
+                    <small>weekly</small>
+                  </Col>
+                  <Col md={1}>
                     <Button
                       type="button"
                       variant="light"
@@ -81,8 +98,13 @@ const CartScreen = ({ match, location, history }) => {
         <Card>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h2>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items</h2>$
-              {cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}
+              <h2>
+                Subtotal ({cartItems.reduce((acc, item) => acc + item.qty + item.frq, 0)}) items
+              </h2>
+              $
+              {cartItems
+                .reduce((acc, item) => acc + item.qty * item.price * item.frq, 0)
+                .toFixed(2)}
             </ListGroup.Item>
             <ListGroup.Item>
               <Button

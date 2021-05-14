@@ -11,9 +11,12 @@ import { BUNDLE_CREATE_REVIEW_RESET } from '../constants/bundleConstants';
 
 const BundleScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
+  const [frq, setFrq] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
+  console.log(qty);
+  console.log(frq);
   const dispatch = useDispatch();
 
   const bundleDetails = useSelector((state) => state.bundleDetails);
@@ -41,7 +44,7 @@ const BundleScreen = ({ history, match }) => {
   }, [dispatch, match, bundle._id, successBundleReview]);
 
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`);
+    history.push(`/cart/${match.params.id}?qty=${qty}&frq=${frq}`);
   };
 
   const submitHandler = (e) => {
@@ -104,12 +107,32 @@ const BundleScreen = ({ history, match }) => {
                   {bundle.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>Qty</Col>
+                        <Col>How many people</Col>
                         <Col>
                           <Form.Control
                             as="select"
                             value={qty}
                             onChange={(e) => setQty(e.target.value)}
+                          >
+                            {[...Array(bundle.countInStock).keys()].map((x) => (
+                              <option key={x + 1} value={x + 1}>
+                                {x + 1}
+                              </option>
+                            ))}
+                          </Form.Control>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  )}
+                  {bundle.countInStock > 0 && (
+                    <ListGroup.Item>
+                      <Row>
+                        <Col>Times per week</Col>
+                        <Col>
+                          <Form.Control
+                            as="select"
+                            value={frq}
+                            onChange={(e) => setFrq(e.target.value)}
                           >
                             {[...Array(bundle.countInStock).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>
