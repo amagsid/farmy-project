@@ -5,7 +5,7 @@ import FormContainer from '../components/FormContainer';
 import Message from '../components/Message';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { saveShippingAddress } from '../actions/cartActions';
-import PhoneInput, { isValidPhoneNumber, parsePhoneNumber } from 'react-phone-number-input';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 
 import 'react-phone-number-input/style.css';
 

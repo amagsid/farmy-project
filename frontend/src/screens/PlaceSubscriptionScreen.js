@@ -43,8 +43,7 @@ const PlaceSubscriptionScreen = ({ history }) => {
       dispatch({ type: USER_DETAILS_RESET });
       dispatch({ type: SUBSCRIPTION_CREATE_RESET });
     }
-    // eslint-disable-next-line
-  }, [history, success]);
+  }, [history, success, subscription, dispatch]);
 
   const placeSubscriptionHandler = () => {
     dispatch(

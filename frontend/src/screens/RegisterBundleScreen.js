@@ -11,11 +11,6 @@ const RegisterBundleScreen = ({ history }) => {
   const [selectedBundleId, setSelectedBundleId] = useState('');
   const [houseHold, setHouseHold] = useState(1);
 
-  // // const newArray = [];
-  // const addDecimals = (num) => {
-  //   return (Math.round(num * 100) / 100).toFixed(2);
-  // };
-
   const dispatch = useDispatch();
 
   const bundleSignupNewUser = useSelector((state) => state.bundleSignupNewUser);
