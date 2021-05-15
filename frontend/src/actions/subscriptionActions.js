@@ -19,6 +19,10 @@ import {
   SUBSCRIPTION_DELIVER_FAIL,
   SUBSCRIPTION_DELIVER_SUCCESS,
   SUBSCRIPTION_DELIVER_REQUEST,
+  SUBSCRIPTION_UPDATE_REQUEST,
+  SUBSCRIPTION_UPDATE_SUCCESS,
+  SUBSCRIPTION_UPDATE_FAIL,
+  SUBSCRIPTION_UPDATE_RESET,
 } from '../constants/subscriptionConstants';
 import { logout } from './userActions';
 
@@ -31,6 +35,8 @@ export const createSubscription = (subscription) => async (dispatch, getState) =
     const {
       userLogin: { userInfo },
     } = getState();
+
+    console.log(userInfo);
 
     const config = {
       headers: {
@@ -238,6 +244,47 @@ export const listSubscription = () => async (dispatch, getState) => {
     }
     dispatch({
       type: SUBSCRIPTION_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const updateSubscription = (subscription) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SUBSCRIPTION_UPDATE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { subscriptionId, address, city, postalCode, country } = subscription;
+
+    console.log(subscriptionId);
+
+    const { data } = await axios.put(`/api/subscriptions/${subscriptionId}`, subscription, config);
+
+    dispatch({
+      type: SUBSCRIPTION_UPDATE_SUCCESS,
+      payload: data,
+    });
+    dispatch({ type: SUBSCRIPTION_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message ? error.response.data.message : error.message;
+    // if (message === 'Not authorized, token failed') {
+    //   dispatch(logout());
+    // }
+    dispatch({
+      type: SUBSCRIPTION_UPDATE_FAIL,
       payload: message,
     });
   }

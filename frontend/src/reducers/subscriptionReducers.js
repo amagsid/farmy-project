@@ -21,6 +21,10 @@ import {
   SUBSCRIPTION_DELIVER_REQUEST,
   SUBSCRIPTION_DELIVER_RESET,
   SUBSCRIPTION_CREATE_RESET,
+  SUBSCRIPTION_UPDATE_REQUEST,
+  SUBSCRIPTION_UPDATE_SUCCESS,
+  SUBSCRIPTION_UPDATE_FAIL,
+  SUBSCRIPTION_UPDATE_RESET,
 } from '../constants/subscriptionConstants';
 
 export const subscriptionCreateReducer = (state = {}, action) => {
@@ -136,6 +140,21 @@ export const subscriptionListMyReducer = (state = { subscriptions: [] }, action)
       };
     case SUBSCRIPTION_LIST_MY_RESET:
       return { subscriptions: [] };
+    default:
+      return state;
+  }
+};
+
+export const subscriptionUpdateReducer = (state = { subscription: {} }, action) => {
+  switch (action.type) {
+    case SUBSCRIPTION_UPDATE_REQUEST:
+      return { loading: true };
+    case SUBSCRIPTION_UPDATE_SUCCESS:
+      return { loading: false, success: true, subscription: action.payload };
+    case SUBSCRIPTION_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
+    case SUBSCRIPTION_UPDATE_RESET:
+      return { subscription: {} };
     default:
       return state;
   }

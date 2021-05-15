@@ -6,27 +6,21 @@ import Subscription from '../models/subscriptionModel.js';
 // @access  Private
 const addSubscriptionItems = asyncHandler(async (req, res) => {
   const {
-    bundleItems,
-    shippingAddress,
-    paymentMethod,
-    itemsPrice,
-    taxPrice,
-    shippingPrice,
-    totalPrice,
-  } = req.body;
+ bundles, shippingAddress, paymentMethod, taxPrice, shippingPrice, totalPrice,
+} = req.body;
 
   console.log(req.user);
 
-  if (bundleItems && bundleItems.length === 0) {
+  if (bundles && bundles.length === 0) {
     res.status(400);
-    throw new Error('No order items');
+    throw new Error('No bundle items');
   } else {
     const subscription = new Subscription({
-      bundleItems,
+      bundles,
       user: req.user._id,
       shippingAddress,
       paymentMethod,
-      itemsPrice,
+      // itemsPrice,
       taxPrice,
       shippingPrice,
       totalPrice,
@@ -112,6 +106,32 @@ const getSubscription = asyncHandler(async (req, res) => {
   res.json(subscription);
 });
 
+// @desc    Update subscription
+// @route   PUT /api/subscriptions/:id
+// @access  Private
+const updateSubscriptionById = asyncHandler(async (req, res) => {
+  const {
+ address, city, postalCode, country,
+} = req.body;
+
+  const subscription = await Subscription.findById(req.params.id);
+
+  const { shippingAddress } = subscription;
+
+  if (subscription) {
+    shippingAddress.address = address;
+    shippingAddress.city = city;
+    shippingAddress.postalCode = postalCode;
+    shippingAddress.country = country;
+
+    const updatedSubscription = await subscription.save();
+    res.json(updatedSubscription);
+  } else {
+    res.status(404);
+    throw new Error('Subscription not found');
+  }
+});
+
 export {
   addSubscriptionItems,
   getSubscriptionById,
@@ -119,4 +139,5 @@ export {
   updateSubscriptionToDelivered,
   getMySubscription,
   getSubscription,
+  updateSubscriptionById,
 };

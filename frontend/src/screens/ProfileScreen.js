@@ -33,6 +33,14 @@ const ProfileScreen = ({ location, history }) => {
     subscriptions,
   } = subscriptionListMy;
 
+  // const subscriptionDetails = useSelector((state) => state.subscriptionDetails);
+  // console.log(subscriptionListMy);
+  // const {
+  //   loading: loadingSubscriptions,
+  //   error: errorSubscriptions,
+  //   subscriptions,
+  // } = subscriptionListMy;
+
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
       console.log('delete');
@@ -124,7 +132,7 @@ const ProfileScreen = ({ location, history }) => {
         )}
       </Col>
       <Col md={9}>
-        <h2>My Orders</h2>
+        <h2>My Subscriptions</h2>
         {loadingSubscriptions ? (
           <Loader />
         ) : errorSubscriptions ? (
@@ -134,7 +142,7 @@ const ProfileScreen = ({ location, history }) => {
             <thead>
               <tr>
                 <th></th>
-                <th>BUNDLE</th>
+                <th>BUNDLES</th>
                 <th>DATE</th>
                 <th>TOTAL</th>
                 <th>PREFERENCES</th>
@@ -146,13 +154,14 @@ const ProfileScreen = ({ location, history }) => {
               {subscriptions.map((subscription) => (
                 <tr key={subscription._id}>
                   <td></td>
+                  <td></td>
                   <td>{subscription.createdAt.substring(0, 10)}</td>
                   <td>{subscription.totalPrice}</td>
                   <td>
                     <Button>preferences</Button>
                   </td>
                   <td>
-                    <LinkContainer to={`/subscription/${subscription._id}`}>
+                    <LinkContainer to={`/subscription/updateaddress/${subscription._id}`}>
                       <Button className="btn-sm" variant="light">
                         Change Address
                       </Button>

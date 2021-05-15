@@ -28,6 +28,7 @@ import {
   subscriptionDeliverReducer,
   subscriptionListMyReducer,
   subscriptionListReducer,
+  subscriptionUpdateReducer,
 } from './reducers/subscriptionReducers';
 
 const reducer = combineReducers({
@@ -53,6 +54,7 @@ const reducer = combineReducers({
   subscriptionDeliver: subscriptionDeliverReducer,
   subscriptionListMy: subscriptionListMyReducer,
   subscriptionList: subscriptionListReducer,
+  subscriptionUpdate: subscriptionUpdateReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
