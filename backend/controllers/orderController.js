@@ -1,4 +1,5 @@
 import asyncHandler from 'express-async-handler';
+import nodemailer from 'nodemailer';
 import Order from '../models/orderModel.js';
 
 // @desc    Create new order
@@ -66,8 +67,32 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     };
 
     const updatedOrder = await order.save();
-
     res.json(updatedOrder);
+
+    // create reusable transporter object using the default SMTP transport
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: 'atamuffin@gmail.com',
+        pass: process.env.GMAIL_PASSWORD,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
+
+    // send mail with defined transport object
+    const info = await transporter.sendMail({
+      from: '"Atabek" <atamuffin@gmail.com>',
+      to: `${req.user.email}`,
+      subject: 'You are subscribed',
+      // text: "hi", // plain text body
+      html: `<h1>Hi ${req.user.name}</h1>
+          <p>You have subscribed to our product - ${updatedOrder.orderItems[0].name}!</p>
+          <p>You paid by ${updatedOrder.paymentMethod}`,
+    });
   } else {
     res.status(404);
     throw new Error('Order not found');
