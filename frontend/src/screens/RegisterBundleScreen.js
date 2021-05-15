@@ -5,11 +5,15 @@ import { Row, Col, Form, ButtonGroup, Image, Button, ListGroup } from 'react-boo
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listBundlesNewUser } from '../actions/bundleActions';
+import { SUBSCRIPTION_CREATE_RESET } from '../constants/subscriptionConstants';
 
-const RegisterBundleScreen = ({ history }) => {
+const RegisterBundleScreen = ({ history, match }) => {
   const [frequency, setFrequency] = useState(1);
   const [selectedBundleId, setSelectedBundleId] = useState('');
   const [houseHold, setHouseHold] = useState(1);
+
+  // This array to map for the options of household and frequency
+  const arrayOfNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const dispatch = useDispatch();
 
@@ -19,9 +23,12 @@ const RegisterBundleScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const selectedBundle = bundles.find((o) => o._id === selectedBundleId);
+
   useEffect(() => {
     if (userInfo) {
       dispatch(listBundlesNewUser());
+      dispatch({ type: SUBSCRIPTION_CREATE_RESET });
     } else {
       history.push(`login`);
     }
@@ -72,14 +79,14 @@ const RegisterBundleScreen = ({ history }) => {
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row className="pl-5 pb-5">
-                    <h3>Select How many people?</h3>
+                    <h3>Select number of people </h3>
                     <Form.Control
                       as="select"
                       className="signup-bundle-options rounded pl-4"
                       value={houseHold}
                       onChange={(e) => setHouseHold(e.target.value)}
                     >
-                      {[1, 2, 3, 4, 5, 6].map((x, index) => (
+                      {arrayOfNumbers.map((x, index) => (
                         <option key={index} className="signup-bundle-options" value={x}>
                           {x}
                         </option>
@@ -89,14 +96,14 @@ const RegisterBundleScreen = ({ history }) => {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row className="pl-5 pb-5">
-                    <h3>How many Bundles peer week?</h3>
+                    <h3>How many Bundles per week?</h3>
                     <Form.Control
                       as="select"
                       className="signup-bundle-options rounded pl-4"
                       value={frequency}
                       onChange={(e) => setFrequency(e.target.value)}
                     >
-                      {[1, 2, 3, 4, 5, 6].map((x, index) => (
+                      {arrayOfNumbers.map((x, index) => (
                         <option key={index} className="signup-bundle-options" value={x}>
                           {x}
                         </option>
@@ -105,55 +112,26 @@ const RegisterBundleScreen = ({ history }) => {
                   </Row>
                 </ListGroup.Item>
               </ListGroup>
-              {/* <Row className="pl-5 pb-5">
-                <h3>Select How many people?</h3>
-                <ButtonGroup className="pl-4" onClick={(e) => setHouseHold(e.target.value)}>
-                  <Button variant="outline-dark" className="rounded mr-2" value="2">
-                    2
-                  </Button>
-                  <Button variant="outline-dark" className="rounded mr-2" value="3">
-                    3
-                  </Button>
-                  <Button variant="outline-dark" className="rounded mr-2" value="4">
-                    4
-                  </Button>
-                  <Button variant="outline-dark" className="rounded mr-2" value="5">
-                    5
-                  </Button>
-                  <Button variant="outline-dark" className="rounded mr-2" value="6">
-                    6
-                  </Button>
-                </ButtonGroup>
-              </Row> */}
-              {/* <Row className="pl-5 pb-5">
-                <h3>How many Bundles peer week? </h3>
-                <ButtonGroup className="pl-4" onClick={(e) => setFrequency(e.target.value)}>
-                  <Button variant="outline-dark" className="rounded mr-2" value="2">
-                    2
-                  </Button>
-                  <Button variant="outline-dark" className="rounded mr-2" value="3">
-                    3
-                  </Button>
-                  <Button variant="outline-dark" className="rounded mr-2" value="4">
-                    4
-                  </Button>
-                  <Button variant="outline-dark" className="rounded mr-2" value="5">
-                    5
-                  </Button>
-                  <Button variant="outline-dark" className="rounded mr-2" value="6">
-                    6
-                  </Button>
-                </ButtonGroup>
-              </Row> */}
             </Col>
           </Row>
-          <Row className="border-bottom py-3 my-2 ">
-            <Col md="8">
-              You will receive your bundle {frequency} peer week and for {houseHold} people
-            </Col>
-            <Col md="4">
+          <Row className="d-flex align-items-center justify-content-center py-3 my-2 ">
+            {selectedBundleId !== '' && (
+              <Message variant="info">
+                You will receive <em className="font-weight-bold">{selectedBundle.name}</em> bundle{' '}
+                <em className="font-weight-bold">{frequency}</em> peer week and for{' '}
+                <em className="font-weight-bold">{houseHold}</em> people
+              </Message>
+            )}
+          </Row>
+          <Row className="border-bottom py-3 my-2">
+            <Col className="d-flex align-items-center justify-content-center">
               <Link to={`/cart/${selectedBundleId}?qty=${houseHold}&frq=${frequency}`}>
-                <Button onClick={addToCartHandler} variant="dark" className="rounded my-2">
+                <Button
+                  onClick={addToCartHandler}
+                  variant="dark"
+                  className="rounded  signup-bundle-button"
+                  disabled={!selectedBundleId}
+                >
                   To CArt
                 </Button>
               </Link>

@@ -137,6 +137,7 @@ export const bundleSignupNewUserReducer = (state = { bundles: [] }, action) => {
     case BUNDLE_SIGNUP_NEW_USER_SUCCESS:
       return {
         loading: false,
+        success: true,
         bundles: action.payload.bundles,
       };
     case BUNDLE_SIGNUP_NEW_USER_FAIL:
