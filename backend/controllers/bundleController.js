@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Bundle from '../models/bundleModel.js';
+import Ingredient from '../models/ingredientModel.js';
 
 // @desc    Fetch all bundles
 // @route   GET /api/bundles
@@ -20,7 +21,8 @@ const getBundles = asyncHandler(async (req, res) => {
   const count = await Bundle.countDocuments({ ...keyword });
   const bundles = await Bundle.find({ ...keyword })
     .limit(pageSize)
-    .skip(pageSize * (page - 1));
+    .skip(pageSize * (page - 1))
+    .populate({ path: 'ingredient', model: Ingredient });
 
   res.json({ bundles, page, pages: Math.ceil(count / pageSize) });
 });
@@ -29,7 +31,10 @@ const getBundles = asyncHandler(async (req, res) => {
 // @route   GET /api/bundles/:id
 // @access  Public
 const getBundleById = asyncHandler(async (req, res) => {
-  const bundle = await Bundle.findById(req.params.id);
+  const bundle = await Bundle.findById(req.params.id).populate({
+    path: 'ingredient',
+    model: Ingredient,
+  });
 
   if (bundle) {
     res.json(bundle);

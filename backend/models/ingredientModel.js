@@ -59,6 +59,11 @@ const ingredientSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    origin: {
+      type: String,
+      required: true,
+      default: 'The Netherlands',
+    },
     // reviews: [reviewSchema],
     // rating: {
     //   type: Number,
