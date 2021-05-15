@@ -254,7 +254,7 @@ const prepareFirstIngredientsData = () => {
               .replace(/Sale price/g, '')
               .replace(/\s\s+/g, '');
             if (!ingredientsFirstBundle[index].price) {
-              ingredientsFirstBundle[index].price = '£9.99';
+              ingredientsFirstBundle[index].price = 9.99;
             }
           }
         });
@@ -541,7 +541,7 @@ const prepareSecondIngredientsData = () => {
               .replace(/Sale price/g, '')
               .replace(/\s\s+/g, '');
             if (!ingredientsSecondBundle[index].price) {
-              ingredientsSecondBundle[index].price = '£9.99';
+              ingredientsSecondBundle[index].price = 9.99;
             }
           }
         });
@@ -826,7 +826,7 @@ const prepareThirdIngredientsData = () => {
               .replace(/Sale price/g, '')
               .replace(/\s\s+/g, '');
             if (!ingredientsThirdBundle[index].price) {
-              ingredientsThirdBundle[index].price = '£9.99';
+              ingredientsThirdBundle[index].price = 9.99;
             }
           }
         });

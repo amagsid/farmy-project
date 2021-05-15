@@ -23,7 +23,7 @@ const bundleSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    ingredient: [
+    ingredients: [
       {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
