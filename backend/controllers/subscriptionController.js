@@ -6,7 +6,7 @@ import Subscription from '../models/subscriptionModel.js';
 // @access  Private
 const addSubscriptionItems = asyncHandler(async (req, res) => {
   const {
-    bundleItems,
+    subscriptionItems,
     shippingAddress,
     paymentMethod,
     itemsPrice,
@@ -15,12 +15,12 @@ const addSubscriptionItems = asyncHandler(async (req, res) => {
     totalPrice,
   } = req.body;
 
-  if (bundleItems && bundleItems.length === 0) {
+  if (subscriptionItems && subscriptionItems.length === 0) {
     res.status(400);
     throw new Error('No order items');
   }
   const subscription = new Subscription({
-    bundleItems,
+    subscriptionItems,
     user: req.user._id,
     shippingAddress,
     paymentMethod,

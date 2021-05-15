@@ -42,7 +42,10 @@ const SubscriptionScreen = ({ match, history }) => {
     };
 
     subscription.itemsPrice = addDecimals(
-      subscription.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+      subscription.subscriptionItems.reduce(
+        (acc, item) => acc + item.price * item.qty * item.frq,
+        0
+      )
     );
   }
 
@@ -131,11 +134,11 @@ const SubscriptionScreen = ({ match, history }) => {
 
             <ListGroup.Item>
               <h2>subscription Items</h2>
-              {subscription.orderItems.length === 0 ? (
+              {subscription.subscriptionItems.length === 0 ? (
                 <Message>Order is empty</Message>
               ) : (
                 <ListGroup variant="flush">
-                  {subscription.orderItems.map((item, index) => (
+                  {subscription.subscriptionItems.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
                         <Col md={1}>
@@ -144,8 +147,9 @@ const SubscriptionScreen = ({ match, history }) => {
                         <Col>
                           <Link to={`/bundle/${item.product}`}>{item.name}</Link>
                         </Col>
-                        <Col md={4}>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                        <Col md={6}>
+                          {item.qty} people x ${item.price} x {item.frq} weekly= $
+                          {item.qty * item.price * item.frq}
                         </Col>
                       </Row>
                     </ListGroup.Item>

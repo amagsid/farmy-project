@@ -8,10 +8,11 @@ const subscriptionSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    orderItems: [
+    subscriptionItems: [
       {
         name: { type: String, required: true },
         qty: { type: Number, required: true },
+        frq: { type: Number, required: true },
         image: { type: String, required: true },
         price: { type: Number, required: true },
         product: {
@@ -29,6 +30,8 @@ const subscriptionSchema = mongoose.Schema(
       },
     ],
     shippingAddress: {
+      name: { type: String, required: true },
+      phoneNumber: { type: String, required: true },
       address: { type: String, required: true },
       city: { type: String, required: true },
       postalCode: { type: String, required: true },

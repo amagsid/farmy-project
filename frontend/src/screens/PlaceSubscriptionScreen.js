@@ -48,7 +48,7 @@ const PlaceSubscriptionScreen = ({ history }) => {
   const placeSubscriptionHandler = () => {
     dispatch(
       createSubscription({
-        orderItems: cart.cartItems,
+        subscriptionItems: cart.cartItems,
         shippingAddress: cart.shippingAddress,
         paymentMethod: cart.paymentMethod,
         itemsPrice: cart.itemsPrice,
@@ -96,8 +96,8 @@ const PlaceSubscriptionScreen = ({ history }) => {
                           <Link to={`/bundle/${item.product}`}>{item.name}</Link>
                         </Col>
                         <Col md={6}>
-                          {item.qty} people x {item.frq} weekly X ${item.price} = $
-                          {item.qty * item.frq * item.price}
+                          {item.qty} people x ${item.price} x {item.frq} weekly= $
+                          {item.qty * item.price * item.frq}
                         </Col>
                       </Row>
                     </ListGroup.Item>

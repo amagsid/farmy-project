@@ -74,6 +74,9 @@ h2 {
 
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.signup-bundle-options {
+  width: 80%;
+}
 @media (max-width: 900px) {
   .carousel-caption h2 {
     font-size: 2.5vw;

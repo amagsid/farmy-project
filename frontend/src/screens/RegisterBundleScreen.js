@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, ButtonGroup, Image, Button } from 'react-bootstrap';
+import { Row, Col, Form, ButtonGroup, Image, Button, ListGroup } from 'react-bootstrap';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listBundlesNewUser } from '../actions/bundleActions';
@@ -69,7 +69,43 @@ const RegisterBundleScreen = ({ history }) => {
               </ButtonGroup>
             </Col>
             <Col md={6}>
-              <Row className="pl-5 pb-5">
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <Row className="pl-5 pb-5">
+                    <h3>Select How many people?</h3>
+                    <Form.Control
+                      as="select"
+                      className="signup-bundle-options rounded pl-4"
+                      value={houseHold}
+                      onChange={(e) => setHouseHold(e.target.value)}
+                    >
+                      {[1, 2, 3, 4, 5, 6].map((x, index) => (
+                        <option key={index} className="signup-bundle-options" value={x}>
+                          {x}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row className="pl-5 pb-5">
+                    <h3>How many Bundles peer week?</h3>
+                    <Form.Control
+                      as="select"
+                      className="signup-bundle-options rounded pl-4"
+                      value={frequency}
+                      onChange={(e) => setFrequency(e.target.value)}
+                    >
+                      {[1, 2, 3, 4, 5, 6].map((x, index) => (
+                        <option key={index} className="signup-bundle-options" value={x}>
+                          {x}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Row>
+                </ListGroup.Item>
+              </ListGroup>
+              {/* <Row className="pl-5 pb-5">
                 <h3>Select How many people?</h3>
                 <ButtonGroup className="pl-4" onClick={(e) => setHouseHold(e.target.value)}>
                   <Button variant="outline-dark" className="rounded mr-2" value="2">
@@ -88,8 +124,8 @@ const RegisterBundleScreen = ({ history }) => {
                     6
                   </Button>
                 </ButtonGroup>
-              </Row>
-              <Row className="pl-5 pb-5">
+              </Row> */}
+              {/* <Row className="pl-5 pb-5">
                 <h3>How many Bundles peer week? </h3>
                 <ButtonGroup className="pl-4" onClick={(e) => setFrequency(e.target.value)}>
                   <Button variant="outline-dark" className="rounded mr-2" value="2">
@@ -108,7 +144,7 @@ const RegisterBundleScreen = ({ history }) => {
                     6
                   </Button>
                 </ButtonGroup>
-              </Row>
+              </Row> */}
             </Col>
           </Row>
           <Row className="border-bottom py-3 my-2 ">
