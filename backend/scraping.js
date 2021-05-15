@@ -145,6 +145,7 @@ const ingredients = [
   {
     name: '',
     image: '',
+    bundles: [],
     description: '',
     status: '',
     category: '',
@@ -156,6 +157,7 @@ const ingredients = [
   {
     name: '',
     image: '',
+    bundles: [],
     description: '',
     status: '',
     category: '',
@@ -167,6 +169,7 @@ const ingredients = [
   {
     name: '',
     image: '',
+    bundles: [],
     description: '',
     status: '',
     category: '',
@@ -178,6 +181,7 @@ const ingredients = [
   {
     name: '',
     image: '',
+    bundles: [],
     description: '',
     status: '',
     category: '',
@@ -189,6 +193,7 @@ const ingredients = [
   {
     name: '',
     image: '',
+    bundles: [],
     description: '',
     status: '',
     category: '',
@@ -200,6 +205,7 @@ const ingredients = [
   {
     name: '',
     image: '',
+    bundles: [],
     description: '',
     status: '',
     category: '',
@@ -251,12 +257,13 @@ const prepareIngredientsData = () => {
             ingredients[index].price = $(element)
               .text()
               .replace(/\s\s+/g, '')
-              .replace(/Regular/g, '')
+              .replace(/Regular price/g, '')
               .replace(/Sale price/g, '')
               .replace(/\s\s+/g, '');
             if (!ingredients[index].price) {
               ingredients[index].price = '£9.99';
             }
+            ingredients[index].bundles = '609fd06c86cb5c3b84e18bc8';
           }
         });
     })
