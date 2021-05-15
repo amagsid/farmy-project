@@ -73,12 +73,12 @@ const ingredientSchema = mongoose.Schema(
     price: {
       type: Number,
       required: true,
-      default: 0,
+      default: 9,
     },
     countInStock: {
       type: Number,
       required: true,
-      default: 0,
+      default: 5,
     },
   },
   {

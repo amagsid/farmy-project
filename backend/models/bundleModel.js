@@ -80,12 +80,12 @@ const bundleSchema = mongoose.Schema(
     price: {
       type: Number,
       required: true,
-      default: 0,
+      default: 19,
     },
     countInStock: {
       type: Number,
       required: true,
-      default: 0,
+      default: 25,
     },
   },
   {
