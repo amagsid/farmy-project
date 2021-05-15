@@ -1,7 +1,6 @@
 import fs from 'fs';
 import axios from 'axios';
 import cheerio from 'cheerio';
-// import { LOADIPHLPAPI } from 'dns';
 
 const bundles = [
   {
@@ -141,11 +140,10 @@ const prepareBundlesDescription = () => {
 // prepareBundlesData();
 // prepareBundlesDescription();
 
-const ingredients = [
+const ingredientsFirstBundle = [
   {
     name: '',
     image: '',
-    bundles: [],
     description: '',
     status: '',
     category: '',
@@ -157,7 +155,6 @@ const ingredients = [
   {
     name: '',
     image: '',
-    bundles: [],
     description: '',
     status: '',
     category: '',
@@ -169,7 +166,6 @@ const ingredients = [
   {
     name: '',
     image: '',
-    bundles: [],
     description: '',
     status: '',
     category: '',
@@ -181,7 +177,6 @@ const ingredients = [
   {
     name: '',
     image: '',
-    bundles: [],
     description: '',
     status: '',
     category: '',
@@ -193,7 +188,6 @@ const ingredients = [
   {
     name: '',
     image: '',
-    bundles: [],
     description: '',
     status: '',
     category: '',
@@ -205,7 +199,6 @@ const ingredients = [
   {
     name: '',
     image: '',
-    bundles: [],
     description: '',
     status: '',
     category: '',
@@ -216,7 +209,7 @@ const ingredients = [
   },
 ];
 
-const prepareIngredientsData = () => {
+const prepareFirstIngredientsData = () => {
   axios
     .get('https://shop.mindfulchef.com/collections/healthy-ready-meals')
     .then((res) => {
@@ -226,7 +219,7 @@ const prepareIngredientsData = () => {
         .find('.product-grid--title')
         .each((index, element) => {
           if (index < 6) {
-            ingredients[index].name = $(element).text().replace(/\s\s+/g, '');
+            ingredientsFirstBundle[index].name = $(element).text().replace(/\s\s+/g, '');
           }
         });
 
@@ -236,10 +229,10 @@ const prepareIngredientsData = () => {
           if (index < 6) {
             const link = $(element).children('img').attr('src').replace(/150x/g, '1000x1000');
             if (link.includes('products')) {
-              ingredients[index].image = link;
+              ingredientsFirstBundle[index].image = link;
             }
             if (link.includes('products')) {
-              ingredients[index].category = link
+              ingredientsFirstBundle[index].category = link
                 .split('/products/')
                 .pop()
                 .split('_1000x1000')[0]
@@ -254,25 +247,28 @@ const prepareIngredientsData = () => {
         .children('span')
         .each((index, element) => {
           if (index < 6) {
-            ingredients[index].price = $(element)
+            ingredientsFirstBundle[index].price = $(element)
               .text()
               .replace(/\s\s+/g, '')
               .replace(/Regular price/g, '')
               .replace(/Sale price/g, '')
               .replace(/\s\s+/g, '');
-            if (!ingredients[index].price) {
-              ingredients[index].price = '£9.99';
+            if (!ingredientsFirstBundle[index].price) {
+              ingredientsFirstBundle[index].price = '£9.99';
             }
-            ingredients[index].bundles = '609fd06c86cb5c3b84e18bc8';
           }
         });
     })
     .then(() => {
-      fs.writeFile('./data/ingredients.json', JSON.stringify(ingredients, null, 4), (error) => {
-        if (error) {
-          throw new Error(error);
-        }
-      });
+      fs.writeFile(
+        './data/ingredientsFirstBundle.json',
+        JSON.stringify(ingredientsFirstBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
     });
 };
 
@@ -284,7 +280,7 @@ const prepareFirstIngredientsDescription = () => {
     .then((res) => {
       const $ = cheerio.load(res.data);
 
-      ingredients[0].description = $('.product-description')
+      ingredientsFirstBundle[0].description = $('.product-description')
         .last('p')
         .last('span')
         .text()
@@ -292,11 +288,15 @@ const prepareFirstIngredientsDescription = () => {
         .split('\n')[0];
     })
     .then(() => {
-      fs.writeFile('./data/ingredients.json', JSON.stringify(ingredients, null, 4), (error) => {
-        if (error) {
-          throw new Error(error);
-        }
-      });
+      fs.writeFile(
+        './data/ingredientsFirstBundle.json',
+        JSON.stringify(ingredientsFirstBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
     });
 
   axios
@@ -306,7 +306,7 @@ const prepareFirstIngredientsDescription = () => {
     .then((res) => {
       const $ = cheerio.load(res.data);
 
-      ingredients[1].description = $('.product-description')
+      ingredientsFirstBundle[1].description = $('.product-description')
         .last('p')
         .last('span')
         .text()
@@ -314,11 +314,15 @@ const prepareFirstIngredientsDescription = () => {
         .split('\n')[0];
     })
     .then(() => {
-      fs.writeFile('./data/ingredients.json', JSON.stringify(ingredients, null, 4), (error) => {
-        if (error) {
-          throw new Error(error);
-        }
-      });
+      fs.writeFile(
+        './data/ingredientsFirstBundle.json',
+        JSON.stringify(ingredientsFirstBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
     });
   axios
     .get(
@@ -327,7 +331,7 @@ const prepareFirstIngredientsDescription = () => {
     .then((res) => {
       const $ = cheerio.load(res.data);
 
-      ingredients[2].description = $('.product-description')
+      ingredientsFirstBundle[2].description = $('.product-description')
         .last('p')
         .last('span')
         .text()
@@ -335,11 +339,15 @@ const prepareFirstIngredientsDescription = () => {
         .split('\n')[0];
     })
     .then(() => {
-      fs.writeFile('./data/ingredients.json', JSON.stringify(ingredients, null, 4), (error) => {
-        if (error) {
-          throw new Error(error);
-        }
-      });
+      fs.writeFile(
+        './data/ingredientsFirstBundle.json',
+        JSON.stringify(ingredientsFirstBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
     });
   axios
     .get(
@@ -348,7 +356,7 @@ const prepareFirstIngredientsDescription = () => {
     .then((res) => {
       const $ = cheerio.load(res.data);
 
-      ingredients[3].description = $('.product-description')
+      ingredientsFirstBundle[3].description = $('.product-description')
         .last('p')
         .last('span')
         .text()
@@ -356,11 +364,15 @@ const prepareFirstIngredientsDescription = () => {
         .split('\n')[0];
     })
     .then(() => {
-      fs.writeFile('./data/ingredients.json', JSON.stringify(ingredients, null, 4), (error) => {
-        if (error) {
-          throw new Error(error);
-        }
-      });
+      fs.writeFile(
+        './data/ingredientsFirstBundle.json',
+        JSON.stringify(ingredientsFirstBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
     });
   axios
     .get(
@@ -369,7 +381,7 @@ const prepareFirstIngredientsDescription = () => {
     .then((res) => {
       const $ = cheerio.load(res.data);
 
-      ingredients[4].description = $('.product-description')
+      ingredientsFirstBundle[4].description = $('.product-description')
         .last('p')
         .last('span')
         .text()
@@ -377,18 +389,22 @@ const prepareFirstIngredientsDescription = () => {
         .split('\n')[0];
     })
     .then(() => {
-      fs.writeFile('./data/ingredients.json', JSON.stringify(ingredients, null, 4), (error) => {
-        if (error) {
-          throw new Error(error);
-        }
-      });
+      fs.writeFile(
+        './data/ingredientsFirstBundle.json',
+        JSON.stringify(ingredientsFirstBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
     });
   axios
     .get('https://shop.mindfulchef.com/collections/healthy-ready-meals/products/lamb-tagine')
     .then((res) => {
       const $ = cheerio.load(res.data);
 
-      ingredients[5].description = $('.product-description')
+      ingredientsFirstBundle[5].description = $('.product-description')
         .last('p')
         .last('span')
         .text()
@@ -396,13 +412,302 @@ const prepareFirstIngredientsDescription = () => {
         .split('\n')[0];
     })
     .then(() => {
-      fs.writeFile('./data/ingredients.json', JSON.stringify(ingredients, null, 4), (error) => {
-        if (error) {
-          throw new Error(error);
-        }
-      });
+      fs.writeFile(
+        './data/ingredientsFirstBundle.json',
+        JSON.stringify(ingredientsFirstBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
     });
 };
 
-prepareIngredientsData();
-prepareFirstIngredientsDescription();
+// prepareFirstIngredientsData();
+// prepareFirstIngredientsDescription();
+
+const ingredientsSecondBundle = [
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+];
+
+const prepareSecondIngredientsData = () => {
+  axios
+    .get('https://shop.mindfulchef.com/collections/smoothies')
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      $('.grid__item')
+        .find('.product-grid--title')
+        .each((index, element) => {
+          if (index < 6) {
+            ingredientsSecondBundle[index].name = $(element).text().replace(/\s\s+/g, '');
+          }
+        });
+
+      $('.grid__item')
+        .find('.lazyload-blur-wrapper')
+        .each((index, element) => {
+          if (index < 6) {
+            const link = $(element).children('img').attr('src').replace(/150x/g, '1000x1000');
+            if (link.includes('products')) {
+              ingredientsSecondBundle[index].image = link;
+            }
+            if (link.includes('products')) {
+              ingredientsSecondBundle[index].category = link
+                .split('/products/')
+                .pop()
+                .split('_1000x1000')[0]
+                .replace(/_/g, ' ')
+                .toUpperCase();
+            }
+          }
+        });
+
+      $('.grid__item')
+        .find('.pricing-unit')
+        .children('span')
+        .each((index, element) => {
+          if (index < 6) {
+            ingredientsSecondBundle[index].price = $(element)
+              .text()
+              .replace(/\s\s+/g, '')
+              .replace(/Regular price/g, '')
+              .replace(/Sale price/g, '')
+              .replace(/\s\s+/g, '');
+            if (!ingredientsSecondBundle[index].price) {
+              ingredientsSecondBundle[index].price = '£9.99';
+            }
+          }
+        });
+    })
+    .then(() => {
+      fs.writeFile(
+        './data/ingredientsSecondBundle.json',
+        JSON.stringify(ingredientsSecondBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
+    });
+};
+
+const prepareSecondIngredientsDescription = () => {
+  axios
+    .get('https://shop.mindfulchef.com/collections/smoothies/products/new-breakfast-bundle')
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredientsSecondBundle[0].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile(
+        './data/ingredientsSecondBundle.json',
+        JSON.stringify(ingredientsSecondBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
+    });
+
+  axios
+    .get('https://shop.mindfulchef.com/collections/smoothies/products/flavour-blast')
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredientsSecondBundle[1].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile(
+        './data/ingredientsSecondBundle.json',
+        JSON.stringify(ingredientsSecondBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
+    });
+  axios
+    .get(
+      'https://shop.mindfulchef.com/collections/smoothies/products/taster-smoothie-bundle-pack-of-6',
+    )
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredientsSecondBundle[2].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile(
+        './data/ingredientsSecondBundle.json',
+        JSON.stringify(ingredientsSecondBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
+    });
+  axios
+    .get(
+      'https://shop.mindfulchef.com/collections/smoothies/products/mango-lime-smoothie-pack-of-5',
+    )
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredientsSecondBundle[3].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile(
+        './data/ingredientsSecondBundle.json',
+        JSON.stringify(ingredientsSecondBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
+    });
+  axios
+    .get(
+      'https://shop.mindfulchef.com/collections/smoothies/products/watermelon-smoothie-pack-of-5',
+    )
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredientsSecondBundle[4].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile(
+        './data/ingredientsSecondBundle.json',
+        JSON.stringify(ingredientsSecondBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
+    });
+  axios
+    .get(
+      'https://shop.mindfulchef.com/collections/smoothies/products/strawberry-goji-smoothie-pack-of-5',
+    )
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredientsSecondBundle[5].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile(
+        './data/ingredientsSecondBundle.json',
+        JSON.stringify(ingredientsSecondBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
+    });
+};
+
+prepareSecondIngredientsData();
+prepareSecondIngredientsDescription();
