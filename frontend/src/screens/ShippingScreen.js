@@ -6,7 +6,6 @@ import Message from '../components/Message';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { saveShippingAddress } from '../actions/cartActions';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
-
 import 'react-phone-number-input/style.css';
 
 const ShippingScreen = ({ history }) => {
@@ -18,7 +17,7 @@ const ShippingScreen = ({ history }) => {
   const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
   const [country, setCountry] = useState(shippingAddress.country);
   const [name, setName] = useState(shippingAddress.name);
-  const [phoneNumber, setPhoneNumber] = useState(shippingAddress.phoneNumber);
+  const [phoneNumber, setPhoneNumber] = useState('' || shippingAddress.phoneNumber);
   const [isValidNumber, setIsValidNumber] = useState(null);
 
   console.log(phoneNumber);
@@ -29,6 +28,7 @@ const ShippingScreen = ({ history }) => {
       setIsValidNumber(false);
     }
   };
+
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
@@ -59,7 +59,7 @@ const ShippingScreen = ({ history }) => {
             international
             defaultCountry="NL"
             placeholder="Enter phone number"
-            value={phoneNumber || ''}
+            value={phoneNumber}
             onChange={setPhoneNumber}
             error={
               phoneNumber
