@@ -709,5 +709,292 @@ const prepareSecondIngredientsDescription = () => {
     });
 };
 
-prepareSecondIngredientsData();
-prepareSecondIngredientsDescription();
+// prepareSecondIngredientsData();
+// prepareSecondIngredientsDescription();
+
+const ingredientsThirdBundle = [
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: '',
+    image: '',
+    description: '',
+    status: '',
+    category: '',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  },
+];
+
+const prepareThirdIngredientsData = () => {
+  axios
+    .get('https://shop.mindfulchef.com/collections/gift-vouchers')
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      $('.grid__item')
+        .find('.product-grid--title')
+        .each((index, element) => {
+          if (index < 6) {
+            ingredientsThirdBundle[index].name = $(element).text().replace(/\s\s+/g, '');
+          }
+        });
+
+      $('.grid__item')
+        .find('.lazyload-blur-wrapper')
+        .each((index, element) => {
+          if (index < 6) {
+            const link = $(element).children('img').attr('src').replace(/150x/g, '1000x1000');
+            if (link.includes('products')) {
+              ingredientsThirdBundle[index].image = link;
+            }
+            if (link.includes('products')) {
+              ingredientsThirdBundle[index].category = link
+                .split('/products/')
+                .pop()
+                .split('_1000x1000')[0]
+                .replace(/_/g, ' ')
+                .toUpperCase();
+            }
+          }
+        });
+
+      $('.grid__item')
+        .find('.pricing-unit')
+        .children('span')
+        .each((index, element) => {
+          if (index < 6) {
+            ingredientsThirdBundle[index].price = $(element)
+              .text()
+              .replace(/\s\s+/g, '')
+              .replace(/Regular price/g, '')
+              .replace(/Sale price/g, '')
+              .replace(/\s\s+/g, '');
+            if (!ingredientsThirdBundle[index].price) {
+              ingredientsThirdBundle[index].price = '£9.99';
+            }
+          }
+        });
+    })
+    .then(() => {
+      fs.writeFile(
+        './data/ingredientsThirdBundle.json',
+        JSON.stringify(ingredientsThirdBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
+    });
+};
+
+const prepareThirdIngredientsDescription = () => {
+  axios
+    .get('https://shop.mindfulchef.com/collections/gift-vouchers/products/30-recipe-box-gift-card')
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredientsThirdBundle[0].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile(
+        './data/ingredientsThirdBundle.json',
+        JSON.stringify(ingredientsThirdBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
+    });
+
+  axios
+    .get(
+      'https://shop.mindfulchef.com/collections/gift-vouchers/products/60-recipe-box-gift-voucher-just-49-99',
+    )
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredientsThirdBundle[1].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile(
+        './data/ingredientsThirdBundle.json',
+        JSON.stringify(ingredientsThirdBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
+    });
+  axios
+    .get(
+      'https://shop.mindfulchef.com/collections/gift-vouchers/products/100-recipe-box-gift-voucher-just-84-99',
+    )
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredientsThirdBundle[2].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile(
+        './data/ingredientsThirdBundle.json',
+        JSON.stringify(ingredientsThirdBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
+    });
+  axios
+    .get(
+      'https://shop.mindfulchef.com/collections/gift-vouchers/products/30-frozen-meal-smoothies-gift-card',
+    )
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredientsThirdBundle[3].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile(
+        './data/ingredientsThirdBundle.json',
+        JSON.stringify(ingredientsThirdBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
+    });
+  axios
+    .get(
+      'https://shop.mindfulchef.com/collections/gift-vouchers/products/60-frozen-smoothies-gift-card',
+    )
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredientsThirdBundle[4].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile(
+        './data/ingredientsThirdBundle.json',
+        JSON.stringify(ingredientsThirdBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
+    });
+  axios
+    .get(
+      'https://shop.mindfulchef.com/collections/gift-vouchers/products/500-recipe-box-gift-voucher-just-449',
+    )
+    .then((res) => {
+      const $ = cheerio.load(res.data);
+
+      ingredientsThirdBundle[5].description = $('.product-description')
+        .last('p')
+        .last('span')
+        .text()
+        .replace(/\s\s+/g, '')
+        .split('\n')[0];
+    })
+    .then(() => {
+      fs.writeFile(
+        './data/ingredientsThirdBundle.json',
+        JSON.stringify(ingredientsThirdBundle, null, 4),
+        (error) => {
+          if (error) {
+            throw new Error(error);
+          }
+        },
+      );
+    });
+};
+
+prepareThirdIngredientsData();
+prepareThirdIngredientsDescription();
