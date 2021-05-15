@@ -17,10 +17,10 @@ const ShippingScreen = ({ history }) => {
   const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
   const [country, setCountry] = useState(shippingAddress.country);
   const [name, setName] = useState(shippingAddress.name);
-  const [phoneNumber, setPhoneNumber] = useState('' || shippingAddress.phoneNumber);
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [isValidNumber, setIsValidNumber] = useState(null);
 
-  console.log(phoneNumber);
+  console.log(typeof phoneNumber);
   const validatePhoneNumber = () => {
     if (isValidPhoneNumber(phoneNumber)) {
       setIsValidNumber(true);
