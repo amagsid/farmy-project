@@ -4,13 +4,14 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import FarmyBundle from '../components/FarmyBundle'
 import FeedBack from '../components/FeedBack'
+import IntroductionCard from '../components/IntroductionCard'
 import { Row, Col, Container, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { listBundles } from '../actions/bundlesActions'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router-dom'
 import feedback from '../feedback.json'
-
+import introduction from '../introduction.json'
 
 const FarmyHomeScreen = () => {
     const dispatch = useDispatch();
@@ -23,6 +24,16 @@ const FarmyHomeScreen = () => {
   
     return (
       <>
+      <Container>
+        <h1>pay less to eat healthy</h1>
+        <Row>
+        {introduction && introduction.map((card)=>{
+          return <Col>
+          <IntroductionCard image={card.image} heading={card.heading} description={card.description} />
+          </Col>
+        })}
+        </Row>
+      </Container>
         <Container>
         <h1>Our Bundles</h1>
       {loading ? (
