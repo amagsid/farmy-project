@@ -16,13 +16,20 @@ const reviewSchema = mongoose.Schema(
   },
 );
 
-const productSchema = mongoose.Schema(
+const ingredientSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
     },
+    bundle: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Product',
+      },
+    ],
     name: {
       type: String,
       required: true,
@@ -31,14 +38,10 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    category: {
-      type: String,
-      required: true,
-    },
-    ingredients: [
+    category: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Ingredient',
+        type: String,
+        required: true,
       },
     ],
     description: {
@@ -72,6 +75,6 @@ const productSchema = mongoose.Schema(
   },
 );
 
-const Product = mongoose.model('Product', productSchema);
+const Ingredient = mongoose.model('Ingredient', ingredientSchema);
 
-export default Product;
+export default Ingredient;

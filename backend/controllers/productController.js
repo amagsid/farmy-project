@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Product from '../models/productModel.js';
+import Ingredient from '../models/ingredientModel.js';
 
 // @desc    Fetch all products
 // @route   GET /api/products
@@ -14,18 +15,21 @@ const getProducts = asyncHandler(async (req, res) => {
         $or: [
           {
             name: {
+              // Vitamin Boost OR Carrots
               $regex: req.query.keyword,
               $options: 'i',
             },
           },
           {
             category: {
+              // Vegan OR ['Vegetable']
               $regex: req.query.keyword,
               $options: 'i',
             },
           },
           {
-            brand: {
+            'reviews.comment': {
+              // Testing comment
               $regex: req.query.keyword,
               $options: 'i',
             },
@@ -33,6 +37,16 @@ const getProducts = asyncHandler(async (req, res) => {
         ],
       }
     : {};
+
+  if (req.query.keyword) {
+    const ingredients = await Ingredient.find({ ...keyword }, 'bundle');
+    if (ingredients.length > 0) {
+      // Flattening of array found at: https://stackoverflow.com/a/10865042
+      const ingredientBundles = ingredients.map((ingredient) => ingredient.bundle).flat(1);
+      // Updating the keyword search query
+      keyword.$or.push({ _id: ingredientBundles });
+    }
+  }
 
   const count = await Product.countDocuments({ ...keyword });
   const products = await Product.find({ ...keyword })
