@@ -92,7 +92,7 @@ const BundleDetailsScreen = ({ match }) => {
           <Container>
             <h3>What you will find inside this bundle:</h3>
             <Row>
-              {bundle.ingredient?.map(({ origin, price, name, image, _id }) => (
+              {bundle.ingredients?.map(({ origin, price, name, image, _id }) => (
                 <Col xs={12} s={4} md={4} lg={3} key={_id}>
                   <Card>
                     <Card.Img variant="top" src={image} alt={name} />

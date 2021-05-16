@@ -21,8 +21,7 @@ const getBundles = asyncHandler(async (req, res) => {
   const count = await Bundle.countDocuments({ ...keyword });
   const bundles = await Bundle.find({ ...keyword })
     .limit(pageSize)
-    .skip(pageSize * (page - 1))
-    .populate({ path: 'ingredient', model: Ingredient });
+    .skip(pageSize * (page - 1));
 
   res.json({ bundles, page, pages: Math.ceil(count / pageSize) });
 });
@@ -32,7 +31,7 @@ const getBundles = asyncHandler(async (req, res) => {
 // @access  Public
 const getBundleById = asyncHandler(async (req, res) => {
   const bundle = await Bundle.findById(req.params.id).populate({
-    path: 'ingredient',
+    path: 'ingredients',
     model: Ingredient,
   });
 
