@@ -1,43 +1,44 @@
 import mongoose from 'mongoose';
 
-// const reviewSchema = mongoose.Schema(
-//   {
-//     name: { type: String, required: true },
-//     rating: { type: Number, required: true },
-//     comment: { type: String, required: true },
-//     user: {
-//       type: mongoose.Schema.Types.ObjectId,
-//       required: true,
-//       ref: 'User',
-//     },
-//   },
-//   {
-//     timestamps: true,
-//   }
-// );
+const reviewSchema = mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    rating: { type: Number, required: true },
+    comment: { type: String, required: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
 
-const ingredientSchema = mongoose.Schema(
+const bundleSchema = mongoose.Schema(
   {
     createdByUser: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
     },
-    bundles: [
+    ingredients: [
       {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'Bundle',
+        ref: 'Ingredient',
       },
     ],
-    // bundlesNames: [
+    // bundleItems: [
     //   {
     //     name: { type: String, required: true },
     //     image: { type: String, required: true },
-    //     bundle: {
+    //     price: { type: Number, required: true },
+    //     ingredient: {
     //       type: mongoose.Schema.Types.ObjectId,
     //       required: true,
-    //       ref: 'Bundle',
+    //       ref: 'Ingredient',
     //     },
     //   },
     // ],
@@ -49,36 +50,42 @@ const ingredientSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+      default: ' ',
+    },
+    status: {
+      type: String,
+      required: true,
+      default: ' ',
+    },
     category: [
       {
         type: String,
         required: true,
       },
     ],
-    description: {
-      type: String,
-      required: true,
-    },
-    // reviews: [reviewSchema],
+    reviews: [reviewSchema],
     rating: {
       type: Number,
       required: true,
       default: 0,
     },
-    // numReviews: {
-    //   type: Number,
-    //   required: true,
-    //   default: 0,
-    // },
+    numReviews: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     price: {
       type: Number,
       required: true,
-      default: 9,
+      default: 19,
     },
     countInStock: {
       type: Number,
       required: true,
-      default: 5,
+      default: 25,
     },
   },
   {
@@ -86,6 +93,6 @@ const ingredientSchema = mongoose.Schema(
   },
 );
 
-const Ingredient = mongoose.model('Ingredient', ingredientSchema);
+const Bundle = mongoose.model('Bundle', bundleSchema);
 
-export default Ingredient;
+export default Bundle;

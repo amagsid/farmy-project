@@ -28,6 +28,13 @@ const getProducts = asyncHandler(async (req, res) => {
             },
           },
           {
+            description: {
+              // The carrot is a root vegetable, usually orange in color, though purple...
+              $regex: req.query.keyword,
+              $options: 'i',
+            },
+          },
+          {
             'reviews.comment': {
               // Testing comment
               $regex: req.query.keyword,
