@@ -132,6 +132,21 @@ const updateSubscriptionById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Cancel subscription
+// @route   DELETE /api/subscriptions/:id
+// @access  Private/
+const cancelSubscription = asyncHandler(async (req, res) => {
+  const subscription = await Subscription.findById(req.params.id);
+
+  if (subscription) {
+    await subscription.remove();
+    res.json({ message: 'Subscription canceled' });
+  } else {
+    res.status(404);
+    throw new Error('Subscription not found');
+  }
+});
+
 export {
   addSubscriptionItems,
   getSubscriptionById,
@@ -140,4 +155,5 @@ export {
   getMySubscription,
   getSubscription,
   updateSubscriptionById,
+  cancelSubscription,
 };

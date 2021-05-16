@@ -25,6 +25,9 @@ import {
   SUBSCRIPTION_UPDATE_SUCCESS,
   SUBSCRIPTION_UPDATE_FAIL,
   SUBSCRIPTION_UPDATE_RESET,
+  SUBSCRIPTION_CANCEL_REQUEST,
+  SUBSCRIPTION_CANCEL_SUCCESS,
+  SUBSCRIPTION_CANCEL_FAIL,
 } from '../constants/subscriptionConstants';
 
 export const subscriptionCreateReducer = (state = {}, action) => {
@@ -176,6 +179,19 @@ export const subscriptionListReducer = (state = { subscriptions: [] }, action) =
         loading: false,
         error: action.payload,
       };
+    default:
+      return state;
+  }
+};
+
+export const subscriptionCancelReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SUBSCRIPTION_CANCEL_REQUEST:
+      return { loading: true };
+    case SUBSCRIPTION_CANCEL_SUCCESS:
+      return { loading: false, success: true };
+    case SUBSCRIPTION_CANCEL_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

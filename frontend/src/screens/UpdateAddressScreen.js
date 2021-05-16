@@ -11,7 +11,7 @@ const UpdateAddressScreen = ({ match, history }) => {
   const subscriptionId = match.params.id;
   const [message, setMessage] = useState(null);
 
-  const subscriptionListMy = useSelector((state) => state.subscriptionListMy);
+  const subscriptionListMy = useSelector((state) => state.subscriptionListMy || {});
   const {
     loading: loadingSubscriptions,
     error: errorSubscriptions,
@@ -21,25 +21,11 @@ const UpdateAddressScreen = ({ match, history }) => {
   const subscriptionUpdate = useSelector((state) => state.subscriptionUpdate);
   const { success, subscription: updatedSubscription } = subscriptionUpdate;
 
-  // console.log(subscriptions.length > 0);
-
   const subscription = subscriptions.find((sub) => {
     return sub._id === subscriptionId;
   });
 
-  // console.log(loadingSubscriptions);
-  // console.log(errorSubscriptions);
-  // console.log(subscription);
-  // console.log('hey');
-  // console.log(success);
-  // console.log(updatedSubscription);
-
   const { shippingAddress } = subscription;
-
-  // const [address, setAddress] = useState('');
-  // const [city, setCity] = useState('');
-  // const [postalCode, setPostalCode] = useState('');
-  // const [country, setCountry] = useState('');
 
   const [address, setAddress] = useState(shippingAddress.address || {});
   const [city, setCity] = useState(shippingAddress.city || {});
@@ -62,17 +48,6 @@ const UpdateAddressScreen = ({ match, history }) => {
     dispatch(updateSubscription({ subscriptionId, address, city, postalCode, country }));
     history.push('/profile');
   };
-
-  // Object.size = function (obj) {
-  //   var size = 0,
-  //     value;
-  //   for (value in obj) {
-  //     if (obj.hasOwnProperty(value)) size++;
-  //   }
-  //   return size;
-  // };
-
-  // var size = Object.size(shippingAddress);
 
   return (
     <FormContainer>

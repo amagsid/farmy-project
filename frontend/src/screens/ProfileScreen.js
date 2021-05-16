@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
-import { listMySubscriptions } from '../actions/subscriptionActions';
+import { listMySubscriptions, cancelSubscription } from '../actions/subscriptionActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 
 const ProfileScreen = ({ location, history }) => {
@@ -41,10 +41,10 @@ const ProfileScreen = ({ location, history }) => {
   //   subscriptions,
   // } = subscriptionListMy;
 
-  const deleteHandler = (id) => {
+  const cancelHandler = (id) => {
     if (window.confirm('Are you sure')) {
       console.log('delete');
-      // dispatch(deleteProduct(id));
+      dispatch(cancelSubscription(id));
     }
   };
 
@@ -168,15 +168,13 @@ const ProfileScreen = ({ location, history }) => {
                     </LinkContainer>
                   </td>
                   <td>
-                    <LinkContainer to={`/subscription/${subscription._id}`}>
-                      <Button
-                        variant="danger"
-                        className="btn-sm"
-                        onClick={() => deleteHandler(subscription._id)}
-                      >
-                        <i className="fas fa-trash"></i>
-                      </Button>
-                    </LinkContainer>
+                    <Button
+                      variant="danger"
+                      className="btn-sm"
+                      onClick={() => cancelHandler(subscription._id)}
+                    >
+                      <i className="fas fa-trash"></i>
+                    </Button>
                   </td>
                 </tr>
               ))}
