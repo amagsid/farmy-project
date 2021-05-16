@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, InputGroup, FormControl, Col, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { listProducts } from '../actions/productActions';
+import { listBundles } from '../actions/bundleActions';
 
 const Filter = ({ keyword, pageNumber }) => {
   const dispatch = useDispatch();
@@ -20,15 +20,11 @@ const Filter = ({ keyword, pageNumber }) => {
   const [formSubmit, setFormSubmit] = useState(false);
 
   useEffect(() => {
-    dispatch(listProducts(keyword, pageNumber, minPrice, maxPrice, rating, category, sortBy));
+    dispatch(listBundles(keyword, pageNumber, minPrice, maxPrice, rating, category, sortBy));
     // eslint-disable-next-line
   }, [dispatch, keyword, pageNumber, formSubmit]);
 
-  // categories will be changed, once we have data
-  // in future instead of hardcoding data, take categories data from bundles state
-  // const bundlesList = useSelector((state) => state.bundlesList)
-  // const { category } = bundlesList;
-  const categoriesArray = ['All', 'Electronics', 'Vegetables', 'Fruits'];
+  const categoriesArray = ['All', 'FROZEN CATEGORY', 'SMOOTHIES CATEGORY', 'BAGS SQUARE'];
   const ratingsArray = ['Any rating', 1, 2, 3, 4, 5];
 
   const submitHandler = (e) => {

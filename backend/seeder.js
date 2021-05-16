@@ -9,6 +9,7 @@ import Product from './models/productModel.js';
 import Order from './models/orderModel.js';
 import Bundle from './models/bundleModel.js';
 import connectDB from './config/db.js';
+import Subscription from './models/subscriptionModel.js';
 
 dotenv.config();
 
@@ -16,16 +17,18 @@ connectDB();
 
 const importData = async () => {
   try {
-    await Order.deleteMany();
+    // await Order.deleteMany();
     await Product.deleteMany();
     await User.deleteMany();
+    await Bundle.deleteMany();
+    await Subscription.deleteMany();
 
     const createdUsers = await User.insertMany(users);
 
     const adminUser = createdUsers[0]._id;
 
     const sampleProducts = products.map((product) => ({ ...product, user: adminUser }));
-    const sampleBundles = bundles.map((bundle) => ({ ...bundle, createdByUser: adminUser })); // Later I'll Add Ingredient Ref
+    const sampleBundles = bundles.map((bundle) => ({ ...bundle, createdByUser: adminUser }));
 
     await Product.insertMany(sampleProducts);
     await Bundle.insertMany(sampleBundles);
@@ -40,9 +43,11 @@ const importData = async () => {
 
 const destroyData = async () => {
   try {
-    await Order.deleteMany();
+    // await Order.deleteMany();
     await Product.deleteMany();
     await User.deleteMany();
+    await Bundle.deleteMany();
+    await Subscription.deleteMany();
 
     console.log('Data Destroyed!'.red.inverse);
     process.exit();

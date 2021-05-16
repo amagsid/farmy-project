@@ -59,12 +59,17 @@ const ingredientSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    // reviews: [reviewSchema],
-    rating: {
-      type: Number,
+    origin: {
+      type: String,
       required: true,
-      default: 0,
+      default: 'The Netherlands',
     },
+    // reviews: [reviewSchema],
+    // rating: {
+    //   type: Number,
+    //   required: true,
+    //   default: 0,
+    // },
     // numReviews: {
     //   type: Number,
     //   required: true,
@@ -73,12 +78,12 @@ const ingredientSchema = mongoose.Schema(
     price: {
       type: Number,
       required: true,
-      default: 0,
+      default: 9,
     },
     countInStock: {
       type: Number,
       required: true,
-      default: 0,
+      default: 5,
     },
   },
   {
