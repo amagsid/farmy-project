@@ -95,7 +95,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
           <small>If you want to unsubscribe from a product, you can do it on your profile page. 
           Login to your account. 
           Go to your profile page.
-          Choose the product that you want to unsubscribe from and click on the Unsubscribe button</small>`,
+          Choose the product that you want to unsubscribe from and click on the Unsubscribe button.</small>`,
     });
   } else {
     res.status(404);
