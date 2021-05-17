@@ -41,10 +41,15 @@ const SubscriptionListScreen = ({ history }) => {
     }
   }, [dispatch, history]);
 
+  console.log(subscriptions);
+
   return (
     <>
       <ProdileEditTabs profile subscriptions preferences />
-      <h2>you have {subscriptions.length} active subscription</h2>
+      <h2>
+        you have {subscriptions.length} active{' '}
+        {subscriptions.length == 1 ? 'subscription' : 'subscriptions'}{' '}
+      </h2>
       {loadingSubscriptions ? (
         <Loader />
       ) : errorSubscriptions ? (
@@ -57,8 +62,7 @@ const SubscriptionListScreen = ({ history }) => {
               <th>BUNDLES</th>
               <th>DATE</th>
               <th>TOTAL</th>
-              <th>PREFERENCES</th>
-              <th>ADDRESS</th>
+              <th>Bundle Details</th>
               <th>CANCEL</th>
             </tr>
           </thead>
@@ -66,19 +70,13 @@ const SubscriptionListScreen = ({ history }) => {
             {subscriptions.map((subscription) => (
               <tr key={subscription._id}>
                 <td></td>
-                <td></td>
+                <td>{subscription.subscriptionItems[0].name}</td>
                 <td>{subscription.createdAt.substring(0, 10)}</td>
                 <td>{subscription.totalPrice}</td>
                 <td>
-                  <Button>preferences</Button>
+                  <Button>Change</Button>
                 </td>
-                <td>
-                  <LinkContainer to={`/subscription/updateaddress/${subscription._id}`}>
-                    <Button className="btn-sm" variant="light">
-                      Change Address
-                    </Button>
-                  </LinkContainer>
-                </td>
+
                 <td>
                   <Button
                     variant="danger"

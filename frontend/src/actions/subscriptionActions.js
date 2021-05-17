@@ -239,6 +239,7 @@ export const listSubscription = () => async (dispatch, getState) => {
       type: SUBSCRIPTION_LIST_SUCCESS,
       payload: data,
     });
+    localStorage.setItem('shippingAddress', JSON.stringify(data));
   } catch (error) {
     const message =
       error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -269,11 +270,9 @@ export const updateSubscription = (subscription) => async (dispatch, getState) =
       },
     };
 
-    const { subscriptionId, address, city, postalCode, country } = subscription;
+    const { subId, address, city, postalCode, country } = subscription;
 
-    console.log(subscriptionId);
-
-    const { data } = await axios.put(`/api/subscriptions/${subscriptionId}`, subscription, config);
+    const { data } = await axios.put(`/api/subscriptions/${subId}`, subscription, config);
 
     dispatch({
       type: SUBSCRIPTION_UPDATE_SUCCESS,

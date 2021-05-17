@@ -22,6 +22,7 @@ const ProfileScreen = ({ location, history, match }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState(null);
+  const [subId, setSubId] = useState('');
 
   const dispatch = useDispatch();
 
@@ -41,6 +42,20 @@ const ProfileScreen = ({ location, history, match }) => {
     subscriptions,
   } = subscriptionListMy;
 
+  // console.log(subscriptions);
+
+  // const subscription = subscriptions[0];
+  // console.log(subscription);
+
+  // console.log(subscriptions);
+
+  // console.log(subscription._id);
+
+  // const subID = `60a25dee857c4806be6cba64`;
+
+  // console.log(subID);
+
+  // const [address, setAddress] = useState();
   const [address, setAddress] = useState();
   const [city, setCity] = useState();
   const [postalCode, setPostalCode] = useState();
@@ -59,18 +74,21 @@ const ProfileScreen = ({ location, history, match }) => {
     } else {
       if (!user || !user.name || success || !subscriptions) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
+
         dispatch(getUserDetails('profile'));
         dispatch(listMySubscriptions());
       } else {
         setName(user.name);
         setEmail(user.email);
-        setAddress(subscriptions[0].shippingAddress.address);
-        setCity(subscriptions[0].shippingAddress.city);
-        setPostalCode(subscriptions[0].shippingAddress.postalCode);
-        setCountry(subscriptions[0].shippingAddress.country);
+        setAddress();
+        setCity();
+        setPostalCode();
+        setCountry();
       }
     }
-  }, [dispatch, history, userInfo, user, success]);
+  }, [dispatch, history, userInfo, user, success, subscriptions]);
+
+  console.log(subId);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -80,7 +98,7 @@ const ProfileScreen = ({ location, history, match }) => {
       dispatch(updateUserProfile({ id: user._id, name, email, password }));
       dispatch(
         updateSubscription({
-          id: subscriptions[0]._id,
+          subId,
           address,
           city,
           postalCode,
@@ -150,50 +168,60 @@ const ProfileScreen = ({ location, history, match }) => {
             <Message variant="danger">{errorSubscriptions}</Message>
           ) : (
             <>
-              {subscriptions.map(() => (
-                <>
-                  <Form.Group controlId="address">
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter address"
-                      value={address}
-                      required
-                      onChange={(e) => setAddress(e.target.value)}
-                    ></Form.Control>
-                  </Form.Group>
-                  <Form.Group controlId="">
-                    <Form.Label>City</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter city"
-                      value={city || ''}
-                      required
-                      onChange={(e) => setCity(e.target.value)}
-                    ></Form.Control>
-                  </Form.Group>
-                  <Form.Group controlId="postalCode">
-                    <Form.Label>Postal Code</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter postal code"
-                      value={postalCode || ''}
-                      required
-                      onChange={(e) => setPostalCode(e.target.value)}
-                    ></Form.Control>
-                  </Form.Group>
-                  <Form.Group controlId="country">
-                    <Form.Label>Country</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter country"
-                      value={country || ''}
-                      required
-                      onChange={(e) => setCountry(e.target.value)}
-                    ></Form.Control>
-                  </Form.Group>
-                </>
-              ))}
+              <Form.Group>
+                <h6>Choose a subscriotion to change its address </h6>
+                <Form.Control
+                  as="select"
+                  value={subscriptions._id}
+                  onChange={(e) => setSubId(e.target.value)}
+                >
+                  {subscriptions.map((x) => (
+                    <option key={x._id} value={x._id}>
+                      {x.subscriptionItems[0].name}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+              <Form.Group controlId="address">
+                <Form.Label>Address</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter address"
+                  value={address}
+                  required
+                  onChange={(e) => setAddress(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group controlId="">
+                <Form.Label>City</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter city"
+                  value={city || ''}
+                  required
+                  onChange={(e) => setCity(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group controlId="postalCode">
+                <Form.Label>Postal Code</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter postal code"
+                  value={postalCode || ''}
+                  required
+                  onChange={(e) => setPostalCode(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group controlId="country">
+                <Form.Label>Country</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter country"
+                  value={country || ''}
+                  required
+                  onChange={(e) => setCountry(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
             </>
           )}
 

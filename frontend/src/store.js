@@ -77,6 +77,10 @@ const initialState = {
     shippingAddress: shippingAddressFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
+
+  // subscriptionShippingAddress: {
+  //   shippingAddress: shippingAddressFromStorage,
+  // },
 };
 
 const middleware = [thunk];
