@@ -25,21 +25,20 @@ connectDB();
 const importData = async () => {
   try {
     // await Order.deleteMany();
-    await Product.deleteMany();
+    // await Product.deleteMany();
     await User.deleteMany();
     await Bundle.deleteMany();
     await Ingredient.deleteMany();
-    await Subscription.deleteMany();
+    // await Subscription.deleteMany();
 
     const createdUsers = await User.insertMany(users);
 
     const adminUser = createdUsers[0]._id;
 
-    const sampleProducts = products.map((product) => ({ ...product, user: adminUser }));
+    // const sampleProducts = products.map((product) => ({ ...product, user: adminUser }));
     const sampleBundles = bundles.map((bundle) => ({
       ...bundle,
       createdByUser: adminUser,
-      // ingredients: [...ingredients, firstIngredientId[index]._id],
     })); // Later I'll Add Ingredients Ref
 
     const bundleId = await Bundle.insertMany(sampleBundles);
@@ -63,12 +62,42 @@ const importData = async () => {
       bundles: thirdBundle,
     }));
 
-    await Product.insertMany(sampleProducts);
-
+    // await Product.insertMany(sampleProducts);
     const firstIngredientId = await Ingredient.insertMany(firstIngredient);
     const secondIngredientId = await Ingredient.insertMany(secondIngredient);
     const thirdIngredientId = await Ingredient.insertMany(thirdIngredient);
 
+    const firstIngredientIds = firstIngredientId.map((item) => item._id);
+    const secondIngredientIds = secondIngredientId.map((item) => item._id);
+    const thirdIngredientIds = thirdIngredientId.map((item) => item._id);
+
+    await Bundle.updateOne(
+      { _id: firstBundle },
+      {
+        $set: {
+          ingredients: [...firstIngredientIds],
+        },
+      },
+      { upsert: true },
+    );
+    await Bundle.updateOne(
+      { _id: secondBundle },
+      {
+        $set: {
+          ingredients: [...secondIngredientIds],
+        },
+      },
+      { upsert: true },
+    );
+    await Bundle.updateOne(
+      { _id: thirdBundle },
+      {
+        $set: {
+          ingredients: [...thirdIngredientIds],
+        },
+      },
+      { upsert: true },
+    );
     console.log('Data Imported!'.green.inverse);
     process.exit();
   } catch (error) {
@@ -80,11 +109,11 @@ const importData = async () => {
 const destroyData = async () => {
   try {
     // await Order.deleteMany();
-    await Product.deleteMany();
+    // await Product.deleteMany();
     await User.deleteMany();
     await Bundle.deleteMany();
     await Ingredient.deleteMany();
-    await Subscription.deleteMany();
+    // await Subscription.deleteMany();
 
     console.log('Data Destroyed!'.red.inverse);
     process.exit();
