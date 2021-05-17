@@ -56,7 +56,6 @@ const getSubscriptionById = asyncHandler(async (req, res) => {
 // @access  Private
 const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
   const subscription = await Subscription.findById(req.params.id);
-
   if (subscription) {
     subscription.isPaid = true;
     subscription.paidAt = Date.now();
@@ -69,7 +68,7 @@ const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
 
     const updatedSubscription = await subscription.save();
 
-    res.json(updatedSubscription);
+    console.log(updatedSubscription);
 
     // a transporter object
     const transporter = nodemailer.createTransport({
@@ -91,17 +90,18 @@ const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
       to: `${req.user.email}`,
       subject: 'You are subscribed',
       html: `<h1>Hi, ${req.user.name}!</h1>
-          <p>You have subscribed to the bundle of ${updatedSubscription.subscriptionItems[0].name}!
+          <p>You have subscribed to the bundle of ${updatedSubscription.subscriptionItems[0].name}
           <br>
-          You will receive your bundle ${updatedSubscription.subscriptionItems[0].orderFrq} ${
-        updatedSubscription.subscriptionItems[0].orderFrq === 1 ? 'time' : 'times'
-      } per ${updatedSubscription.subscriptionItems[0].orderPer}.
+          <img src="https:${updatedSubscription.subscriptionItems[0].image}" width="200" />
+          <br>
           The subscription has been paid by ${updatedSubscription.paymentMethod} payment method.</p>
           <small>If you want to unsubscribe from a product, you can do it on your profile page. 
           Login to your account. 
           Go to your profile page.
           Choose the product that you want to unsubscribe from and click on the Unsubscribe button.</small>`,
     });
+
+    res.json(updatedSubscription);
   } else {
     res.status(404);
     throw new Error('Order not found');
