@@ -88,16 +88,16 @@ const updateSubscriptionToDelivered = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Get logged in user orders
-// @route   GET /api/orders/myorders
+// @desc    Get logged in user subscribtions
+// @route   GET /api/subscribtions/mysubscribtions
 // @access  Private
 const getMySubscription = asyncHandler(async (req, res) => {
   const subscription = await Subscription.find({ user: req.user._id });
   res.json(subscription);
 });
 
-// @desc    Get all orders
-// @route   GET /api/orders
+// @desc    Get all subscribtions
+// @route   GET /api/subscribtions
 // @access  Private/Admin
 const getSubscription = asyncHandler(async (req, res) => {
   const subscription = await Subscription.find({}).populate('user', 'id name');

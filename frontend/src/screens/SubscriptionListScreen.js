@@ -41,6 +41,8 @@ const SubscriptionListScreen = ({ history }) => {
     }
   }, [dispatch, history]);
 
+  console.log(subscriptions);
+
   return (
     <>
       <ProdileEditTabs profile subscriptions preferences />
@@ -67,7 +69,9 @@ const SubscriptionListScreen = ({ history }) => {
           <tbody>
             {subscriptions.map((subscription) => (
               <tr key={subscription._id}>
-                <td></td>
+                <td>
+                  <img style={{ width: '80px' }} src={subscription.subscriptionItems[0].image} />
+                </td>
                 <td>{subscription.subscriptionItems[0].name}</td>
                 <td>{subscription.createdAt.substring(0, 10)}</td>
                 <td>{subscription.totalPrice}</td>
