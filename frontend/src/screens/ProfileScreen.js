@@ -7,6 +7,9 @@ import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import { listMySubscriptions, cancelSubscription } from '../actions/subscriptionActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
+import UpdateAddressScreen from './UpdateAddressScreen';
+import ProdileEditTabs from '../components/ProdileEditTabs';
+import FormContainer from '../components/FormContainer';
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('');
@@ -14,6 +17,11 @@ const ProfileScreen = ({ location, history }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState(null);
+
+  const [address, setAddress] = useState({});
+  const [city, setCity] = useState({});
+  const [postalCode, setPostalCode] = useState({});
+  const [country, setCountry] = useState({});
 
   const dispatch = useDispatch();
 
@@ -33,13 +41,7 @@ const ProfileScreen = ({ location, history }) => {
     subscriptions,
   } = subscriptionListMy;
 
-  // const subscriptionDetails = useSelector((state) => state.subscriptionDetails);
-  // console.log(subscriptionListMy);
-  // const {
-  //   loading: loadingSubscriptions,
-  //   error: errorSubscriptions,
-  //   subscriptions,
-  // } = subscriptionListMy;
+  console.log(subscriptions);
 
   const cancelHandler = (id) => {
     if (window.confirm('Are you sure')) {
@@ -63,6 +65,8 @@ const ProfileScreen = ({ location, history }) => {
     }
   }, [dispatch, history, userInfo, user, success]);
 
+  console.log(user);
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -72,117 +76,121 @@ const ProfileScreen = ({ location, history }) => {
     }
   };
 
+  console.log(user);
+
   return (
-    <Row>
-      <Col md={3}>
-        <h2>User Profile</h2>
-        {message && <Message variant="danger">{message}</Message>}
-        {}
-        {success && <Message variant="success">Profile Updated</Message>}
-        {loading ? (
-          <Loader />
-        ) : error ? (
-          <Message variant="danger">{error}</Message>
-        ) : (
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId="name">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="name"
-                placeholder="Enter name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+    <FormContainer>
+      <ProdileEditTabs profile subscriptions preferences />
 
-            <Form.Group controlId="email">
-              <Form.Label>Email Address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+      <h2>Hello, {user.name}</h2>
+      {message && <Message variant="danger">{message}</Message>}
+      {}
+      {success && <Message variant="success">Profile Updated</Message>}
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        <Form onSubmit={submitHandler}>
+          <Form.Group controlId="name">
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              type="name"
+              placeholder="Enter name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
 
-            <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+          <Form.Group controlId="email">
+            <Form.Label>Email Address</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
 
-            <Form.Group controlId="confirmPassword">
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Confirm password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+          <Form.Group controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
 
-            <Button type="submit" variant="primary">
-              Update
-            </Button>
-          </Form>
-        )}
-      </Col>
-      <Col md={9}>
-        <h2>My Subscriptions</h2>
-        {loadingSubscriptions ? (
-          <Loader />
-        ) : errorSubscriptions ? (
-          <Message variant="danger">{errorSubscriptions}</Message>
-        ) : (
-          <Table striped bordered hover responsive className="table-sm">
-            <thead>
-              <tr>
-                <th></th>
-                <th>BUNDLES</th>
-                <th>DATE</th>
-                <th>TOTAL</th>
-                <th>PREFERENCES</th>
-                <th>ADDRESS</th>
-                <th>CANCEL</th>
-              </tr>
-            </thead>
-            <tbody>
-              {subscriptions.map((subscription) => (
-                <tr key={subscription._id}>
-                  <td></td>
-                  <td></td>
-                  <td>{subscription.createdAt.substring(0, 10)}</td>
-                  <td>{subscription.totalPrice}</td>
-                  <td>
-                    <Button>preferences</Button>
-                  </td>
-                  <td>
-                    <LinkContainer to={`/subscription/updateaddress/${subscription._id}`}>
-                      <Button className="btn-sm" variant="light">
-                        Change Address
-                      </Button>
-                    </LinkContainer>
-                  </td>
-                  <td>
-                    <Button
-                      variant="danger"
-                      className="btn-sm"
-                      onClick={() => cancelHandler(subscription._id)}
-                    >
-                      <i className="fas fa-trash"></i>
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        )}
-      </Col>
-    </Row>
+          <Form.Group controlId="confirmPassword">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+
+          {loadingSubscriptions ? (
+            <Loader />
+          ) : errorSubscriptions ? (
+            <Message variant="danger">{errorSubscriptions}</Message>
+          ) : (
+            subscriptions.map((sub) => (
+              <Form onSubmit={submitHandler}>
+                <Form.Group controlId="address">
+                  <Form.Label>Address</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter address"
+                    value={sub.shippingAddress.address || ''}
+                    required
+                    onChange={(e) => setAddress(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+                <Form.Group controlId="">
+                  <Form.Label>City</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter city"
+                    value={sub.shippingAddress.city || ''}
+                    required
+                    onChange={(e) => setCity(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+
+                <Form.Group controlId="postalCode">
+                  <Form.Label>Postal Code</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter postal code"
+                    value={sub.shippingAddress.postalCode || ''}
+                    required
+                    onChange={(e) => setPostalCode(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+
+                <Form.Group controlId="country">
+                  <Form.Label>Country</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter country"
+                    value={sub.shippingAddress.country || ''}
+                    required
+                    onChange={(e) => setCountry(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </Form>
+            ))
+          )}
+
+          <Button type="submit" variant="primary">
+            Update
+          </Button>
+        </Form>
+      )}
+    </FormContainer>
   );
 };
 

@@ -17,6 +17,8 @@ import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import ProductListScreen from './screens/BundleListScreen';
 import ProductEditScreen from './screens/BundleEditScreen';
+import SubscriptionListScreen from './screens/SubscriptionListScreen';
+import PrefernceScreen from './screens/PreferenceScreen';
 
 const App = () => {
   return (
@@ -31,6 +33,8 @@ const App = () => {
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
           <Route path="/profile" component={ProfileScreen} />
+          <Route path="/subscriptions" component={SubscriptionListScreen} />
+          <Route path="/preferences" component={PrefernceScreen} />
 
           <Route path="/subscription/updateaddress/:id" component={UpdateAddressScreen} />
 
