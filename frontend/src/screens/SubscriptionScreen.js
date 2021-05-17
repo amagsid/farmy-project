@@ -43,7 +43,7 @@ const SubscriptionScreen = ({ match, history }) => {
 
     subscription.itemsPrice = addDecimals(
       subscription.subscriptionItems.reduce(
-        (acc, item) => acc + item.price * item.qty * item.frq,
+        (acc, item) => acc + item.price * item.qty * item.orderFrq,
         0
       )
     );
@@ -147,8 +147,8 @@ const SubscriptionScreen = ({ match, history }) => {
                           <Link to={`/bundle/${item.product}`}>{item.name}</Link>
                         </Col>
                         <Col md={6}>
-                          {item.qty} people x ${item.price} x {item.frq} weekly= $
-                          {item.qty * item.price * item.frq}
+                          {item.qty} people x ${item.price} x {item.orderFrq} every {item.orderPer}=
+                          ${item.qty * item.price * item.orderFrq}
                         </Col>
                       </Row>
                     </ListGroup.Item>
