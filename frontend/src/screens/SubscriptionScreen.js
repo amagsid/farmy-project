@@ -80,7 +80,6 @@ const SubscriptionScreen = ({ match, history }) => {
   }, [dispatch, subscriptionId, successPay, successDeliver, subscription, userInfo, history]);
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
     dispatch(paySubscription(subscriptionId, paymentResult));
   };
 

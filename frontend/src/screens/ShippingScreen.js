@@ -20,7 +20,6 @@ const ShippingScreen = ({ history }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isValidNumber, setIsValidNumber] = useState(null);
 
-  console.log(typeof phoneNumber);
   const validatePhoneNumber = () => {
     if (isValidPhoneNumber(phoneNumber)) {
       setIsValidNumber(true);

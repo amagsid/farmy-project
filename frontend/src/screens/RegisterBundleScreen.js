@@ -7,7 +7,7 @@ import Loader from '../components/Loader';
 import { listBundlesNewUser } from '../actions/bundleActions';
 import { SUBSCRIPTION_CREATE_RESET } from '../constants/subscriptionConstants';
 
-const RegisterBundleScreen = ({ history, match }) => {
+const RegisterBundleScreen = ({ history }) => {
   const [orderPer, setOrderPer] = useState('');
   const [orderFrequency, setOrderFrequency] = useState(1);
   const [selectedBundleId, setSelectedBundleId] = useState('');

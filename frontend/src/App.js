@@ -32,9 +32,7 @@ const App = () => {
           <Route path="/placesubscription" component={PlaceSubscriptionScreen} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/register/bundleplan/" component={RegisterBundleScreen} />
-
           <Route path="/register" component={RegisterScreen} exact />
-
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/bundle/:id" component={BundleScreen} />
           <Route path="/cart/:id?" component={CartScreen} />

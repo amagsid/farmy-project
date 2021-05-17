@@ -17,9 +17,6 @@ const CartScreen = ({ match, location, history }) => {
   const orderPer = location.search ? location.search.slice(1).split('&')[2].split('=')[1] : 1;
   const dispatch = useDispatch();
 
-  console.log(qty);
-  console.log(orderFrq);
-  console.log(orderPer);
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
