@@ -9,8 +9,6 @@ const addSubscriptionItems = asyncHandler(async (req, res) => {
  bundles, shippingAddress, paymentMethod, taxPrice, shippingPrice, totalPrice,
 } = req.body;
 
-  console.log(req.user);
-
   if (bundles && bundles.length === 0) {
     res.status(400);
     throw new Error('No bundle items');
@@ -89,8 +87,6 @@ const updateSubscriptionToDelivered = asyncHandler(async (req, res) => {
     throw new Error('Order not found');
   }
 });
-
-// apply this
 
 // @desc    Get logged in user orders
 // @route   GET /api/orders/myorders

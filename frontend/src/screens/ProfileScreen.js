@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Table, Form, Button, Row, Col } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
-import {
-  listMySubscriptions,
-  cancelSubscription,
-  updateSubscription,
-} from '../actions/subscriptionActions';
+import { listMySubscriptions, updateSubscription } from '../actions/subscriptionActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
-import UpdateAddressScreen from './UpdateAddressScreen';
 import ProdileEditTabs from '../components/ProdileEditTabs';
 import FormContainer from '../components/FormContainer';
 
-const ProfileScreen = ({ location, history, match }) => {
-  // const subscriptionId = match.params.id;
+const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -42,31 +37,12 @@ const ProfileScreen = ({ location, history, match }) => {
     subscriptions,
   } = subscriptionListMy;
 
-  // console.log(subscriptions);
-
-  // const subscription = subscriptions[0];
-  // console.log(subscription);
-
-  // console.log(subscriptions);
-
-  // console.log(subscription._id);
-
-  // const subID = `60a25dee857c4806be6cba64`;
-
-  // console.log(subID);
-
-  // const [address, setAddress] = useState();
   const [address, setAddress] = useState();
   const [city, setCity] = useState();
   const [postalCode, setPostalCode] = useState();
   const [country, setCountry] = useState();
 
-  const cancelHandler = (id) => {
-    if (window.confirm('Are you sure')) {
-      console.log('delete');
-      dispatch(cancelSubscription(id));
-    }
-  };
+  const timeInHours = new Date().getHours();
 
   useEffect(() => {
     if (!userInfo) {
@@ -86,9 +62,7 @@ const ProfileScreen = ({ location, history, match }) => {
         setCountry();
       }
     }
-  }, [dispatch, history, userInfo, user, success, subscriptions]);
-
-  console.log(subId);
+  }, [dispatch, history, userInfo, user, success, subscriptions, subId]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -108,13 +82,23 @@ const ProfileScreen = ({ location, history, match }) => {
     }
   };
 
+  console.log(subId);
+
   return (
     <FormContainer>
       <ProdileEditTabs profile subscriptions preferences />
 
-      <h2>Hello, {user.name}</h2>
+      <h2>
+        {timeInHours > 0 && timeInHours < 12
+          ? 'Good morning'
+          : timeInHours >= 12 && timeInHours <= 15
+          ? 'good afternoon'
+          : timeInHours > 16 && timeInHours <= 24
+          ? 'good evening'
+          : 'hello'}
+        , {user.name}!
+      </h2>
       {message && <Message variant="danger">{message}</Message>}
-      {}
       {success && <Message variant="success">Profile Updated</Message>}
       {loading ? (
         <Loader />
@@ -169,12 +153,13 @@ const ProfileScreen = ({ location, history, match }) => {
           ) : (
             <>
               <Form.Group>
-                <h6>Choose a subscriotion to change its address </h6>
+                <h6>Change address </h6>
                 <Form.Control
                   as="select"
                   value={subscriptions._id}
                   onChange={(e) => setSubId(e.target.value)}
                 >
+                  <option>choose a subscription to change its address</option>
                   {subscriptions.map((x) => (
                     <option key={x._id} value={x._id}>
                       {x.subscriptionItems[0].name}
@@ -224,7 +209,6 @@ const ProfileScreen = ({ location, history, match }) => {
               </Form.Group>
             </>
           )}
-
           <Button type="submit" variant="primary">
             Update
           </Button>

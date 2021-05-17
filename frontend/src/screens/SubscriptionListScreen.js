@@ -41,8 +41,6 @@ const SubscriptionListScreen = ({ history }) => {
     }
   }, [dispatch, history]);
 
-  console.log(subscriptions);
-
   return (
     <>
       <ProdileEditTabs profile subscriptions preferences />

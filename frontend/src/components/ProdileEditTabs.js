@@ -18,7 +18,7 @@ const ProdileEditTabs = ({ profile, subscriptions, preferences }) => {
       <Nav.Item>
         {subscriptions ? (
           <LinkContainer to="/subscriptions">
-            <Nav.Link>Subscriptions</Nav.Link>
+            <Nav.Link className={'active'}>Subscriptions</Nav.Link>
           </LinkContainer>
         ) : (
           <Nav.Link>Subscriptions</Nav.Link>
