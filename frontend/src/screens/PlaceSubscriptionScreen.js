@@ -24,7 +24,7 @@ const PlaceSubscriptionScreen = ({ history }) => {
   };
 
   cart.itemsPrice = addDecimals(
-    cart.cartItems.reduce((acc, item) => acc + item.price * item.qty * item.frq, 0)
+    cart.cartItems.reduce((acc, item) => acc + item.price * item.qty * item.orderFrq, 0)
   );
   cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100);
   cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)));
@@ -96,8 +96,8 @@ const PlaceSubscriptionScreen = ({ history }) => {
                           <Link to={`/bundle/${item.product}`}>{item.name}</Link>
                         </Col>
                         <Col md={6}>
-                          {item.qty} people x ${item.price} x {item.frq} weekly= $
-                          {item.qty * item.price * item.frq}
+                          {item.qty} people x ${item.price} x {item.orderFrq} times every{' '}
+                          {item.orderPer}= ${item.qty * item.price * item.orderFrq}
                         </Col>
                       </Row>
                     </ListGroup.Item>

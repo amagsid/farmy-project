@@ -8,12 +8,14 @@ import { listBundlesNewUser } from '../actions/bundleActions';
 import { SUBSCRIPTION_CREATE_RESET } from '../constants/subscriptionConstants';
 
 const RegisterBundleScreen = ({ history, match }) => {
-  const [frequency, setFrequency] = useState(1);
+  const [orderPer, setOrderPer] = useState('');
+  const [orderFrequency, setOrderFrequency] = useState(1);
   const [selectedBundleId, setSelectedBundleId] = useState('');
   const [houseHold, setHouseHold] = useState(1);
 
-  // This array to map for the options of household and frequency
+  // This array to map for the options of household and frequency and how often
   const arrayOfNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const arrayOfTime = ['Week', '2 Weeks', 'Month'];
 
   const dispatch = useDispatch();
 
@@ -35,7 +37,9 @@ const RegisterBundleScreen = ({ history, match }) => {
   }, [dispatch, userInfo, history]);
 
   const addToCartHandler = () => {
-    history.push(`/cart/${selectedBundleId}?qty=${houseHold}&frq=${frequency}`);
+    history.push(
+      `/cart/${selectedBundleId}?qty=${houseHold}&frq=${orderFrequency}&orderper=${orderPer}`
+    );
   };
 
   return (
@@ -96,12 +100,29 @@ const RegisterBundleScreen = ({ history, match }) => {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row className="pl-5 pb-5">
-                    <h3>How many Bundles per week?</h3>
+                    <h3>How often would like to receive the bundle?</h3>
                     <Form.Control
                       as="select"
                       className="signup-bundle-options rounded pl-4"
-                      value={frequency}
-                      onChange={(e) => setFrequency(e.target.value)}
+                      value={orderPer}
+                      onChange={(e) => setOrderPer(e.target.value)}
+                    >
+                      {arrayOfTime.map((x, index) => (
+                        <option key={index} className="signup-bundle-options" value={x}>
+                          {x}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row className="pl-5 pb-5">
+                    <h3>How many times per {orderPer}?</h3>
+                    <Form.Control
+                      as="select"
+                      className="signup-bundle-options rounded pl-4"
+                      value={orderFrequency}
+                      onChange={(e) => setOrderFrequency(e.target.value)}
                     >
                       {arrayOfNumbers.map((x, index) => (
                         <option key={index} className="signup-bundle-options" value={x}>
@@ -118,19 +139,22 @@ const RegisterBundleScreen = ({ history, match }) => {
             {selectedBundleId !== '' && (
               <Message variant="info">
                 You will receive <em className="font-weight-bold">{selectedBundle.name}</em> bundle{' '}
-                <em className="font-weight-bold">{frequency}</em> peer week and for{' '}
+                <em className="font-weight-bold">{orderFrequency}</em> times every{' '}
+                <em className="font-weight-bold">{orderPer}</em> and for{' '}
                 <em className="font-weight-bold">{houseHold}</em> people
               </Message>
             )}
           </Row>
           <Row className="border-bottom py-3 my-2">
             <Col className="d-flex align-items-center justify-content-center">
-              <Link to={`/cart/${selectedBundleId}?qty=${houseHold}&frq=${frequency}`}>
+              <Link
+                to={`/cart/${selectedBundleId}?qty=${houseHold}&frq=${orderFrequency}&orderper=${orderPer}`}
+              >
                 <Button
                   onClick={addToCartHandler}
                   variant="dark"
                   className="rounded  signup-bundle-button"
-                  disabled={!selectedBundleId}
+                  disabled={!selectedBundleId || !orderFrequency || !houseHold || !orderPer}
                 >
                   To CArt
                 </Button>
