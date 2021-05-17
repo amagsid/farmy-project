@@ -12,7 +12,7 @@ import { BUNDLE_CREATE_REVIEW_RESET } from '../constants/bundleConstants';
 const BundleScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
   const [orderFrq, setOrderFrq] = useState(1);
-  const [orderPer, setOrderPer] = useState(1);
+  const [orderPer, setOrderPer] = useState('');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
@@ -132,8 +132,8 @@ const BundleScreen = ({ history, match }) => {
                         <Col>
                           <Form.Control
                             as="select"
-                            value={orderFrq}
-                            onChange={(e) => setOrderFrq(e.target.value)}
+                            value={orderPer}
+                            onChange={(e) => setOrderPer(e.target.value)}
                           >
                             {arrayOfTime.map((x, index) => (
                               <option key={index} className="signup-bundle-options" value={x}>
@@ -152,8 +152,8 @@ const BundleScreen = ({ history, match }) => {
                         <Col>
                           <Form.Control
                             as="select"
-                            value={orderPer}
-                            onChange={(e) => setOrderPer(e.target.value)}
+                            value={orderFrq}
+                            onChange={(e) => setOrderFrq(e.target.value)}
                           >
                             {[...Array(bundle.countInStock).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>

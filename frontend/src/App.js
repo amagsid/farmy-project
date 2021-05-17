@@ -35,7 +35,7 @@ const App = () => {
           <Route path="/register" component={RegisterScreen} exact />
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/bundle/:id" component={BundleScreen} />
-          <Route path="/cart/:id?" component={CartScreen} />
+          <Route path="/cart/:id" component={CartScreen} />
           <Route path="/admin/userlist" component={UserListScreen} />
           <Route path="/admin/user/:id/edit" component={UserEditScreen} />
           <Route path="/admin/bundlelist" component={BundleListScreen} exact />
