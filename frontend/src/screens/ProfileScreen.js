@@ -5,23 +5,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
-import { listMySubscriptions, cancelSubscription } from '../actions/subscriptionActions';
+import {
+  listMySubscriptions,
+  cancelSubscription,
+  updateSubscription,
+} from '../actions/subscriptionActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 import UpdateAddressScreen from './UpdateAddressScreen';
 import ProdileEditTabs from '../components/ProdileEditTabs';
 import FormContainer from '../components/FormContainer';
 
-const ProfileScreen = ({ location, history }) => {
+const ProfileScreen = ({ location, history, match }) => {
+  // const subscriptionId = match.params.id;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState(null);
-
-  const [address, setAddress] = useState({});
-  const [city, setCity] = useState({});
-  const [postalCode, setPostalCode] = useState({});
-  const [country, setCountry] = useState({});
 
   const dispatch = useDispatch();
 
@@ -41,7 +41,10 @@ const ProfileScreen = ({ location, history }) => {
     subscriptions,
   } = subscriptionListMy;
 
-  console.log(subscriptions);
+  const [address, setAddress] = useState();
+  const [city, setCity] = useState();
+  const [postalCode, setPostalCode] = useState();
+  const [country, setCountry] = useState();
 
   const cancelHandler = (id) => {
     if (window.confirm('Are you sure')) {
@@ -54,18 +57,20 @@ const ProfileScreen = ({ location, history }) => {
     if (!userInfo) {
       history.push('/login');
     } else {
-      if (!user || !user.name || success) {
+      if (!user || !user.name || success || !subscriptions) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails('profile'));
         dispatch(listMySubscriptions());
       } else {
         setName(user.name);
         setEmail(user.email);
+        setAddress(subscriptions[0].shippingAddress.address);
+        setCity(subscriptions[0].shippingAddress.city);
+        setPostalCode(subscriptions[0].shippingAddress.postalCode);
+        setCountry(subscriptions[0].shippingAddress.country);
       }
     }
   }, [dispatch, history, userInfo, user, success]);
-
-  console.log(user);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -73,10 +78,17 @@ const ProfileScreen = ({ location, history }) => {
       setMessage('Passwords do not match');
     } else {
       dispatch(updateUserProfile({ id: user._id, name, email, password }));
+      dispatch(
+        updateSubscription({
+          id: subscriptions[0]._id,
+          address,
+          city,
+          postalCode,
+          country,
+        })
+      );
     }
   };
-
-  console.log(user);
 
   return (
     <FormContainer>
@@ -137,52 +149,52 @@ const ProfileScreen = ({ location, history }) => {
           ) : errorSubscriptions ? (
             <Message variant="danger">{errorSubscriptions}</Message>
           ) : (
-            subscriptions.map((sub) => (
-              <Form onSubmit={submitHandler}>
-                <Form.Group controlId="address">
-                  <Form.Label>Address</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter address"
-                    value={sub.shippingAddress.address || ''}
-                    required
-                    onChange={(e) => setAddress(e.target.value)}
-                  ></Form.Control>
-                </Form.Group>
-                <Form.Group controlId="">
-                  <Form.Label>City</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter city"
-                    value={sub.shippingAddress.city || ''}
-                    required
-                    onChange={(e) => setCity(e.target.value)}
-                  ></Form.Control>
-                </Form.Group>
-
-                <Form.Group controlId="postalCode">
-                  <Form.Label>Postal Code</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter postal code"
-                    value={sub.shippingAddress.postalCode || ''}
-                    required
-                    onChange={(e) => setPostalCode(e.target.value)}
-                  ></Form.Control>
-                </Form.Group>
-
-                <Form.Group controlId="country">
-                  <Form.Label>Country</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter country"
-                    value={sub.shippingAddress.country || ''}
-                    required
-                    onChange={(e) => setCountry(e.target.value)}
-                  ></Form.Control>
-                </Form.Group>
-              </Form>
-            ))
+            <>
+              {subscriptions.map(() => (
+                <>
+                  <Form.Group controlId="address">
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter address"
+                      value={address}
+                      required
+                      onChange={(e) => setAddress(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                  <Form.Group controlId="">
+                    <Form.Label>City</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter city"
+                      value={city || ''}
+                      required
+                      onChange={(e) => setCity(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                  <Form.Group controlId="postalCode">
+                    <Form.Label>Postal Code</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter postal code"
+                      value={postalCode || ''}
+                      required
+                      onChange={(e) => setPostalCode(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                  <Form.Group controlId="country">
+                    <Form.Label>Country</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter country"
+                      value={country || ''}
+                      required
+                      onChange={(e) => setCountry(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                </>
+              ))}
+            </>
           )}
 
           <Button type="submit" variant="primary">
