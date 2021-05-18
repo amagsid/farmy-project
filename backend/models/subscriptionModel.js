@@ -1,16 +1,19 @@
+/* eslint-disable comma-dangle */
 import mongoose from 'mongoose';
 
-const orderSchema = mongoose.Schema(
+const subscriptionSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
     },
-    orderItems: [
+    subscriptionItems: [
       {
         name: { type: String, required: true },
         qty: { type: Number, required: true },
+        orderPer: { type: String, required: true },
+        orderFrq: { type: Number, required: true },
         image: { type: String, required: true },
         price: { type: Number, required: true },
         product: {
@@ -20,7 +23,16 @@ const orderSchema = mongoose.Schema(
         },
       },
     ],
+    bundles: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Bundle',
+      },
+    ],
     shippingAddress: {
+      name: { type: String, required: true },
+      phoneNumber: { type: String, required: true },
       address: { type: String, required: true },
       city: { type: String, required: true },
       postalCode: { type: String, required: true },
@@ -70,9 +82,9 @@ const orderSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
-const Order = mongoose.model('Order', orderSchema);
+const Subscription = mongoose.model('Subscription', subscriptionSchema);
 
-export default Order;
+export default Subscription;
