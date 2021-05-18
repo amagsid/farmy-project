@@ -1,4 +1,3 @@
-/* eslint-disable comma-dangle */
 import mongoose from 'mongoose';
 
 const reviewSchema = mongoose.Schema(
@@ -14,7 +13,7 @@ const reviewSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const bundleSchema = mongoose.Schema(
@@ -24,7 +23,7 @@ const bundleSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    ingredient: [
+    ingredients: [
       {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -91,7 +90,7 @@ const bundleSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const Bundle = mongoose.model('Bundle', bundleSchema);

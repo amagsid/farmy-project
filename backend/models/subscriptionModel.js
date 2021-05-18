@@ -1,4 +1,3 @@
-/* eslint-disable comma-dangle */
 import mongoose from 'mongoose';
 
 const subscriptionSchema = mongoose.Schema(
@@ -16,18 +15,13 @@ const subscriptionSchema = mongoose.Schema(
         orderFrq: { type: Number, required: true },
         image: { type: String, required: true },
         price: { type: Number, required: true },
-        product: {
-          type: mongoose.Schema.Types.ObjectId,
-          required: true,
-          ref: 'Product',
-        },
-      },
-    ],
-    bundles: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Bundle',
+        bundles: [
+          {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'Bundle',
+          },
+        ],
       },
     ],
     shippingAddress: {
@@ -82,7 +76,7 @@ const subscriptionSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const Subscription = mongoose.model('Subscription', subscriptionSchema);
