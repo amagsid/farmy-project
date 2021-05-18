@@ -233,16 +233,6 @@ export const listBundlesNewUser = () => async (dispatch) => {
   try {
     dispatch({ type: BUNDLE_SIGNUP_NEW_USER_REQUEST });
 
-    // const {
-    //   userLogin: { userInfo },
-    // } = getState();
-
-    // const config = {
-    //   headers: {
-    //     Authorization: `Bearer ${userInfo.token}`,
-    //   },
-    // };
-
     const { data } = await axios.get(`/api/bundles`);
 
     dispatch({
