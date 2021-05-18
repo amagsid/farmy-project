@@ -1,16 +1,17 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import {
-  productListReducer,
-  productDetailsReducer,
-  productDeleteReducer,
-  productCreateReducer,
-  productUpdateReducer,
-  productReviewCreateReducer,
-  productTopRatedReducer,
-} from './reducers/productReducers'
-import { cartReducer } from './reducers/cartReducers'
+  bundleListReducer,
+  bundleDetailsReducer,
+  bundleDeleteReducer,
+  bundleCreateReducer,
+  bundleUpdateReducer,
+  bundleReviewCreateReducer,
+  bundleTopRatedReducer,
+  bundleSignupNewUserReducer,
+} from './reducers/bundleReducers';
+import { cartReducer } from './reducers/cartReducers';
 import {
   userLoginReducer,
   userRegisterReducer,
@@ -19,24 +20,25 @@ import {
   userListReducer,
   userDeleteReducer,
   userUpdateReducer,
-} from './reducers/userReducers'
+} from './reducers/userReducers';
 import {
-  orderCreateReducer,
-  orderDetailsReducer,
-  orderPayReducer,
-  orderDeliverReducer,
-  orderListMyReducer,
-  orderListReducer,
-} from './reducers/orderReducers'
+  subscriptionCreateReducer,
+  subscriptionDetailsReducer,
+  subscriptionPayReducer,
+  subscriptionDeliverReducer,
+  subscriptionListMyReducer,
+  subscriptionListReducer,
+} from './reducers/subscriptionReducers';
 
 const reducer = combineReducers({
-  productList: productListReducer,
-  productDetails: productDetailsReducer,
-  productDelete: productDeleteReducer,
-  productCreate: productCreateReducer,
-  productUpdate: productUpdateReducer,
-  productReviewCreate: productReviewCreateReducer,
-  productTopRated: productTopRatedReducer,
+  bundleList: bundleListReducer,
+  bundleSignupNewUser: bundleSignupNewUserReducer,
+  bundleDetails: bundleDetailsReducer,
+  bundleDelete: bundleDeleteReducer,
+  bundleCreate: bundleCreateReducer,
+  bundleUpdate: bundleUpdateReducer,
+  bundleReviewCreate: bundleReviewCreateReducer,
+  bundleTopRated: bundleTopRatedReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -45,25 +47,25 @@ const reducer = combineReducers({
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
-  orderCreate: orderCreateReducer,
-  orderDetails: orderDetailsReducer,
-  orderPay: orderPayReducer,
-  orderDeliver: orderDeliverReducer,
-  orderListMy: orderListMyReducer,
-  orderList: orderListReducer,
-})
+  subscriptionCreate: subscriptionCreateReducer,
+  subscriptionDetails: subscriptionDetailsReducer,
+  subscriptionPay: subscriptionPayReducer,
+  subscriptionDeliver: subscriptionDeliverReducer,
+  subscriptionListMy: subscriptionListMyReducer,
+  subscriptionList: subscriptionListReducer,
+});
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
-  : []
+  : [];
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
-  : null
+  : null;
 
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
   ? JSON.parse(localStorage.getItem('shippingAddress'))
-  : {}
+  : {};
 
 const initialState = {
   cart: {
@@ -71,14 +73,14 @@ const initialState = {
     shippingAddress: shippingAddressFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
-}
+};
 
-const middleware = [thunk]
+const middleware = [thunk];
 
 const store = createStore(
   reducer,
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
-)
+);
 
-export default store
+export default store;

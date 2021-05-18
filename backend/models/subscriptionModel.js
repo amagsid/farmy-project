@@ -7,27 +7,26 @@ const subscriptionSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    // orderItems: [
-    //   {
-    //     name: { type: String, required: true },
-    //     qty: { type: Number, required: true },
-    //     image: { type: String, required: true },
-    //     price: { type: Number, required: true },
-    //     product: {
-    //       type: mongoose.Schema.Types.ObjectId,
-    //       required: true,
-    //       ref: 'Product',
-    //     },
-    //   },
-    // ],
-    bundles: [
+    subscriptionItems: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Bundle',
+        name: { type: String, required: true },
+        qty: { type: Number, required: true },
+        orderPer: { type: String, required: true },
+        orderFrq: { type: Number, required: true },
+        image: { type: String, required: true },
+        price: { type: Number, required: true },
+        bundles: [
+          {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'Bundle',
+          },
+        ],
       },
     ],
     shippingAddress: {
+      name: { type: String, required: true },
+      phoneNumber: { type: String, required: true },
       address: { type: String, required: true },
       city: { type: String, required: true },
       postalCode: { type: String, required: true },

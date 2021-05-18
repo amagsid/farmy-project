@@ -30,18 +30,18 @@ const bundleSchema = mongoose.Schema(
         ref: 'Ingredient',
       },
     ],
-    // bundleItems: [
-    //   {
-    //     name: { type: String, required: true },
-    //     image: { type: String, required: true },
-    //     price: { type: Number, required: true },
-    //     ingredient: {
-    //       type: mongoose.Schema.Types.ObjectId,
-    //       required: true,
-    //       ref: 'Ingredient',
-    //     },
-    //   },
-    // ], I will keep this code may in the future we need it with other features
+    bundleItems: [
+      {
+        name: { type: String, required: true },
+        image: { type: String, required: true },
+        price: { type: Number, required: true },
+        ingredient: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: 'Ingredient',
+        },
+      },
+    ],
     name: {
       type: String,
       required: true,
@@ -80,12 +80,12 @@ const bundleSchema = mongoose.Schema(
     price: {
       type: Number,
       required: true,
-      default: 19,
+      default: 0,
     },
     countInStock: {
       type: Number,
       required: true,
-      default: 25,
+      default: 0,
     },
   },
   {

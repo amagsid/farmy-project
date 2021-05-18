@@ -46,6 +46,40 @@ h2 {
 .carousel a {
   margin: 0 auto;
 }
+.PhoneInput {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 1.5rem + 0px);
+  padding: 0.75rem 1.5rem;
+
+  color: #55595c;
+  background-color: #f7f7f9;
+  background-clip: padding-box;
+  border: 0px solid #ced4da;
+  border-radius: 0;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.PhoneInputInput {
+  height: calc(1.4em + 1.4rem + 0px);
+
+  background-color: #f7f7f9;
+  background-clip: padding-box;
+  border: 0px solid #ced4da;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  border: 0px solid #ced4da;
+  outline: none;
+
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.signup-bundle-options {
+  width: 80%;
+}
+.signup-bundle-button {
+  margin: 0 auto;
+}
 @media (max-width: 900px) {
   .carousel-caption h2 {
     font-size: 2.5vw;
