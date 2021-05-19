@@ -83,14 +83,22 @@ const getBundles = asyncHandler(async (req, res) => {
     .limit(pageSize)
     .skip(pageSize * (page - 1));
 
-  if (req.query.sortBy === 'highestPrice') {
-    bundles.sort((high, low) => low.price - high.price);
-  } else if (req.query.sortBy === 'lowestPrice') {
-    bundles.sort((high, low) => high.price - low.price);
-  } else if (req.query.sortBy === 'rating') {
-    bundles.sort((high, low) => low.rating - high.rating);
-  } else if (req.query.sortBy === 'newest') {
-    bundles.sort((newer, older) => older.createdAt - newer.createdAt);
+    // sorting by one of the selected criterias
+  switch (req.query.sortBy) {
+    case 'highestPrice':
+      bundles.sort((high, low) => low.price - high.price);
+      break;
+    case 'lowestPrice':
+      bundles.sort((high, low) => high.price - low.price);
+      break;
+    case 'rating':
+      bundles.sort((high, low) => low.rating - high.rating);
+      break;
+    case 'newest':
+      bundles.sort((newer, older) => older.createdAt - newer.createdAt);
+      break;
+    default:
+      break;
   }
 
   res.json({ bundles, page, pages: Math.ceil(count / pageSize) });

@@ -12,11 +12,16 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 import feedback from '../feedback.json';
 import introduction from '../introduction.json';
+import Filter from '../components/Filter';
 
-const FarmyHomeScreen = () => {
+const FarmyHomeScreen = ({ match }) => {
   const dispatch = useDispatch();
   const bundleList = useSelector((state) => state.bundleList);
   const { loading, error, bundles } = bundleList;
+
+  const keyword = match.params.keyword;
+
+  const pageNumber = match.params.pageNumber || 1;
 
   useEffect(() => {
     dispatch(listBundles());
@@ -43,6 +48,7 @@ const FarmyHomeScreen = () => {
       </Container>
       <Container className="mb-5">
         <h1>Our Bundles</h1>
+        <Filter keyword={keyword} pageNumber={pageNumber} />
         {loading ? (
           <Loader />
         ) : error ? (

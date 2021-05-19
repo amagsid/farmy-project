@@ -5,8 +5,8 @@
         "description": "Our healthy ready meals are delicious, vibrant dishes, handcrafted in small batches by our wonderful chefs. Frozen from fresh and packed with nutritious, quality ingredients, they're full of flavour as well as being gluten free and dairy free.",
         "status": "Suitable for the oven or microwave in as little as 8 minutes.",
         "category": "FROZEN CATEGORY",
-        "price": 0,
-        "countInStock": 0,
+        "price": 19,
+        "countInStock": 25,
         "rating": 0,
         "numReviews": 0
     },
@@ -16,8 +16,8 @@
         "description": "Kickstart your morning with a delicious, nutritious smoothie to awaken the senses and get you through the day.",
         "status": "Pre-prepped and full of frozen fruit, veg and healthy grains with no nasties, simply add a splash of your chosen liquid (we love coconut water!) blitz, and you’re good to go.",
         "category": "SMOOTHIES CATEGORY",
-        "price": 0,
-        "countInStock": 0,
+        "price": 19,
+        "countInStock": 25,
         "rating": 0,
         "numReviews": 0
     },
@@ -27,8 +27,8 @@
         "description": "Default Description",
         "status": "Default Status",
         "category": "BAGS SQUARE",
-        "price": 0,
-        "countInStock": 0,
+        "price": 19,
+        "countInStock": 25,
         "rating": 0,
         "numReviews": 0
     }

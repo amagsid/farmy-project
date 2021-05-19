@@ -6,17 +6,13 @@ import { listBundles } from '../actions/bundleActions';
 const Filter = ({ keyword, pageNumber }) => {
   const dispatch = useDispatch();
 
-  const initialRating = 0;
-  const initialSort = '';
-  const initialMinPrice = '';
-  const initialMaxPrice = '';
-  const initialCategory = '';
+  const initialValue = '';
 
-  const [minPrice, setMinPrice] = useState(initialMinPrice);
-  const [maxPrice, setMaxPrice] = useState(initialMaxPrice);
-  const [rating, setRating] = useState(initialRating);
-  const [category, setCategory] = useState(initialCategory);
-  const [sortBy, setSortBy] = useState(initialSort);
+  const [minPrice, setMinPrice] = useState(initialValue);
+  const [maxPrice, setMaxPrice] = useState(initialValue);
+  const [rating, setRating] = useState(initialValue);
+  const [category, setCategory] = useState(initialValue);
+  const [sortBy, setSortBy] = useState(initialValue);
   const [formSubmit, setFormSubmit] = useState(false);
 
   useEffect(() => {
@@ -33,11 +29,11 @@ const Filter = ({ keyword, pageNumber }) => {
   };
 
   const clearFilterHandler = () => {
-    setMinPrice(initialMinPrice);
-    setMaxPrice(initialMaxPrice);
-    setRating(initialRating);
-    setCategory(initialCategory);
-    setSortBy(initialSort);
+    setMinPrice(initialValue);
+    setMaxPrice(initialValue);
+    setRating(initialValue);
+    setCategory(initialValue);
+    setSortBy(initialValue);
   };
 
   return (

@@ -104,7 +104,6 @@ const destroyData = async () => {
   try {
     await User.deleteMany();
     await Bundle.deleteMany();
-    await Ingredient.deleteMany();
     await Subscription.deleteMany();
 
     console.log('Data Destroyed!'.red.inverse);

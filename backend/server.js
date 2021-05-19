@@ -5,12 +5,10 @@ import colors from 'colors';
 import morgan from 'morgan';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import connectDB from './config/db.js';
-
 import bundleRoutes from './routes/bundleRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import subscriptionRoutes from './routes/subscriptionRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
-import bundlesRoutes from './routes/bundlesRoutes.js';
 
 dotenv.config();
 

@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col } from 'react-bootstrap';
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Row, Col } from 'react-bootstrap'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import Paginate from '../components/Paginate'
+// import ProductCarousel from '../components/ProductCarousel'
+import Meta from '../components/Meta'
+import Filter from "../components/Filter"
+import { listBundles, listLatestBundles } from '../actions/bundleActions';
 import Bundle from '../components/Bundle';
-import Message from '../components/Message';
-import Loader from '../components/Loader';
-import Meta from '../components/Meta';
-import Filter from '../components/Filter';
-import { listLatestBundles } from '../actions/bundleActions';
 
-const HomeScreen = () => {
+
+const HomeScreen = ({ match }) => {
   const dispatch = useDispatch();
 
   const bundleLatest = useSelector((state) => state.bundleLatest);
@@ -24,9 +27,9 @@ const HomeScreen = () => {
 
   // Commented code below for next week's ticket!
 
-  // const keyword = match.params.keyword;
+  const keyword = match.params.keyword;
 
-  // const pageNumber = match.params.pageNumber || 1;
+  const pageNumber = match.params.pageNumber || 1;
 
   // const dispatch = useDispatch();
 
