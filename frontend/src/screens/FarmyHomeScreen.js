@@ -7,7 +7,7 @@ import FeedBack from '../components/FeedBack';
 import IntroductionCard from '../components/IntroductionCard';
 import { Row, Col, Container, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { listBundles } from '../actions/bundlesActions';
+import { listBundles } from '../actions/bundleActions';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 import feedback from '../feedback.json';
@@ -15,8 +15,8 @@ import introduction from '../introduction.json';
 
 const FarmyHomeScreen = () => {
   const dispatch = useDispatch();
-  const bundlesList = useSelector((state) => state.bundlesList);
-  const { loading, error, bundles } = bundlesList;
+  const bundleList = useSelector((state) => state.bundleList);
+  const { loading, error, bundles } = bundleList;
 
   useEffect(() => {
     dispatch(listBundles());

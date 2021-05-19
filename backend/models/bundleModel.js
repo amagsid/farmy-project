@@ -18,11 +18,30 @@ const reviewSchema = mongoose.Schema(
 
 const bundleSchema = mongoose.Schema(
   {
-    user: {
+    createdByUser: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
     },
+    ingredients: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Ingredient',
+      },
+    ],
+    bundleItems: [
+      {
+        name: { type: String, required: true },
+        image: { type: String, required: true },
+        price: { type: Number, required: true },
+        ingredient: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: 'Ingredient',
+        },
+      },
+    ],
     name: {
       type: String,
       required: true,
@@ -31,14 +50,22 @@ const bundleSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    category: {
-      type: String,
-      required: true,
-    },
     description: {
       type: String,
       required: true,
+      default: ' ',
     },
+    status: {
+      type: String,
+      required: true,
+      default: ' ',
+    },
+    category: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     reviews: [reviewSchema],
     rating: {
       type: Number,
