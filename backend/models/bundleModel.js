@@ -93,6 +93,6 @@ const bundleSchema = mongoose.Schema(
   },
 );
 
-const Bundle = mongoose.model('Bundle', bundleSchema);
+const Bundles = mongoose.model('Bundles', bundleSchema);
 
-export default Bundle;
+export default Bundles;
