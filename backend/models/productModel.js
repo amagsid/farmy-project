@@ -36,6 +36,12 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    ingredients: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ingredient',
+      },
+    ],
     description: {
       type: String,
       required: true,

@@ -11,17 +11,87 @@ const getBundles = asyncHandler(async (req, res) => {
 
   const keyword = req.query.keyword
     ? {
-        name: {
-          $regex: req.query.keyword,
-          $options: 'i',
+        $or: [
+          {
+            name: {
+              $regex: req.query.keyword,
+              $options: 'i',
+            },
+          },
+          {
+            category: {
+              $regex: req.query.keyword,
+              $options: 'i',
+            },
+          },
+          {
+            description: {
+              $regex: req.query.keyword,
+              $options: 'i',
+            },
+          },
+        ],
+      }
+    : {};
+
+  if (req.query.keyword) {
+    const ingredients = await Ingredient.find({ ...keyword }, 'bundles');
+    if (ingredients.length > 0) {
+      const ingredientBundles = ingredients.map((ingredient) => ingredient.bundles).flat(1);
+      keyword.$or.push(
+        { _id: ingredientBundles },
+        {
+          'reviews.comment': {
+            $regex: req.query.keyword,
+            $options: 'i',
+          },
+        },
+      );
+    }
+  }
+
+  const price = {
+    price: {
+      $gte: Number(req.query.minPrice) || 0,
+      $lt: Number(req.query.maxPrice) || 99999999,
+    },
+  };
+
+  const ratingQuery = Number(req.query.rating);
+  const rating = ratingQuery
+    ? {
+        rating: {
+          $gte: ratingQuery,
+          $lt: ratingQuery + 1,
         },
       }
     : {};
 
+  const category = req.query.category
+    ? {
+        category: req.query.category,
+      }
+    : {};
+
   const count = await Bundle.countDocuments({ ...keyword });
-  const bundles = await Bundle.find({ ...keyword })
+  const bundles = await Bundle.find({
+    ...keyword,
+    ...rating,
+    ...price,
+    ...category,
+  })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
+
+  if (req.query.sortBy === 'highestPrice') {
+    bundles.sort((high, low) => low.price - high.price);
+  } else if (req.query.sortBy === 'lowestPrice') {
+    bundles.sort((high, low) => high.price - low.price);
+  } else if (req.query.sortBy === 'rating') {
+    bundles.sort((high, low) => low.rating - high.rating);
+  } else if (req.query.sortBy === 'newest') {
+    bundles.sort((newer, older) => older.createdAt - newer.createdAt);
+  }
 
   res.json({ bundles, page, pages: Math.ceil(count / pageSize) });
 });
@@ -35,7 +105,7 @@ const getBundlesNewUser = asyncHandler(async (req, res) => {
   res.json(bundles);
 });
 
-// @desc    Fetch single product
+// @desc    Fetch single bundle
 // @route   GET /api/bundles/:id
 // @access  Public
 const getBundleById = asyncHandler(async (req, res) => {

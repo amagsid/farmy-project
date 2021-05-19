@@ -6,6 +6,7 @@ import Bundle from '../components/Bundle';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Meta from '../components/Meta';
+import Filter from '../components/Filter';
 import { listLatestBundles } from '../actions/bundleActions';
 
 const HomeScreen = () => {
@@ -39,12 +40,15 @@ const HomeScreen = () => {
   return (
     <>
       <Meta />
+      {/* <Filter keyword={keyword} pageNumber={pageNumber} /> */}
+      {/* {!keyword ? <h1>Latest Bundles</h1> : <h1>Search Results for "{keyword}"</h1>} */}
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
         <>
+          {!bundles.length && <Message variant="primary">Nothing found</Message>}
           {userInfo && (
             <>
               <Message variant="success">Welcome {userInfo.name}!</Message>

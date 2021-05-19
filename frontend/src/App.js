@@ -40,7 +40,7 @@ const App = () => {
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/subscriptions" component={SubscriptionListScreen} />
           <Route path="/preferences" component={PrefernceScreen} />
-          
+
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/admin/userlist" component={UserListScreen} />
           <Route path="/admin/user/:id/edit" component={UserEditScreen} />
