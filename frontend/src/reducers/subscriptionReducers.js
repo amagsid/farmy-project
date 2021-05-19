@@ -21,6 +21,13 @@ import {
   SUBSCRIPTION_DELIVER_REQUEST,
   SUBSCRIPTION_DELIVER_RESET,
   SUBSCRIPTION_CREATE_RESET,
+  SUBSCRIPTION_UPDATE_REQUEST,
+  SUBSCRIPTION_UPDATE_SUCCESS,
+  SUBSCRIPTION_UPDATE_FAIL,
+  SUBSCRIPTION_UPDATE_RESET,
+  SUBSCRIPTION_CANCEL_REQUEST,
+  SUBSCRIPTION_CANCEL_SUCCESS,
+  SUBSCRIPTION_CANCEL_FAIL,
 } from '../constants/subscriptionConstants';
 
 export const subscriptionCreateReducer = (state = {}, action) => {
@@ -33,7 +40,7 @@ export const subscriptionCreateReducer = (state = {}, action) => {
       return {
         loading: false,
         success: true,
-        subscription: action.payload,
+        subscriptions: action.payload,
       };
     case SUBSCRIPTION_CREATE_FAIL:
       return {
@@ -60,7 +67,7 @@ export const subscriptionDetailsReducer = (
     case SUBSCRIPTION_DETAILS_SUCCESS:
       return {
         loading: false,
-        subscription: action.payload,
+        subscriptions: action.payload,
       };
     case SUBSCRIPTION_DETAILS_FAIL:
       return {
@@ -135,7 +142,22 @@ export const subscriptionListMyReducer = (state = { subscriptions: [] }, action)
         error: action.payload,
       };
     case SUBSCRIPTION_LIST_MY_RESET:
-      return { orders: [] };
+      return { subscriptions: [] };
+    default:
+      return state;
+  }
+};
+
+export const subscriptionUpdateReducer = (state = { subscription: {} }, action) => {
+  switch (action.type) {
+    case SUBSCRIPTION_UPDATE_REQUEST:
+      return { loading: true };
+    case SUBSCRIPTION_UPDATE_SUCCESS:
+      return { loading: false, success: true, subscription: action.payload };
+    case SUBSCRIPTION_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
+    case SUBSCRIPTION_UPDATE_RESET:
+      return { subscription: {} };
     default:
       return state;
   }
@@ -157,6 +179,19 @@ export const subscriptionListReducer = (state = { subscriptions: [] }, action) =
         loading: false,
         error: action.payload,
       };
+    default:
+      return state;
+  }
+};
+
+export const subscriptionCancelReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SUBSCRIPTION_CANCEL_REQUEST:
+      return { loading: true };
+    case SUBSCRIPTION_CANCEL_SUCCESS:
+      return { loading: false, success: true };
+    case SUBSCRIPTION_CANCEL_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

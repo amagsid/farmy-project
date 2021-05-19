@@ -19,6 +19,7 @@ import UserEditScreen from './screens/UserEditScreen';
 import BundleListScreen from './screens/BundleListScreen';
 import BundleEditScreen from './screens/BundleEditScreen';
 import SubscriptionListScreen from './screens/SubscriptionListScreen';
+import PrefernceScreen from './screens/PreferenceScreen';
 import RegisterBundleScreen from './screens/RegisterBundleScreen';
 
 const App = () => {
@@ -35,18 +36,17 @@ const App = () => {
           <Route path="/register/bundleplan/" component={RegisterBundleScreen} />
           <Route path="/register" component={RegisterScreen} exact />
           <Route path="/profile" component={ProfileScreen} />
+          <Route path="/subscriptions" component={SubscriptionListScreen} />
+          <Route path="/preferences" component={PrefernceScreen} />
           <Route path="/bundle/:id" component={BundleScreen} />
-          <Route path="/cart/:id" component={CartScreen} />
+          <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/admin/userlist" component={UserListScreen} />
           <Route path="/admin/user/:id/edit" component={UserEditScreen} />
-          {/* <Route path="/admin/productlist" component={ProductListScreen} exact />
-          <Route path="/admin/productlist/:pageNumber" component={ProductListScreen} exact />
-          <Route path="/admin/product/:id/edit" component={ProductEditScreen} />
-          <Route path="/admin/orderlist" component={OrderListScreen} /> */}
-          {/* <Route path="/search/:keyword" component={HomeScreen} exact />
+          <Route path="/search/:keyword" component={HomeScreen} exact />
           <Route path="/page/:pageNumber" component={HomeScreen} exact />
-          <Route path="/search/:keyword/page/:pageNumber" component={HomeScreen} exact /> */}
+          <Route path="/search/:keyword/page/:pageNumber" component={HomeScreen} exact />
           <Route path="/" component={FarmyHomeScreen} exact />
+          {/* <Route path="/" component={HomeScreen} exact /> */}
         </Container>
       </main>
       <Footer />

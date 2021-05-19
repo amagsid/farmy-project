@@ -29,6 +29,8 @@ import {
   subscriptionDeliverReducer,
   subscriptionListMyReducer,
   subscriptionListReducer,
+  subscriptionUpdateReducer,
+  subscriptionCancelReducer,
 } from './reducers/subscriptionReducers';
 
 const reducer = combineReducers({
@@ -55,6 +57,8 @@ const reducer = combineReducers({
   subscriptionDeliver: subscriptionDeliverReducer,
   subscriptionListMy: subscriptionListMyReducer,
   subscriptionList: subscriptionListReducer,
+  subscriptionUpdate: subscriptionUpdateReducer,
+  subscriptionCancel: subscriptionCancelReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
@@ -75,6 +79,10 @@ const initialState = {
     shippingAddress: shippingAddressFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
+
+  // subscriptionShippingAddress: {
+  //   shippingAddress: shippingAddressFromStorage,
+  // },
 };
 
 const middleware = [thunk];

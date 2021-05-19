@@ -22,7 +22,7 @@ const bundles = [
       'Pre-prepped and full of frozen fruit, veg and healthy grains with no nasties, simply add a splash of your chosen liquid (we love coconut water!) blitz, and you’re good to go.',
     category: 'SMOOTHIES CATEGORY',
     price: 50,
-    countInStock: 5,
+    countInStock: 3,
     rating: 0,
     numReviews: 0,
   },

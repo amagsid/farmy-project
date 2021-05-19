@@ -4,72 +4,94 @@ import { Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { listSubscription } from '../actions/subscriptionActions';
+import { listMySubscriptions, cancelSubscription } from '../actions/subscriptionActions';
+import ProdileEditTabs from '../components/ProdileEditTabs';
 
 const SubscriptionListScreen = ({ history }) => {
   const dispatch = useDispatch();
 
-  const subscriptionList = useSelector((state) => state.subscriptionList);
-  const { loading, error, subscriptions } = subscriptionList;
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user } = userDetails;
+  // const subscriptionList = useSelector((state) => state.subscriptionList);
+  // // const { loading, error, subscriptions } = subscriptionList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listSubscription());
-    } else {
-      history.push('/login');
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  const { success } = userUpdateProfile;
+
+  const subscriptionCancel = useSelector((state) => state.subscriptionCancel);
+  const { success: cancelSuccess, loading: cancelLoading, error: cancelError } = subscriptionCancel;
+
+  const subscriptionListMy = useSelector((state) => state.subscriptionListMy);
+  const {
+    loading: loadingSubscriptions,
+    error: errorSubscriptions,
+    subscriptions,
+  } = subscriptionListMy;
+
+  const cancelHandler = (id) => {
+    if (window.confirm('Are you sure')) {
+      console.log('delete');
+      dispatch(cancelSubscription(id));
     }
-  }, [dispatch, history, userInfo]);
+  };
+
+  useEffect(() => {
+    if (!user || !user.name || success) {
+      dispatch(listMySubscriptions());
+    } else {
+      history.push('/subscriptions');
+    }
+  }, [dispatch, userInfo, history, subscriptions, success, cancelSuccess]);
 
   return (
     <>
-      <h1>Orders</h1>
-      {loading ? (
+      <ProdileEditTabs profile subscriptions preferences />
+      <h2>
+        you have {subscriptions.length} active{' '}
+        {subscriptions.length == 1 ? 'subscription' : 'subscriptions'}{' '}
+      </h2>
+      {loadingSubscriptions ? (
         <Loader />
-      ) : error ? (
-        <Message variant="danger">{error}</Message>
+      ) : errorSubscriptions ? (
+        <Message variant="danger">{errorSubscriptions}</Message>
       ) : (
         <Table striped bordered hover responsive className="table-sm">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>USER</th>
+              <th></th>
+              <th>BUNDLES</th>
               <th>DATE</th>
               <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
-              <th></th>
+              <th>Bundle Details</th>
+              <th>CANCEL</th>
             </tr>
           </thead>
           <tbody>
             {subscriptions.map((subscription) => (
               <tr key={subscription._id}>
-                <td>{subscription._id}</td>
-                <td>{subscription.user && subscription.user.name}</td>
+                <td>
+                  <img style={{ width: '80px' }} src={subscription.subscriptionItems[0].image} />
+                </td>
+                <td>{subscription.subscriptionItems[0].name}</td>
                 <td>{subscription.createdAt.substring(0, 10)}</td>
-                <td>${subscription.totalPrice}</td>
+                <td>{subscription.totalPrice}</td>
                 <td>
-                  {subscription.isPaid ? (
-                    subscription.paidAt.substring(0, 10)
-                  ) : (
-                    <i className="fas fa-times" style={{ color: 'red' }}></i>
-                  )}
-                </td>
-                <td>
-                  {subscription.isDelivered ? (
-                    subscription.deliveredAt.substring(0, 10)
-                  ) : (
-                    <i className="fas fa-times" style={{ color: 'red' }}></i>
-                  )}
-                </td>
-                <td>
-                  <LinkContainer to={`/subscription/${subscription._id}`}>
-                    <Button variant="light" className="btn-sm">
-                      Details
-                    </Button>
+                  <LinkContainer to={`/register/bundleplan`}>
+                    <Button>Change</Button>
                   </LinkContainer>
+                </td>
+
+                <td>
+                  <Button
+                    variant="danger"
+                    className="btn-sm"
+                    onClick={() => cancelHandler(subscription._id)}
+                  >
+                    <i className="fas fa-trash"></i>
+                  </Button>
                 </td>
               </tr>
             ))}
