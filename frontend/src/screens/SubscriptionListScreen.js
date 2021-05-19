@@ -19,6 +19,9 @@ const SubscriptionListScreen = ({ history }) => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
+  const subscriptionCancel = useSelector((state) => state.subscriptionCancel);
+  const { success: cancelSuccess, loading: cancelLoading, error: cancelError } = subscriptionCancel;
+
   const subscriptionListMy = useSelector((state) => state.subscriptionListMy);
   const {
     loading: loadingSubscriptions,
@@ -39,9 +42,7 @@ const SubscriptionListScreen = ({ history }) => {
     } else {
       history.push('/subscriptions');
     }
-  }, [dispatch, history]);
-
-  console.log(subscriptions);
+  }, [dispatch, userInfo, history, subscriptions, success, cancelSuccess]);
 
   return (
     <>
