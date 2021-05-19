@@ -24,7 +24,7 @@ const FarmyHomeScreen = () => {
 
   return (
     <>
-      <Container className='mb-5'>
+      <Container className="mb-5">
         <h1>pay less to eat healthy</h1>
         <Row>
           {introduction &&
@@ -41,7 +41,7 @@ const FarmyHomeScreen = () => {
             })}
         </Row>
       </Container>
-      <Container className='mb-5'>
+      <Container className="mb-5">
         <h1>Our Bundles</h1>
         {loading ? (
           <Loader />
@@ -52,18 +52,20 @@ const FarmyHomeScreen = () => {
             {bundles &&
               bundles.map((bundle) => (
                 <Col>
-                  <Link to={`/api/bundles/${bundle._id}`}>
+                  <Link to={`/bundles/${bundle._id}`}>
                     <FarmyBundle key={bundle._id} name={bundle.name} image={bundle.image} />
                   </Link>
                   <LinkContainer to={`/subscription/${bundle._id}`}>
-                    <Button variant="outline-success" size="lg" block>Subscribe</Button>
+                    <Button variant="outline-success" size="lg" block>
+                      Subscribe
+                    </Button>
                   </LinkContainer>
                 </Col>
               ))}
           </Row>
         )}
       </Container>
-      <Container className='mb-5'>
+      <Container className="mb-5">
         <h1>Loved by thousands of customers</h1>
         <Row>
           {feedback &&
