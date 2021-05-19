@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col } from 'react-bootstrap'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import Paginate from '../components/Paginate'
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Row, Col } from 'react-bootstrap';
+import Message from '../components/Message';
+import Loader from '../components/Loader';
+import Paginate from '../components/Paginate';
 // import ProductCarousel from '../components/ProductCarousel'
-import Meta from '../components/Meta'
-import Filter from "../components/Filter"
+import Meta from '../components/Meta';
+import Filter from '../components/Filter';
 import { listBundles, listLatestBundles } from '../actions/bundleActions';
 import Bundle from '../components/Bundle';
-
 
 const HomeScreen = ({ match }) => {
   const dispatch = useDispatch();

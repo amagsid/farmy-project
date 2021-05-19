@@ -10,6 +10,7 @@ const addSubscriptionItems = asyncHandler(async (req, res) => {
     subscriptionItems,
     shippingAddress,
     paymentMethod,
+    itemsPrice,
     taxPrice,
     shippingPrice,
     totalPrice,
@@ -24,6 +25,7 @@ const addSubscriptionItems = asyncHandler(async (req, res) => {
     user: req.user._id,
     shippingAddress,
     paymentMethod,
+    itemsPrice,
     taxPrice,
     shippingPrice,
     totalPrice,
@@ -66,6 +68,7 @@ const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
 
     const updatedSubscription = await subscription.save();
 
+    console.log(updatedSubscription);
     // a transporter object
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
