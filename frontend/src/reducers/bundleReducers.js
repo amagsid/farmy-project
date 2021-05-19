@@ -23,6 +23,9 @@ import {
   BUNDLE_TOP_REQUEST,
   BUNDLE_TOP_SUCCESS,
   BUNDLE_TOP_FAIL,
+  BUNDLE_LATEST_REQUEST,
+  BUNDLE_LATEST_SUCCESS,
+  BUNDLE_LATEST_FAIL,
   BUNDLE_SIGNUP_NEW_USER_REQUEST,
   BUNDLE_SIGNUP_NEW_USER_SUCCESS,
   BUNDLE_SIGNUP_NEW_USER_FAIL,
@@ -130,6 +133,22 @@ export const bundleTopRatedReducer = (state = { bundles: [] }, action) => {
   }
 };
 
+export const bundleLatestReducer = (state = { bundles: [] }, action) => {
+  switch (action.type) {
+    case BUNDLE_LATEST_REQUEST:
+      return { loading: true, bundles: [] };
+    case BUNDLE_LATEST_SUCCESS:
+      return {
+        loading: false,
+        bundles: action.payload,
+      };
+    case BUNDLE_LATEST_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 export const bundleSignupNewUserReducer = (state = { bundles: [] }, action) => {
   switch (action.type) {
     case BUNDLE_SIGNUP_NEW_USER_REQUEST:
@@ -137,6 +156,7 @@ export const bundleSignupNewUserReducer = (state = { bundles: [] }, action) => {
     case BUNDLE_SIGNUP_NEW_USER_SUCCESS:
       return {
         loading: false,
+        success: true,
         bundles: action.payload.bundles,
       };
     case BUNDLE_SIGNUP_NEW_USER_FAIL:

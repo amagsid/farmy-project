@@ -9,6 +9,7 @@ import {
   bundleUpdateReducer,
   bundleReviewCreateReducer,
   bundleTopRatedReducer,
+  bundleLatestReducer,
   bundleSignupNewUserReducer,
 } from './reducers/bundleReducers';
 import { cartReducer } from './reducers/cartReducers';
@@ -41,6 +42,7 @@ const reducer = combineReducers({
   bundleUpdate: bundleUpdateReducer,
   bundleReviewCreate: bundleReviewCreateReducer,
   bundleTopRated: bundleTopRatedReducer,
+  bundleLatest: bundleLatestReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,

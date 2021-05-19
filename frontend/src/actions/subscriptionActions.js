@@ -39,8 +39,6 @@ export const createSubscription = (subscription) => async (dispatch, getState) =
       userLogin: { userInfo },
     } = getState();
 
-    console.log(userInfo);
-
     const config = {
       headers: {
         'Content-Type': 'application/json',

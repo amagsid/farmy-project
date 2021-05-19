@@ -55,7 +55,7 @@ export const subscriptionCreateReducer = (state = {}, action) => {
 };
 
 export const subscriptionDetailsReducer = (
-  state = { loading: true, orderItems: [], shippingAddress: {} },
+  state = { loading: true, subscriptionItems: [], shippingAddress: {} },
   action
 ) => {
   switch (action.type) {

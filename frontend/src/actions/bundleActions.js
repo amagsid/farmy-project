@@ -21,6 +21,9 @@ import {
   BUNDLE_TOP_REQUEST,
   BUNDLE_TOP_SUCCESS,
   BUNDLE_TOP_FAIL,
+  BUNDLE_LATEST_REQUEST,
+  BUNDLE_LATEST_SUCCESS,
+  BUNDLE_LATEST_FAIL,
   BUNDLE_SIGNUP_NEW_USER_REQUEST,
   BUNDLE_SIGNUP_NEW_USER_SUCCESS,
   BUNDLE_SIGNUP_NEW_USER_FAIL,
@@ -225,19 +228,28 @@ export const listTopBundles = () => async (dispatch) => {
   }
 };
 
+export const listLatestBundles = () => async (dispatch) => {
+  try {
+    dispatch({ type: BUNDLE_LATEST_REQUEST });
+
+    const { data } = await axios.get(`/api/bundles/latest`);
+
+    dispatch({
+      type: BUNDLE_LATEST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: BUNDLE_LATEST_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+
 export const listBundlesNewUser = () => async (dispatch) => {
   try {
     dispatch({ type: BUNDLE_SIGNUP_NEW_USER_REQUEST });
-
-    // const {
-    //   userLogin: { userInfo },
-    // } = getState();
-
-    // const config = {
-    //   headers: {
-    //     Authorization: `Bearer ${userInfo.token}`,
-    //   },
-    // };
 
     const { data } = await axios.get(`/api/bundles`);
 

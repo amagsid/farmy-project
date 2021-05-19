@@ -82,8 +82,6 @@ const ProfileScreen = ({ location, history }) => {
     }
   };
 
-  console.log(subId);
-
   return (
     <FormContainer>
       <ProdileEditTabs profile subscriptions preferences />

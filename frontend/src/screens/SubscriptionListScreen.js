@@ -11,7 +11,9 @@ const SubscriptionListScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
+  const { user } = userDetails;
+  // const subscriptionList = useSelector((state) => state.subscriptionList);
+  // // const { loading, error, subscriptions } = subscriptionList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;

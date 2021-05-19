@@ -25,7 +25,7 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_REQUEST,
 } from '../constants/userConstants';
-import { ORDER_LIST_MY_RESET } from '../constants/orderConstants';
+import { SUBSCRIPTION_LIST_MY_RESET } from '../constants/subscriptionConstants';
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -63,6 +63,7 @@ export const logout = () => (dispatch) => {
   localStorage.removeItem('paymentMethod');
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET });
+  dispatch({ type: SUBSCRIPTION_LIST_MY_RESET });
   dispatch({ type: USER_LIST_RESET });
   document.location.href = '/login';
 };

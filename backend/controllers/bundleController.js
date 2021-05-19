@@ -150,6 +150,13 @@ const createBundleReview = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Get latest bundles
+// @route   GET /api/bundles/latest
+// @access  Public
+const getLatestBundles = asyncHandler(async (req, res) => {
+  const bundles = await Bundle.find({}).sort({ createdAt: 'desc' }).limit(3);
+});
+
 // @desc    Get top rated products
 // @route   GET /api/products/top
 // @access  Public
@@ -167,5 +174,6 @@ export {
   updateBundle,
   createBundleReview,
   getTopBundle,
+  getLatestBundles,
   getBundlesNewUser,
 };

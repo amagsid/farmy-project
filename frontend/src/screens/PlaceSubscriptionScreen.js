@@ -8,7 +8,7 @@ import { createSubscription } from '../actions/subscriptionActions';
 import { SUBSCRIPTION_CREATE_RESET } from '../constants/subscriptionConstants';
 import { USER_DETAILS_RESET } from '../constants/userConstants';
 
-const PlaceOrderScreen = ({ history }) => {
+const PlaceSubscriptionScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
@@ -18,13 +18,14 @@ const PlaceOrderScreen = ({ history }) => {
   } else if (!cart.paymentMethod) {
     history.push('/payment');
   }
+
   //   Calculate prices
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
 
   cart.itemsPrice = addDecimals(
-    cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+    cart.cartItems.reduce((acc, item) => acc + item.price * item.qty * item.orderFrq, 0)
   );
   cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100);
   cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)));
@@ -34,22 +35,21 @@ const PlaceOrderScreen = ({ history }) => {
     Number(cart.taxPrice)
   ).toFixed(2);
 
-  const orderCreate = useSelector((state) => state.orderCreate);
-  const { order, success, error } = orderCreate;
+  const subscriptionCreate = useSelector((state) => state.subscriptionCreate);
+  const { subscription, success, error } = subscriptionCreate;
 
   useEffect(() => {
     if (success) {
-      history.push(`/order/${order._id}`);
+      history.push(`/subscription/${subscription._id}`);
       dispatch({ type: USER_DETAILS_RESET });
       dispatch({ type: SUBSCRIPTION_CREATE_RESET });
     }
-    // eslint-disable-next-line
-  }, [history, success]);
+  }, [history, success, subscription, dispatch]);
 
-  const placeOrderHandler = () => {
+  const placeSubscriptionHandler = () => {
     dispatch(
       createSubscription({
-        orderItems: cart.cartItems,
+        subscriptionItems: cart.cartItems,
         shippingAddress: cart.shippingAddress,
         paymentMethod: cart.paymentMethod,
         itemsPrice: cart.itemsPrice,
@@ -71,7 +71,7 @@ const PlaceOrderScreen = ({ history }) => {
               <p>
                 <strong>Address:</strong>
                 {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
-                {cart.shippingAddress.postalCode}, {cart.shippingAddress.country}
+                {cart.shippingAddress.postalCode},{cart.shippingAddress.country}
               </p>
             </ListGroup.Item>
 
@@ -94,10 +94,11 @@ const PlaceOrderScreen = ({ history }) => {
                           <Image src={item.image} alt={item.name} fluid rounded />
                         </Col>
                         <Col>
-                          <Link to={`/product/${item.product}`}>{item.name}</Link>
+                          <Link to={`/bundle/${item.product}`}>{item.name}</Link>
                         </Col>
-                        <Col md={4}>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                        <Col md={6}>
+                          {item.qty} people x ${item.price} x {item.orderFrq} times every{' '}
+                          {item.orderPer}= ${item.qty * item.price * item.orderFrq}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -145,7 +146,7 @@ const PlaceOrderScreen = ({ history }) => {
                   type="button"
                   className="btn-block"
                   disabled={cart.cartItems === 0}
-                  onClick={placeOrderHandler}
+                  onClick={placeSubscriptionHandler}
                 >
                   Place Order
                 </Button>
@@ -158,4 +159,4 @@ const PlaceOrderScreen = ({ history }) => {
   );
 };
 
-export default PlaceOrderScreen;
+export default PlaceSubscriptionScreen;

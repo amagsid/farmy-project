@@ -1,37 +1,40 @@
 import asyncHandler from 'express-async-handler';
 import Subscription from '../models/subscriptionModel.js';
 
-// @desc    Create new subscription
-// @route   POST /api/subscriptions
+// @desc    Create new order
+// @route   POST /api/orders
 // @access  Private
 const addSubscriptionItems = asyncHandler(async (req, res) => {
   const {
- bundles, shippingAddress, paymentMethod, taxPrice, shippingPrice, totalPrice,
-} = req.body;
+    subscriptionItems,
+    shippingAddress,
+    paymentMethod,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+  } = req.body;
 
-  if (bundles && bundles.length === 0) {
+  if (subscriptionItems && subscriptionItems.length === 0) {
     res.status(400);
-    throw new Error('No bundle items');
-  } else {
-    const subscription = new Subscription({
-      bundles,
-      user: req.user._id,
-      shippingAddress,
-      paymentMethod,
-      // itemsPrice,
-      taxPrice,
-      shippingPrice,
-      totalPrice,
-    });
-
-    const createdSubscription = await subscription.save();
-
-    res.status(201).json(createdSubscription);
+    throw new Error('No order items');
   }
+  const subscription = new Subscription({
+    subscriptionItems,
+    user: req.user._id,
+    shippingAddress,
+    paymentMethod,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+  });
+
+  const createdSubscription = await subscription.save();
+
+  res.status(201).json(createdSubscription);
 });
 
-// @desc    Get subscription by ID
-// @route   GET /api/subscriptions/:id
+// @desc    Get order by ID
+// @route   GET /api/orders/:id
 // @access  Private
 const getSubscriptionById = asyncHandler(async (req, res) => {
   const subscription = await Subscription.findById(req.params.id).populate('user', 'name email');
