@@ -2,8 +2,8 @@
 import asyncHandler from 'express-async-handler';
 import Bundle from '../models/bundleModel.js';
 
-// @desc    Fetch all products
-// @route   GET /api/products
+// @desc    Fetch all bundles
+// @route   GET /api/bundles
 // @access  Public
 const getBundles = asyncHandler(async (req, res) => {
   const pageSize = 10;
@@ -26,8 +26,8 @@ const getBundles = asyncHandler(async (req, res) => {
   res.json({ bundles, page, pages: Math.ceil(count / pageSize) });
 });
 
-// @desc    Fetch all products for new User
-// @route   GET /api/products
+// @desc    Fetch all bundles for new User
+// @route   GET /api/bundles
 // @access  Private
 const getBundlesNewUser = asyncHandler(async (req, res) => {
   const bundles = await Bundle.find({});
@@ -36,7 +36,7 @@ const getBundlesNewUser = asyncHandler(async (req, res) => {
 });
 
 // @desc    Fetch single product
-// @route   GET /api/products/:id
+// @route   GET /api/bundles/:id
 // @access  Public
 const getBundleById = asyncHandler(async (req, res) => {
   const bundle = await Bundle.findById(req.params.id);
@@ -49,8 +49,8 @@ const getBundleById = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Delete a product
-// @route   DELETE /api/products/:id
+// @desc    Delete a bundles
+// @route   DELETE /api/bundles/:id
 // @access  Private/Admin
 const deleteBundle = asyncHandler(async (req, res) => {
   const bundle = await Bundle.findById(req.params.id);
@@ -64,8 +64,8 @@ const deleteBundle = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Create a product
-// @route   POST /api/products
+// @desc    Create a bundles
+// @route   POST /api/bundles
 // @access  Private/Admin
 const createBundle = asyncHandler(async (req, res) => {
   const bundle = new Bundle({
@@ -83,8 +83,8 @@ const createBundle = asyncHandler(async (req, res) => {
   res.status(201).json(createdBundle);
 });
 
-// @desc    Update a product
-// @route   PUT /api/products/:id
+// @desc    Update a bundles
+// @route   PUT /api/bundles/:id
 // @access  Private/Admin
 const updateBundle = asyncHandler(async (req, res) => {
   const {
@@ -111,7 +111,7 @@ const updateBundle = asyncHandler(async (req, res) => {
 });
 
 // @desc    Create new review
-// @route   POST /api/products/:id/reviews
+// @route   POST /api/bundles/:id/reviews
 // @access  Private
 const createBundleReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
