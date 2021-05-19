@@ -1,8 +1,8 @@
 import asyncHandler from 'express-async-handler';
 import Subscription from '../models/subscriptionModel.js';
 
-// @desc    Create new order
-// @route   POST /api/orders
+// @desc    Create new subscription
+// @route   POST /api/subscriptions
 // @access  Private
 const addSubscriptionItems = asyncHandler(async (req, res) => {
   const {
@@ -30,8 +30,8 @@ const addSubscriptionItems = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Get order by ID
-// @route   GET /api/orders/:id
+// @desc    Get subscription by ID
+// @route   GET /api/subscriptions/:id
 // @access  Private
 const getSubscriptionById = asyncHandler(async (req, res) => {
   const subscription = await Subscription.findById(req.params.id).populate('user', 'name email');
@@ -40,12 +40,12 @@ const getSubscriptionById = asyncHandler(async (req, res) => {
     res.json(subscription);
   } else {
     res.status(404);
-    throw new Error('Order not found');
+    throw new Error('Subscription not found');
   }
 });
 
-// @desc    Update order to paid
-// @route   GET /api/orders/:id/pay
+// @desc    Update subscription to paid
+// @route   GET /api/subscriptions/:id/pay
 // @access  Private
 const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
   const subscription = await Subscription.findById(req.params.id);
@@ -65,12 +65,12 @@ const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
     res.json(updatedSubscription);
   } else {
     res.status(404);
-    throw new Error('Order not found');
+    throw new Error('Subscription not found');
   }
 });
 
-// @desc    Update order to delivered
-// @route   GET /api/orders/:id/deliver
+// @desc    Update subscription to delivered
+// @route   GET /api/subscriptions/:id/deliver
 // @access  Private/Admin
 const updateSubscriptionToDelivered = asyncHandler(async (req, res) => {
   const subscription = await Subscription.findById(req.params.id);
@@ -84,7 +84,7 @@ const updateSubscriptionToDelivered = asyncHandler(async (req, res) => {
     res.json(updatedSubscription);
   } else {
     res.status(404);
-    throw new Error('Order not found');
+    throw new Error('Subscription not found');
   }
 });
 
