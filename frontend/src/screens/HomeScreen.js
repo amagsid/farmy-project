@@ -20,6 +20,21 @@ const HomeScreen = () => {
     dispatch(listLatestBundles());
   }, [dispatch]);
 
+  // Commented code below for next week's ticket!
+
+  // const keyword = match.params.keyword;
+
+  // const pageNumber = match.params.pageNumber || 1;
+
+  // const dispatch = useDispatch();
+
+  // const bundleList = useSelector((state) => state.bundleList);
+  // const { loading, error, bundles, page, pages } = bundleList;
+
+  // useEffect(() => {
+  //   dispatch(listBundles(keyword, pageNumber));
+  // }, [dispatch, keyword, pageNumber]);
+
   return (
     <>
       <Meta />
@@ -43,6 +58,8 @@ const HomeScreen = () => {
             </>
           )}
           <h2>Home Page For New User</h2>
+
+          {/* <Paginate pages={pages} page={page} keyword={keyword ? keyword : ''} /> */}
         </>
       )}
     </>
