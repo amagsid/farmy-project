@@ -11,12 +11,13 @@ import { BUNDLE_CREATE_REVIEW_RESET } from '../constants/bundleConstants';
 
 const BundleScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
-  const [frq, setFrq] = useState(1);
+  const [orderFrq, setOrderFrq] = useState(1);
+  const [orderPer, setOrderPer] = useState('');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
-  console.log(qty);
-  console.log(frq);
+  const arrayOfTime = ['Week', '2 Weeks', 'Month'];
+
   const dispatch = useDispatch();
 
   const bundleDetails = useSelector((state) => state.bundleDetails);
@@ -44,7 +45,7 @@ const BundleScreen = ({ history, match }) => {
   }, [dispatch, match, bundle._id, successBundleReview]);
 
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}&frq=${frq}`);
+    history.push(`/cart/${match.params.id}?qty=${qty}&frq=${orderFrq}&orderper=${orderPer}`);
   };
 
   const submitHandler = (e) => {
@@ -127,12 +128,32 @@ const BundleScreen = ({ history, match }) => {
                   {bundle.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>Times per week</Col>
+                        <Col>How many often</Col>
                         <Col>
                           <Form.Control
                             as="select"
-                            value={frq}
-                            onChange={(e) => setFrq(e.target.value)}
+                            value={orderPer}
+                            onChange={(e) => setOrderPer(e.target.value)}
+                          >
+                            {arrayOfTime.map((x, index) => (
+                              <option key={index} className="signup-bundle-options" value={x}>
+                                {x}
+                              </option>
+                            ))}
+                          </Form.Control>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  )}
+                  {bundle.countInStock > 0 && (
+                    <ListGroup.Item>
+                      <Row>
+                        <Col>Times per {orderPer}</Col>
+                        <Col>
+                          <Form.Control
+                            as="select"
+                            value={orderFrq}
+                            onChange={(e) => setOrderFrq(e.target.value)}
                           >
                             {[...Array(bundle.countInStock).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>

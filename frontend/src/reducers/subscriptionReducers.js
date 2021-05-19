@@ -21,6 +21,13 @@ import {
   SUBSCRIPTION_DELIVER_REQUEST,
   SUBSCRIPTION_DELIVER_RESET,
   SUBSCRIPTION_CREATE_RESET,
+  SUBSCRIPTION_UPDATE_REQUEST,
+  SUBSCRIPTION_UPDATE_SUCCESS,
+  SUBSCRIPTION_UPDATE_FAIL,
+  SUBSCRIPTION_UPDATE_RESET,
+  SUBSCRIPTION_CANCEL_REQUEST,
+  SUBSCRIPTION_CANCEL_SUCCESS,
+  SUBSCRIPTION_CANCEL_FAIL,
 } from '../constants/subscriptionConstants';
 
 export const subscriptionCreateReducer = (state = {}, action) => {
@@ -48,7 +55,7 @@ export const subscriptionCreateReducer = (state = {}, action) => {
 };
 
 export const subscriptionDetailsReducer = (
-  state = { loading: true, orderItems: [], shippingAddress: {} },
+  state = { loading: true, subscriptionItems: [], shippingAddress: {} },
   action
 ) => {
   switch (action.type) {
@@ -141,6 +148,21 @@ export const subscriptionListMyReducer = (state = { subscriptions: [] }, action)
   }
 };
 
+export const subscriptionUpdateReducer = (state = { subscription: {} }, action) => {
+  switch (action.type) {
+    case SUBSCRIPTION_UPDATE_REQUEST:
+      return { loading: true };
+    case SUBSCRIPTION_UPDATE_SUCCESS:
+      return { loading: false, success: true, subscription: action.payload };
+    case SUBSCRIPTION_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
+    case SUBSCRIPTION_UPDATE_RESET:
+      return { subscription: {} };
+    default:
+      return state;
+  }
+};
+
 export const subscriptionListReducer = (state = { subscriptions: [] }, action) => {
   switch (action.type) {
     case SUBSCRIPTION_LIST_REQUEST:
@@ -157,6 +179,19 @@ export const subscriptionListReducer = (state = { subscriptions: [] }, action) =
         loading: false,
         error: action.payload,
       };
+    default:
+      return state;
+  }
+};
+
+export const subscriptionCancelReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SUBSCRIPTION_CANCEL_REQUEST:
+      return { loading: true };
+    case SUBSCRIPTION_CANCEL_SUCCESS:
+      return { loading: false, success: true };
+    case SUBSCRIPTION_CANCEL_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

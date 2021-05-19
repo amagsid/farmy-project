@@ -19,6 +19,13 @@ import {
   SUBSCRIPTION_DELIVER_FAIL,
   SUBSCRIPTION_DELIVER_SUCCESS,
   SUBSCRIPTION_DELIVER_REQUEST,
+  SUBSCRIPTION_UPDATE_REQUEST,
+  SUBSCRIPTION_UPDATE_SUCCESS,
+  SUBSCRIPTION_UPDATE_FAIL,
+  SUBSCRIPTION_UPDATE_RESET,
+  SUBSCRIPTION_CANCEL_SUCCESS,
+  SUBSCRIPTION_CANCEL_FAIL,
+  SUBSCRIPTION_CANCEL_REQUEST,
 } from '../constants/subscriptionConstants';
 import { logout } from './userActions';
 
@@ -230,6 +237,7 @@ export const listSubscription = () => async (dispatch, getState) => {
       type: SUBSCRIPTION_LIST_SUCCESS,
       payload: data,
     });
+    localStorage.setItem('shippingAddress', JSON.stringify(data));
   } catch (error) {
     const message =
       error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -238,6 +246,75 @@ export const listSubscription = () => async (dispatch, getState) => {
     }
     dispatch({
       type: SUBSCRIPTION_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const updateSubscription = (subscription) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SUBSCRIPTION_UPDATE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { subId, address, city, postalCode, country } = subscription;
+
+    const { data } = await axios.put(`/api/subscriptions/${subId}`, subscription, config);
+
+    dispatch({
+      type: SUBSCRIPTION_UPDATE_SUCCESS,
+      payload: data,
+    });
+    dispatch({ type: SUBSCRIPTION_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message ? error.response.data.message : error.message;
+
+    dispatch({
+      type: SUBSCRIPTION_UPDATE_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const cancelSubscription = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SUBSCRIPTION_CANCEL_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.delete(`/api/subscriptions/${id}`, config);
+
+    dispatch({ type: SUBSCRIPTION_CANCEL_SUCCESS });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout());
+    }
+    dispatch({
+      type: SUBSCRIPTION_CANCEL_FAIL,
       payload: message,
     });
   }

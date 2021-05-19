@@ -9,6 +9,7 @@ import {
   bundleUpdateReducer,
   bundleReviewCreateReducer,
   bundleTopRatedReducer,
+  bundleLatestReducer,
   bundleSignupNewUserReducer,
 } from './reducers/bundleReducers';
 import { cartReducer } from './reducers/cartReducers';
@@ -28,6 +29,8 @@ import {
   subscriptionDeliverReducer,
   subscriptionListMyReducer,
   subscriptionListReducer,
+  subscriptionUpdateReducer,
+  subscriptionCancelReducer,
 } from './reducers/subscriptionReducers';
 
 const reducer = combineReducers({
@@ -39,6 +42,7 @@ const reducer = combineReducers({
   bundleUpdate: bundleUpdateReducer,
   bundleReviewCreate: bundleReviewCreateReducer,
   bundleTopRated: bundleTopRatedReducer,
+  bundleLatest: bundleLatestReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -53,6 +57,8 @@ const reducer = combineReducers({
   subscriptionDeliver: subscriptionDeliverReducer,
   subscriptionListMy: subscriptionListMyReducer,
   subscriptionList: subscriptionListReducer,
+  subscriptionUpdate: subscriptionUpdateReducer,
+  subscriptionCancel: subscriptionCancelReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
@@ -73,6 +79,10 @@ const initialState = {
     shippingAddress: shippingAddressFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
+
+  // subscriptionShippingAddress: {
+  //   shippingAddress: shippingAddressFromStorage,
+  // },
 };
 
 const middleware = [thunk];
