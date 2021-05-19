@@ -27,13 +27,21 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className="ml-auto">
+              {userInfo && !userInfo.isAdmin && (
+                <LinkContainer to="/plan">
+                  <Nav.Link>
+                    <i className="fas fa-calendar-alt"></i> Plan
+                  </Nav.Link>
+                </LinkContainer>
+              )}
               <LinkContainer to="/cart">
                 <Nav.Link>
                   <i className="fas fa-shopping-cart"></i> Cart
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
-                <NavDropdown title={userInfo.name} id="username">
+                <NavDropdown title="Account" id="account">
+                  <NavDropdown.Item disabled>{userInfo.name}</NavDropdown.Item>
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
