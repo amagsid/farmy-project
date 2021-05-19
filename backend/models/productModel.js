@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 import mongoose from 'mongoose';
 
 const reviewSchema = mongoose.Schema(
@@ -13,7 +14,7 @@ const reviewSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 const productSchema = mongoose.Schema(
@@ -27,10 +28,6 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    image: {
-      type: String,
-      required: true,
-    },
     brand: {
       type: String,
       required: true,
@@ -39,6 +36,12 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    ingredients: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ingredient',
+      },
+    ],
     description: {
       type: String,
       required: true,
@@ -67,7 +70,7 @@ const productSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 const Product = mongoose.model('Product', productSchema);

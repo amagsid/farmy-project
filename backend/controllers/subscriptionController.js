@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
 import asyncHandler from 'express-async-handler';
 import nodemailer from 'nodemailer';
-// import Subscription from '../models/subscriptionModel.js';
+import Subscription from '../models/subscriptionModel.js';
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -11,7 +10,6 @@ const addSubscriptionItems = asyncHandler(async (req, res) => {
     subscriptionItems,
     shippingAddress,
     paymentMethod,
-    itemsPrice,
     taxPrice,
     shippingPrice,
     totalPrice,
@@ -26,7 +24,6 @@ const addSubscriptionItems = asyncHandler(async (req, res) => {
     user: req.user._id,
     shippingAddress,
     paymentMethod,
-    itemsPrice,
     taxPrice,
     shippingPrice,
     totalPrice,
@@ -47,15 +44,16 @@ const getSubscriptionById = asyncHandler(async (req, res) => {
     res.json(subscription);
   } else {
     res.status(404);
-    throw new Error('Order not found');
+    throw new Error('Subscription not found');
   }
 });
 
-// @desc    Update order to paid
-// @route   GET /api/orders/:id/pay
+// @desc    Update subscription to paid
+// @route   GET /api/subscriptions/:id/pay
 // @access  Private
 const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
   const subscription = await Subscription.findById(req.params.id);
+
   if (subscription) {
     subscription.isPaid = true;
     subscription.paidAt = Date.now();
@@ -67,8 +65,6 @@ const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
     };
 
     const updatedSubscription = await subscription.save();
-
-    console.log(updatedSubscription);
 
     // a transporter object
     const transporter = nodemailer.createTransport({
@@ -123,24 +119,65 @@ const updateSubscriptionToDelivered = asyncHandler(async (req, res) => {
     res.json(updatedSubscription);
   } else {
     res.status(404);
-    throw new Error('Order not found');
+    throw new Error('Subscription not found');
   }
 });
 
-// @desc    Get logged in user orders
-// @route   GET /api/orders/myorders
+// @desc    Get logged in user subscribtions
+// @route   GET /api/subscribtions/mysubscribtions
 // @access  Private
 const getMySubscription = asyncHandler(async (req, res) => {
   const subscription = await Subscription.find({ user: req.user._id });
   res.json(subscription);
 });
 
-// @desc    Get all orders
-// @route   GET /api/orders
+// @desc    Get all subscribtions
+// @route   GET /api/subscribtions
 // @access  Private/Admin
 const getSubscription = asyncHandler(async (req, res) => {
   const subscription = await Subscription.find({}).populate('user', 'id name');
   res.json(subscription);
+});
+
+// @desc    Update subscription
+// @route   PUT /api/subscriptions/:id
+// @access  Private
+const updateSubscriptionById = asyncHandler(async (req, res) => {
+  const {
+ address, city, postalCode, country,
+} = req.body;
+
+  const subscription = await Subscription.findById(req.params.id);
+
+  const { shippingAddress } = subscription;
+
+  if (subscription) {
+    shippingAddress.address = address;
+    shippingAddress.city = city;
+    shippingAddress.postalCode = postalCode;
+    shippingAddress.country = country;
+
+    const updatedSubscription = await subscription.save();
+    res.json(updatedSubscription);
+  } else {
+    res.status(404);
+    throw new Error('Subscription not found');
+  }
+});
+
+// @desc    Cancel subscription
+// @route   DELETE /api/subscriptions/:id
+// @access  Private/
+const cancelSubscription = asyncHandler(async (req, res) => {
+  const subscription = await Subscription.findById(req.params.id);
+
+  if (subscription) {
+    await subscription.remove();
+    res.json({ message: 'Subscription canceled' });
+  } else {
+    res.status(404);
+    throw new Error('Subscription not found');
+  }
 });
 
 export {
@@ -150,4 +187,6 @@ export {
   updateSubscriptionToDelivered,
   getMySubscription,
   getSubscription,
+  updateSubscriptionById,
+  cancelSubscription,
 };
