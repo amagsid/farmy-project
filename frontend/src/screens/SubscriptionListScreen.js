@@ -77,7 +77,9 @@ const SubscriptionListScreen = ({ history }) => {
                 <td>{subscription.createdAt.substring(0, 10)}</td>
                 <td>{subscription.totalPrice}</td>
                 <td>
-                  <Button>Change</Button>
+                  <LinkContainer to={`/register/bundleplan`}>
+                    <Button>Change</Button>
+                  </LinkContainer>
                 </td>
 
                 <td>
