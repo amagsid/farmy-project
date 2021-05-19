@@ -5,12 +5,10 @@ import colors from 'colors';
 import morgan from 'morgan';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import connectDB from './config/db.js';
-
-import productRoutes from './routes/productRoutes.js';
-import userRoutes from './routes/userRoutes.js';
-import orderRoutes from './routes/orderRoutes.js';
-import uploadRoutes from './routes/uploadRoutes.js';
 import bundleRoutes from './routes/bundleRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import subscriptionRoutes from './routes/subscriptionRoutes.js';
+import uploadRoutes from './routes/uploadRoutes.js';
 
 dotenv.config();
 
@@ -25,11 +23,8 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 
 app.use('/api/bundles', bundleRoutes);
-
-app.use('/api/products', productRoutes);
-
 app.use('/api/users', userRoutes);
-app.use('/api/orders', orderRoutes);
+app.use('/api/subscriptions', subscriptionRoutes);
 app.use('/api/upload', uploadRoutes);
 
 app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID));
