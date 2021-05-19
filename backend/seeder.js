@@ -4,9 +4,10 @@ import colors from 'colors';
 import { createRequire } from 'module'; // Bring in the ability to create the 'require' method
 import users from './data/users.js';
 import User from './models/userModel.js';
+import Product from './models/productModel.js';
+import Ingredient from './models/ingredientModel.js';
 import connectDB from './config/db.js';
 import Bundle from './models/bundleModel.js';
-import Ingredient from './models/ingredientModel.js';
 import Subscription from './models/subscriptionModel.js';
 
 const require = createRequire(import.meta.url); // construct the require method

@@ -1,6 +1,6 @@
-/* eslint-disable operator-linebreak */
 import asyncHandler from 'express-async-handler';
 import Bundle from '../models/bundleModel.js';
+import Ingredient from '../models/ingredientModel.js';
 
 // @desc    Fetch all bundles
 // @route   GET /api/bundles
@@ -39,13 +39,16 @@ const getBundlesNewUser = asyncHandler(async (req, res) => {
 // @route   GET /api/bundles/:id
 // @access  Public
 const getBundleById = asyncHandler(async (req, res) => {
-  const bundle = await Bundle.findById(req.params.id);
+  const bundle = await Bundle.findById(req.params.id).populate({
+    path: 'ingredients',
+    model: Ingredient,
+  });
 
   if (bundle) {
     res.json(bundle);
   } else {
     res.status(404);
-    throw new Error('Product not found');
+    throw new Error('Bundle not found');
   }
 });
 
@@ -139,8 +142,7 @@ const createBundleReview = asyncHandler(async (req, res) => {
 
     bundle.numReviews = bundle.reviews.length;
 
-    bundle.rating =
-      bundle.reviews.reduce((acc, item) => item.rating + acc, 0) / bundle.reviews.length;
+    bundle.rating = bundle.reviews.reduce((acc, item) => item.rating + acc, 0) / bundle.reviews.length;
 
     await bundle.save();
     res.status(201).json({ message: 'Review added' });

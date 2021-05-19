@@ -16,6 +16,7 @@ import PlaceSubscriptionScreen from './screens/PlaceSubscriptionScreen';
 import SubscriptionScreen from './screens/SubscriptionScreen';
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
+import BundleDetailsScreen from './screens/BundleDetailsScreen';
 import BundleListScreen from './screens/BundleListScreen';
 import BundleEditScreen from './screens/BundleEditScreen';
 import SubscriptionListScreen from './screens/SubscriptionListScreen';
@@ -28,6 +29,7 @@ const App = () => {
       <Header />
       <main className="py-3">
         <Container>
+          <Route path="/bundles/:id" component={BundleDetailsScreen} />
           <Route path="/subscription/:id" component={SubscriptionScreen} />
           <Route path="/shipping" component={ShippingScreen} />
           <Route path="/payment" component={PaymentScreen} />
@@ -38,7 +40,7 @@ const App = () => {
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/subscriptions" component={SubscriptionListScreen} />
           <Route path="/preferences" component={PrefernceScreen} />
-          <Route path="/bundle/:id" component={BundleScreen} />
+          
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/admin/userlist" component={UserListScreen} />
           <Route path="/admin/user/:id/edit" component={UserEditScreen} />

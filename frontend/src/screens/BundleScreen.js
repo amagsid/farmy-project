@@ -128,7 +128,7 @@ const BundleScreen = ({ history, match }) => {
                   {bundle.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>How many often</Col>
+                        <Col>How often</Col>
                         <Col>
                           <Form.Control
                             as="select"
