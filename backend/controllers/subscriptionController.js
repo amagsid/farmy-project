@@ -1,4 +1,5 @@
 import asyncHandler from 'express-async-handler';
+import nodemailer from 'nodemailer';
 import Subscription from '../models/subscriptionModel.js';
 
 // @desc    Create new order
@@ -65,15 +66,46 @@ const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
 
     const updatedSubscription = await subscription.save();
 
+    // a transporter object
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.GMAIL_ACCOUNT,
+        pass: process.env.GMAIL_PASSWORD,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
+
+    // sends email to a specific user's email
+    const info = await transporter.sendMail({
+      from: `"Farmy" <${process.env.GMAIL_ACCOUNT}>`,
+      to: `${req.user.email}`,
+      subject: 'You are subscribed',
+      html: `<h1>Hi, ${req.user.name}!</h1>
+          <p>You have subscribed to the bundle of ${updatedSubscription.subscriptionItems[0].name}
+          <br>
+          <img src="https:${updatedSubscription.subscriptionItems[0].image}" width="200" />
+          <br>
+          The subscription has been paid by ${updatedSubscription.paymentMethod} payment method.</p>
+          <small>If you want to unsubscribe from a product, you can do it on your profile page. 
+          Login to your account. 
+          Go to your profile page.
+          Choose the product that you want to unsubscribe from and click on the Unsubscribe button.</small>`,
+    });
+
     res.json(updatedSubscription);
   } else {
     res.status(404);
-    throw new Error('Subscription not found');
+    throw new Error('Order not found');
   }
 });
 
-// @desc    Update subscription to delivered
-// @route   GET /api/subscriptions/:id/deliver
+// @desc    Update order to delivered
+// @route   GET /api/orders/:id/deliver
 // @access  Private/Admin
 const updateSubscriptionToDelivered = asyncHandler(async (req, res) => {
   const subscription = await Subscription.findById(req.params.id);
