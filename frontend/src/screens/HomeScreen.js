@@ -29,7 +29,7 @@ const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
 
   useEffect(() => {
-    dispatch(listLatestBundles(keyword));
+    dispatch(listLatestBundles());
     dispatch(listBundles(keyword));
   }, [dispatch, keyword]);
 
@@ -37,8 +37,8 @@ const HomeScreen = ({ match }) => {
     <>
       <Meta />
 
-      {loading  && (loadingLatest && <Loader />)}
-      {error && (errorLatest && <Message variant="danger">{error}</Message>)}
+      {loading && loadingLatest && <Loader />}
+      {error && errorLatest && <Message variant="danger">{error}</Message>}
       <>
         {userInfo && <Message variant="success">Welcome {userInfo.name}!</Message>}
         <Container className="mb-5">
@@ -61,48 +61,47 @@ const HomeScreen = ({ match }) => {
 
         {/* {!bundles.length && <Message variant="primary">Nothing found</Message>} */}
 
-        {userInfo ? (
+        {userInfo && (
           <>
             <Container className="mb-5">
               {/* {!keyword ? <h1>Latest Bundles</h1> : <h1>Search Results for "{keyword}"</h1>} */}
               <h1>Latest Bundles</h1>
-              <Filter keyword={keyword} />
               <Row>
                 {bundlesListLatest.map((bundle) => (
                   <Col key={bundle._id}>
                     <Bundle bundle={bundle} />
-                    <LinkContainer to={`/bundles/${bundle._id}`}>
+                    {/* <LinkContainer to={`/bundles/${bundle._id}`}>
                       <Button variant="outline-success" size="lg" block>
                         Subscribe
                       </Button>
-                    </LinkContainer>
+                    </LinkContainer> */}
                   </Col>
                 ))}
               </Row>
             </Container>
           </>
-        ) : (
-          <Container className="mb-5">
-            {/* {!keyword ? <h1>Our Bundles</h1> : <h1>Search Results for "{keyword}"</h1>} */}
-            <h1>Our Bundles</h1>
-            <Filter keyword={keyword} />
-            <Row>
-              {bundles.length &&
-                bundles.map((bundle) => (
-                  <Col key={bundle._id}>
-                    <Link to={`/bundles/${bundle._id}`}>
-                      <Bundle bundle={bundle} />
-                    </Link>
-                    <LinkContainer to={`/subscription/${bundle._id}`}>
-                      <Button variant="outline-success" size="lg" block>
-                        Subscribe
-                      </Button>
-                    </LinkContainer>
-                  </Col>
-                ))}
-            </Row>
-          </Container>
         )}
+        <Container className="mb-5">
+          {/* {!keyword ? <h1>Our Bundles</h1> : <h1>Search Results for "{keyword}"</h1>} */}
+          <h1>Our Bundles</h1>
+
+          <Filter keyword={keyword} />
+          <Row>
+            {bundles.length &&
+              bundles.map((bundle) => (
+                <Col key={bundle._id}>
+                  <Link to={`/bundles/${bundle._id}`}>
+                    <Bundle bundle={bundle} />
+                  </Link>
+                  <LinkContainer to={`/subscription/${bundle._id}`}>
+                    <Button variant="outline-success" size="lg" block>
+                      Subscribe
+                    </Button>
+                  </LinkContainer>
+                </Col>
+              ))}
+          </Row>
+        </Container>
 
         <Container className="mb-5">
           <h1>Loved by thousands of customers</h1>
