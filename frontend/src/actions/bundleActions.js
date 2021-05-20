@@ -33,11 +33,11 @@ import { logout } from './userActions';
 export const listBundles = (
   keyword = '',
   pageNumber = '',
-  minPrice,
-  maxPrice,
-  rating,
-  category,
-  sortBy
+  minPrice = '',
+  maxPrice = '',
+  rating = '',
+  category = '',
+  sortBy = ''
 ) => async (dispatch) => {
   try {
     dispatch({ type: BUNDLE_LIST_REQUEST });
