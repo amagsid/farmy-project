@@ -88,7 +88,8 @@ const HomeScreen = ({ match }) => {
 
             <Filter keyword={keyword} />
             <Row>
-              {bundles.length &&
+              {bundles &&
+                bundles.length &&
                 bundles.map((bundle) => (
                   <Col key={bundle._id}>
                     <Link to={`/bundles/${bundle._id}`}>

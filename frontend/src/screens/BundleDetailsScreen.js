@@ -13,7 +13,7 @@ import { BUNDLE_CREATE_REVIEW_RESET } from '../constants/bundleConstants';
 const BundleDetailsScreen = ({ match, history }) => {
   const [qty, setQty] = useState(1);
   const [orderFrq, setOrderFrq] = useState(1);
-  const [orderPer, setOrderPer] = useState('');
+  const [orderPer, setOrderPer] = useState('week');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
