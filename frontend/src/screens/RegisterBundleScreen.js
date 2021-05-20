@@ -8,7 +8,7 @@ import { listBundlesNewUser } from '../actions/bundleActions';
 import { SUBSCRIPTION_CREATE_RESET } from '../constants/subscriptionConstants';
 
 const RegisterBundleScreen = ({ history }) => {
-  const [orderPer, setOrderPer] = useState('');
+  const [orderPer, setOrderPer] = useState('week');
   const [orderFrequency, setOrderFrequency] = useState(1);
   const [selectedBundleId, setSelectedBundleId] = useState('');
   const [houseHold, setHouseHold] = useState(1);
@@ -154,7 +154,7 @@ const RegisterBundleScreen = ({ history }) => {
                   onClick={addToCartHandler}
                   variant="dark"
                   className="rounded  signup-bundle-button"
-                  disabled={!selectedBundleId || !orderFrequency || !houseHold || !orderPer}
+                  disabled={!selectedBundleId}
                 >
                   To CArt
                 </Button>

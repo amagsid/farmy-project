@@ -22,7 +22,8 @@ const SubscriptionListScreen = ({ history }) => {
   const { success } = userUpdateProfile;
 
   const subscriptionCancel = useSelector((state) => state.subscriptionCancel);
-  const { success: cancelSuccess, loading: cancelLoading, error: cancelError } = subscriptionCancel;
+  const { success: cancelSuccess } = subscriptionCancel;
+  // const { success: cancelSuccess, loading: cancelLoading, error: cancelError } = subscriptionCancel;
 
   const subscriptionListMy = useSelector((state) => state.subscriptionListMy);
   const {
@@ -44,14 +45,14 @@ const SubscriptionListScreen = ({ history }) => {
     } else {
       history.push('/subscriptions');
     }
-  }, [dispatch, userInfo, history, subscriptions, success, cancelSuccess]);
+  }, [dispatch, userInfo, history, subscriptions, success, cancelSuccess, user]);
 
   return (
     <>
       <ProdileEditTabs profile subscriptions preferences />
       <h2>
         you have {subscriptions.length} active{' '}
-        {subscriptions.length == 1 ? 'subscription' : 'subscriptions'}{' '}
+        {subscriptions.length === 1 ? 'subscription' : 'subscriptions'}{' '}
       </h2>
       {loadingSubscriptions ? (
         <Loader />
@@ -73,7 +74,11 @@ const SubscriptionListScreen = ({ history }) => {
             {subscriptions.map((subscription) => (
               <tr key={subscription._id}>
                 <td>
-                  <img style={{ width: '80px' }} src={subscription.subscriptionItems[0].image} />
+                  <img
+                    style={{ width: '80px' }}
+                    src={subscription.subscriptionItems[0].image}
+                    alt={subscription.subscriptionItems[0].name}
+                  />
                 </td>
                 <td>{subscription.subscriptionItems[0].name}</td>
                 <td>{subscription.createdAt.substring(0, 10)}</td>

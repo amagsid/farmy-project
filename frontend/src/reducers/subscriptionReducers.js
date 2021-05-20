@@ -40,7 +40,7 @@ export const subscriptionCreateReducer = (state = {}, action) => {
       return {
         loading: false,
         success: true,
-        subscriptions: action.payload,
+        subscription: action.payload,
       };
     case SUBSCRIPTION_CREATE_FAIL:
       return {
@@ -67,7 +67,7 @@ export const subscriptionDetailsReducer = (
     case SUBSCRIPTION_DETAILS_SUCCESS:
       return {
         loading: false,
-        subscriptions: action.payload,
+        subscription: action.payload,
       };
     case SUBSCRIPTION_DETAILS_FAIL:
       return {

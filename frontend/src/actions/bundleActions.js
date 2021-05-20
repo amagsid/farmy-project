@@ -32,18 +32,17 @@ import { logout } from './userActions';
 
 export const listBundles = (
   keyword = '',
-  pageNumber = '',
-  minPrice,
-  maxPrice,
-  rating,
-  category,
-  sortBy
+  minPrice = '',
+  maxPrice = '',
+  rating = '',
+  category = '',
+  sortBy = ''
 ) => async (dispatch) => {
   try {
     dispatch({ type: BUNDLE_LIST_REQUEST });
 
     const { data } = await axios.get(
-      `/api/bundles?keyword=${keyword}&pageNumber=${pageNumber}&minPrice=${minPrice}&maxPrice=${maxPrice}${
+      `/api/bundles?keyword=${keyword}&minPrice=${minPrice}&maxPrice=${maxPrice}${
         isNaN(rating) ? '' : `&rating=${rating}`
       }${category && category !== 'All' ? `&category=${category}` : ''}&sortBy=${sortBy}`
     );
@@ -203,7 +202,7 @@ export const createBundleReview = (bundleId, review) => async (dispatch, getStat
       },
     };
 
-    await axios.post(`/api/products/${bundleId}/reviews`, review, config);
+    await axios.post(`/api/bundles/${bundleId}/reviews`, review, config);
 
     dispatch({
       type: BUNDLE_CREATE_REVIEW_SUCCESS,

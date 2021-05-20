@@ -83,7 +83,7 @@ const getBundles = asyncHandler(async (req, res) => {
     .limit(pageSize)
     .skip(pageSize * (page - 1));
 
-    // sorting by one of the selected criterias
+  // sorting by one of the selected criterias
   switch (req.query.sortBy) {
     case 'highestPrice':
       bundles.sort((high, low) => low.price - high.price);
@@ -235,6 +235,7 @@ const createBundleReview = asyncHandler(async (req, res) => {
 // @access  Public
 const getLatestBundles = asyncHandler(async (req, res) => {
   const bundles = await Bundle.find({}).sort({ createdAt: 'desc' }).limit(3);
+  res.json(bundles);
 });
 
 // @desc    Get top rated products
