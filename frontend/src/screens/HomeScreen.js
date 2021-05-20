@@ -123,9 +123,16 @@ const HomeScreen = ({ match }) => {
           <Link to="/" className="btn btn-light">
             Go Back
           </Link>
-          {!keyword && <>Search Results for "{keyword}"</>}
           <Row>
-            {bundles.length &&
+            {keyword && (
+              <>
+                <h1>Search Results for "{keyword}"</h1>
+              </>
+            )}
+          </Row>
+
+          <Row>
+            {bundles.length ? (
               bundles.map((bundle) => (
                 <Col key={bundle._id}>
                   <Link to={`/bundles/${bundle._id}`}>
@@ -137,7 +144,10 @@ const HomeScreen = ({ match }) => {
                     </Button>
                   </LinkContainer>
                 </Col>
-              ))}
+              ))
+            ) : (
+              <Message variant="danger">No results found.</Message>
+            )}
           </Row>
         </>
       )}
