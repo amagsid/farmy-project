@@ -32,7 +32,6 @@ import { logout } from './userActions';
 
 export const listBundles = (
   keyword = '',
-  pageNumber = '',
   minPrice = '',
   maxPrice = '',
   rating = '',
@@ -43,7 +42,7 @@ export const listBundles = (
     dispatch({ type: BUNDLE_LIST_REQUEST });
 
     const { data } = await axios.get(
-      `/api/bundles?keyword=${keyword}&pageNumber=${pageNumber}&minPrice=${minPrice}&maxPrice=${maxPrice}${
+      `/api/bundles?keyword=${keyword}&minPrice=${minPrice}&maxPrice=${maxPrice}${
         isNaN(rating) ? '' : `&rating=${rating}`
       }${category && category !== 'All' ? `&category=${category}` : ''}&sortBy=${sortBy}`
     );

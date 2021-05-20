@@ -6,12 +6,12 @@ import Rating from './Rating';
 const Bundle = ({ bundle }) => {
   return (
     <Card className="my-3 p-3 rounded">
-      <Link to={`/bundle/${bundle._id}`}>
+      <Link to={`/bundles/${bundle._id}`}>
         <Card.Img src={bundle.image} variant="top" />
       </Link>
 
       <Card.Body>
-        <Link to={`/bundle/${bundle._id}`}>
+        <Link to={`/bundles/${bundle._id}`}>
           <Card.Title as="div">
             <strong>{bundle.name}</strong>
           </Card.Title>
