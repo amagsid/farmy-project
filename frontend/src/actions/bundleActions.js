@@ -239,7 +239,7 @@ export const listTopBundles = () => async (dispatch) => {
   }
 };
 
-export const listLatestBundles = ({keyword}) => async (dispatch) => {
+export const listLatestBundles = () => async (dispatch) => {
   try {
     dispatch({ type: BUNDLE_LATEST_REQUEST });
 
