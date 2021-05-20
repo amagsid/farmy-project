@@ -29,7 +29,7 @@ const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
 
   useEffect(() => {
-    dispatch(listLatestBundles());
+    dispatch(listLatestBundles(keyword));
     dispatch(listBundles(keyword));
   }, [dispatch, keyword]);
 
@@ -37,8 +37,8 @@ const HomeScreen = ({ match }) => {
     <>
       <Meta />
 
-      {loading || (loadingLatest && <Loader />)}
-      {error || (errorLatest && <Message variant="danger">{error}</Message>)}
+      {loading  && (loadingLatest && <Loader />)}
+      {error && (errorLatest && <Message variant="danger">{error}</Message>)}
       <>
         {userInfo && <Message variant="success">Welcome {userInfo.name}!</Message>}
         <Container className="mb-5">
@@ -59,7 +59,6 @@ const HomeScreen = ({ match }) => {
           </Row>
         </Container>
 
-        {/* <Filter keyword={keyword} pageNumber={pageNumber} /> */}
         {/* {!bundles.length && <Message variant="primary">Nothing found</Message>} */}
 
         {userInfo ? (
@@ -72,7 +71,7 @@ const HomeScreen = ({ match }) => {
                 {bundlesListLatest.map((bundle) => (
                   <Col key={bundle._id}>
                     <Bundle bundle={bundle} />
-                    <LinkContainer to={`/subscription/${bundle._id}`}>
+                    <LinkContainer to={`/bundles/${bundle._id}`}>
                       <Button variant="outline-success" size="lg" block>
                         Subscribe
                       </Button>

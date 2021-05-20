@@ -3,7 +3,7 @@ import { Form, Button, InputGroup, FormControl, Col, Row } from 'react-bootstrap
 import { useDispatch } from 'react-redux';
 import { listBundles } from '../actions/bundleActions';
 
-const Filter = ({ keyword, pageNumber }) => {
+const Filter = ({ keyword}) => {
   const dispatch = useDispatch();
 
   const initialValue = '';
@@ -16,9 +16,9 @@ const Filter = ({ keyword, pageNumber }) => {
   const [formSubmit, setFormSubmit] = useState(false);
 
   useEffect(() => {
-    dispatch(listBundles(keyword, pageNumber, minPrice, maxPrice, rating, category, sortBy));
+    dispatch(listBundles(keyword, minPrice, maxPrice, rating, category, sortBy));
     // eslint-disable-next-line
-  }, [dispatch, keyword, pageNumber, formSubmit]);
+  }, [dispatch, keyword, formSubmit]);
 
   const categoriesArray = ['All', 'FROZEN CATEGORY', 'SMOOTHIES CATEGORY', 'BAGS SQUARE'];
   const ratingsArray = ['Any rating', 1, 2, 3, 4, 5];
