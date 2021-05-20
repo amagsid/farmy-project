@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-import {LinkContainer} from "react-router-bootstrap"
+import { LinkContainer } from 'react-router-bootstrap';
 import Rating from './Rating';
 
 const Bundle = ({ bundle }) => {
