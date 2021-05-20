@@ -13,6 +13,8 @@ import FeedBack from '../components/FeedBack';
 import IntroductionCard from '../components/IntroductionCard';
 import feedback from '../feedback.json';
 import introduction from '../introduction.json';
+import ReactGA from 'react-ga';
+import env from 'react-dotenv';
 
 const HomeScreen = ({ match }) => {
   const dispatch = useDispatch();
@@ -27,6 +29,11 @@ const HomeScreen = ({ match }) => {
   const { userInfo } = userLogin;
 
   const keyword = match.params.keyword;
+
+  useEffect(() => {
+    ReactGA.initialize(env.GUA_ID);
+    ReactGA.pageview('/');
+  }, []);
 
   useEffect(() => {
     dispatch(listLatestBundles());
