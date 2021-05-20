@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import FarmyBundle from '../components/FarmyBundle';
-import FeedBack from '../components/FeedBack';
 import IntroductionCard from '../components/IntroductionCard';
 import { Row, Col, Container, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +10,7 @@ import { listBundles } from '../actions/bundleActions';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 import feedback from '../feedback.json';
+import FeedBack from '../components/FeedBack';
 import introduction from '../introduction.json';
 import Filter from '../components/Filter';
 
