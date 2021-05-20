@@ -34,11 +34,13 @@ const HomeScreen = ({ match }) => {
   }, [dispatch]);
 
 
+
   // Commented code below for next week's ticket!
 
   const keyword = match.params.keyword;
 
   const pageNumber = match.params.pageNumber || 1;
+
 
   // const dispatch = useDispatch();
 
