@@ -83,7 +83,7 @@ const getBundles = asyncHandler(async (req, res) => {
     .limit(pageSize)
     .skip(pageSize * (page - 1));
 
-    // sorting by one of the selected criterias
+  // sorting by one of the selected criterias
   switch (req.query.sortBy) {
     case 'highestPrice':
       bundles.sort((high, low) => low.price - high.price);

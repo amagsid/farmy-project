@@ -203,7 +203,7 @@ export const createBundleReview = (bundleId, review) => async (dispatch, getStat
       },
     };
 
-    await axios.post(`/api/products/${bundleId}/reviews`, review, config);
+    await axios.post(`/api/bundles/${bundleId}/reviews`, review, config);
 
     dispatch({
       type: BUNDLE_CREATE_REVIEW_SUCCESS,
