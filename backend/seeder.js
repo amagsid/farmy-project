@@ -1,20 +1,22 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import colors from 'colors';
+// import colors from 'colors';
 import { createRequire } from 'module'; // Bring in the ability to create the 'require' method
 import users from './data/users.js';
 import User from './models/userModel.js';
-import Product from './models/productModel.js';
+// import Product from './models/productModel.js';
 import Ingredient from './models/ingredientModel.js';
 import connectDB from './config/db.js';
 import Bundle from './models/bundleModel.js';
 import Subscription from './models/subscriptionModel.js';
+import Farm from './models/farmModel.js';
 
 const require = createRequire(import.meta.url); // construct the require method
 const bundles = require('./data/bundles.json'); // use the require
 const firstIngredients = require('./data/ingredientsFirstBundle.json'); // use the require
 const secondIngredients = require('./data/ingredientsSecondBundle.json'); // use the require
 const thirdIngredients = require('./data/ingredientsThirdBundle.json'); // use the require
+const farms = require('./data/farms.json');
 
 dotenv.config();
 
@@ -26,6 +28,7 @@ const importData = async () => {
     await Bundle.deleteMany();
     await User.deleteMany();
     await Ingredient.deleteMany();
+    await Farm.deleteMany();
 
     const createdUsers = await User.insertMany(users);
 
@@ -34,6 +37,10 @@ const importData = async () => {
     const sampleBundles = bundles.map((bundle) => ({
       ...bundle,
       createdByUser: adminUser,
+    }));
+
+    const sampleFarms = farms.map((farm) => ({
+      ...farm,
     }));
 
     const bundleId = await Bundle.insertMany(sampleBundles);
@@ -60,6 +67,7 @@ const importData = async () => {
     const firstIngredientId = await Ingredient.insertMany(firstIngredient);
     const secondIngredientId = await Ingredient.insertMany(secondIngredient);
     const thirdIngredientId = await Ingredient.insertMany(thirdIngredient);
+    const farmInfo = await Farm.insertMany(sampleFarms);
 
     const firstIngredientIds = firstIngredientId.map((item) => item._id);
     const secondIngredientIds = secondIngredientId.map((item) => item._id);
@@ -105,6 +113,7 @@ const destroyData = async () => {
     await User.deleteMany();
     await Bundle.deleteMany();
     await Subscription.deleteMany();
+    await Farm.deleteMany();
 
     console.log('Data Destroyed!'.red.inverse);
     process.exit();
