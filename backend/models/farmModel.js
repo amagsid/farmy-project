@@ -10,12 +10,10 @@ const farmSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    coordinates: [
-      {
-        type: Array,
-        required: true,
-      },
-    ],
+    coordinates: {
+      type: Array,
+      required: true,
+    },
   },
   {
     timestamps: true,
