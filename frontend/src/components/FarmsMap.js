@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import Loader from './Loader';
+import Message from './Message';
+import { listFarms } from '../actions/farmActions';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const FarmsMap = () => {
@@ -8,6 +12,17 @@ const FarmsMap = () => {
     latitude: 37.78,
     zoom: 14,
   });
+
+  const dispatch = useDispatch();
+
+  const farmsData = useSelector((state) => state.farmList);
+
+  const { loading, error, farm } = farmsData;
+  console.log(farm);
+
+  useEffect(() => {
+    dispatch(listFarms());
+  }, [dispatch]);
 
   const [farmInfo, setFarmInfo] = useState('');
 
@@ -46,45 +61,49 @@ const FarmsMap = () => {
   );
 
   return (
-    <ReactMapGL
-      {...viewport}
-      width="50vw"
-      height="50vh"
-      onViewportChange={setViewport}
-      mapboxApiAccessToken="pk.eyJ1IjoiZmFybXkiLCJhIjoiY2tveGQ1OGs4MGV4bzJucGRoZ2VlNDVqbSJ9.Jv0nA83huBK0OEc6cmZaTg"
-    >
-      {coordinates.map(({ longitude, latitude, name, description }) => (
-        <Marker
-          latitude={latitude}
-          longitude={longitude}
-          offsetLeft={-20}
-          offsetTop={-10}
-          key={name}
-        >
-          <div
-            style={{ cursor: 'pointer' }}
-            onClick={() => setFarmInfo({ name, description, longitude, latitude })}
+    <>
+      {loading && <Loader />}
+      {error && <Message variant="danger">{error}</Message>}
+      <ReactMapGL
+        {...viewport}
+        width="50vw"
+        height="50vh"
+        onViewportChange={setViewport}
+        mapboxApiAccessToken="pk.eyJ1IjoiZmFybXkiLCJhIjoiY2tveGQ1OGs4MGV4bzJucGRoZ2VlNDVqbSJ9.Jv0nA83huBK0OEc6cmZaTg"
+      >
+        {farm.map(({ coordinates, description, name }) => (
+          <Marker
+            latitude={coordinates.lat}
+            longitude={coordinates.lon}
+            offsetLeft={-20}
+            offsetTop={-10}
+            key={name}
           >
-            {redMarker}
-          </div>
-        </Marker>
-      ))}
-      {farmInfo && (
-        <Popup
-          tipSize={5}
-          anchor="top"
-          longitude={farmInfo.longitude}
-          latitude={farmInfo.latitude}
-          closeOnClick={false}
-          onClose={() => setFarmInfo('')}
-        >
-          <div>
-            <h3>{farmInfo.name}</h3>
-            <p>{farmInfo.description}</p>
-          </div>
-        </Popup>
-      )}
-    </ReactMapGL>
+            <div
+              style={{ cursor: 'pointer' }}
+              onClick={() => setFarmInfo({ name, description, coordinates })}
+            >
+              {redMarker}
+            </div>
+          </Marker>
+        ))}
+        {farmInfo && (
+          <Popup
+            tipSize={5}
+            anchor="top"
+            longitude={farmInfo.coordinates.lon}
+            latitude={farmInfo.coordinates.lat}
+            closeOnClick={false}
+            onClose={() => setFarmInfo('')}
+          >
+            <div>
+              <h3>{farmInfo.name}</h3>
+              <p>{farmInfo.description}</p>
+            </div>
+          </Popup>
+        )}
+      </ReactMapGL>
+    </>
   );
 };
 

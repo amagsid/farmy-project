@@ -7,7 +7,7 @@ export const farmListReducer = (state = { farm: [] }, action) => {
     case FARM_LIST_SUCCESS:
       return {
         loading: false,
-        farm: action.payload.farm,
+        farm: action.payload,
       };
     case FARM_LIST_FAIL:
       return { loading: false, error: action.payload };

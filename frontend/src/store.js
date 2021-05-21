@@ -32,7 +32,7 @@ import {
   subscriptionUpdateReducer,
   subscriptionCancelReducer,
 } from './reducers/subscriptionReducers';
-import farmListReducer from './reducers/farmReducer';
+import { farmListReducer } from './reducers/farmReducer';
 
 const reducer = combineReducers({
   bundleList: bundleListReducer,

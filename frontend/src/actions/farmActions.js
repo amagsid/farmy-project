@@ -5,7 +5,7 @@ export const listFarms = () => async (dispatch) => {
   try {
     dispatch({ type: FARM_LIST_REQUEST });
 
-    const { data } = await axios.get(`/api/farms/`);
+    const { data } = await axios.get('/api/farms/');
 
     dispatch({
       type: FARM_LIST_SUCCESS,
