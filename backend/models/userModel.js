@@ -21,6 +21,12 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    preferences: {
+      diet: { type: String },
+      cookingSkill: { type: String },
+      cuisine: { type: String },
+      cookingTime: { type: String },
+    },
   },
   {
     timestamps: true,

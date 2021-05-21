@@ -28,6 +28,13 @@ const Header = () => {
             <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className="ml-auto">
               {userInfo && !userInfo.isAdmin && (
+                <LinkContainer to="/preferences">
+                  <Nav.Link>
+                    <i class="fas fa-utensils"></i> Preferences
+                  </Nav.Link>
+                </LinkContainer>
+              )}
+              {userInfo && !userInfo.isAdmin && (
                 <LinkContainer to="/plan">
                   <Nav.Link>
                     <i className="fas fa-calendar-alt"></i> Plan

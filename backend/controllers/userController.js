@@ -69,6 +69,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      preferences: user.preferences,
     });
   } else {
     res.status(404);
@@ -88,6 +89,12 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     if (req.body.password) {
       user.password = req.body.password;
     }
+    user.preferences = {
+      diet: req.body.preferences.diet || user.preferences.diet,
+      cookingSkill: req.body.preferences.cookingSkill || user.preferences.cookingSkill,
+      cuisine: req.body.preferences.cuisine || user.preferences.cuisine,
+      cookingTime: req.body.preferences.cookingTime || user.preferences.cookingTime,
+    };
 
     const updatedUser = await user.save();
 
@@ -96,6 +103,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
+      preferences: updatedUser.preferences,
       token: generateToken(updatedUser._id),
     });
   } else {
