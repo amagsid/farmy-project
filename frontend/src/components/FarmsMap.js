@@ -10,8 +10,10 @@ const FarmsMap = () => {
   const dispatch = useDispatch();
 
   const [viewport, setViewport] = React.useState({
+    latitude: 52.0326,
     longitude: 5.2913,
-    latitude: 52.1326,
+    width: '100%',
+    height: '50vh',
     zoom: 6,
   });
 
@@ -44,10 +46,9 @@ const FarmsMap = () => {
       {error && <Message variant="danger">{error}</Message>}
       <ReactMapGL
         {...viewport}
-        width="50vw"
-        height="50vh"
         onViewportChange={setViewport}
         mapboxApiAccessToken="pk.eyJ1IjoiZmFybXkiLCJhIjoiY2tveGQ1OGs4MGV4bzJucGRoZ2VlNDVqbSJ9.Jv0nA83huBK0OEc6cmZaTg"
+        mapStyle="mapbox://styles/farmy/ckoygud5q2ilp17mhpwgqk0f9"
       >
         {farm?.map(({ coordinates, description, name }) => (
           <Marker
