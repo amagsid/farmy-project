@@ -7,45 +7,23 @@ import { listFarms } from '../actions/farmActions';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const FarmsMap = () => {
-  const [viewport, setViewport] = React.useState({
-    longitude: -122.45,
-    latitude: 37.78,
-    zoom: 14,
-  });
-
   const dispatch = useDispatch();
+
+  const [viewport, setViewport] = React.useState({
+    longitude: 5.2913,
+    latitude: 52.1326,
+    zoom: 6,
+  });
 
   const farmsData = useSelector((state) => state.farmList);
 
   const { loading, error, farm } = farmsData;
-  console.log(farm);
 
   useEffect(() => {
     dispatch(listFarms());
   }, [dispatch]);
 
   const [farmInfo, setFarmInfo] = useState('');
-
-  const coordinates = [
-    {
-      longitude: -122.45,
-      latitude: 37.78,
-      name: 'Farm1',
-      description: 'We are farm1',
-    },
-    {
-      longitude: -8.7942,
-      latitude: -16.31928,
-      name: 'Farm2',
-      description: 'We are farm2',
-    },
-    {
-      longitude: -148.83206,
-      latitude: 11.95208,
-      name: 'Farm3',
-      description: 'We are farm3',
-    },
-  ];
 
   const redMarker = (
     <svg
@@ -61,7 +39,7 @@ const FarmsMap = () => {
   );
 
   return (
-    <>
+    <div>
       {loading && <Loader />}
       {error && <Message variant="danger">{error}</Message>}
       <ReactMapGL
@@ -71,7 +49,7 @@ const FarmsMap = () => {
         onViewportChange={setViewport}
         mapboxApiAccessToken="pk.eyJ1IjoiZmFybXkiLCJhIjoiY2tveGQ1OGs4MGV4bzJucGRoZ2VlNDVqbSJ9.Jv0nA83huBK0OEc6cmZaTg"
       >
-        {farm.map(({ coordinates, description, name }) => (
+        {farm?.map(({ coordinates, description, name }) => (
           <Marker
             latitude={coordinates.lat}
             longitude={coordinates.lon}
@@ -103,7 +81,7 @@ const FarmsMap = () => {
           </Popup>
         )}
       </ReactMapGL>
-    </>
+    </div>
   );
 };
 
