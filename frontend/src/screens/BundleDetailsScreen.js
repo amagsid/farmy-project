@@ -6,6 +6,8 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Meta from '../components/Meta';
 import Rating from '../components/Rating';
+import ReactGA from 'react-ga';
+import env from 'react-dotenv';
 
 import { listBundleDetails, createBundleReview } from '../actions/bundleActions';
 import { BUNDLE_CREATE_REVIEW_RESET } from '../constants/bundleConstants';
@@ -46,6 +48,12 @@ const BundleDetailsScreen = ({ match, history }) => {
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}&frq=${orderFrq}&orderper=${orderPer}`);
+    ReactGA.initialize(env.GUA_ID);
+    ReactGA.event({
+      category: 'subscribe',
+      action: 'click add to cart',
+      label: 'Add to Cart from Bundle Details Page',
+    });
   };
 
   const submitHandler = (e) => {

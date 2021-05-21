@@ -6,6 +6,8 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listBundlesNewUser } from '../actions/bundleActions';
 import { SUBSCRIPTION_CREATE_RESET } from '../constants/subscriptionConstants';
+import ReactGA from 'react-ga';
+import env from 'react-dotenv';
 
 const RegisterBundleScreen = ({ history }) => {
   const [orderPer, setOrderPer] = useState('week');
@@ -40,6 +42,12 @@ const RegisterBundleScreen = ({ history }) => {
     history.push(
       `/cart/${selectedBundleId}?qty=${houseHold}&frq=${orderFrequency}&orderper=${orderPer}`
     );
+    ReactGA.initialize(env.GUA_ID);
+    ReactGA.event({
+      category: 'subscribe',
+      action: 'click add to cart',
+      label: 'Add to Cart from Register Bundle Page',
+    });
   };
 
   return (
