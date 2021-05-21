@@ -21,6 +21,9 @@ import {
   userListReducer,
   userDeleteReducer,
   userUpdateReducer,
+  userAuthFaceBookReducer,
+  userAuthGoogleReducer,
+  userHistoryRoutesReducer,
 } from './reducers/userReducers';
 import {
   subscriptionCreateReducer,
@@ -51,6 +54,9 @@ const reducer = combineReducers({
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
+  userAuthFaceBook: userAuthFaceBookReducer,
+  userAuthGoogle: userAuthGoogleReducer,
+  userHistoryRoutes: userHistoryRoutesReducer,
   subscriptionCreate: subscriptionCreateReducer,
   subscriptionDetails: subscriptionDetailsReducer,
   subscriptionPay: subscriptionPayReducer,

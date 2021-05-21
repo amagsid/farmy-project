@@ -1,7 +1,8 @@
 import asyncHandler from 'express-async-handler';
+import axios from 'axios';
+import { OAuth2Client } from 'google-auth-library';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js';
-
 // @desc    Auth user & get token
 // @route   POST /api/users/login
 // @access  Public
@@ -165,6 +166,129 @@ const updateUser = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 });
+// @desc    Login or Register with Facebook
+// @route   POST /api/users/auth/facebook
+// @access  Public
+const authUserFacebook = asyncHandler(async (req, res) => {
+  const { accessToken, userID } = req.body;
+
+  try {
+    const urlGraphFacebook = `https://graph.facebook.com/v2.11/${userID}/?fields=id,name,email&access_token=${accessToken}`;
+    const { data } = await axios.get(urlGraphFacebook);
+
+    const { name, email } = data;
+    const password = email + process.env.JWT_SECRET;
+
+    const user = await User.findOne({ email });
+
+    if (user) {
+      if (await user.matchPassword(password)) {
+        res.json({
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          isAdmin: user.isAdmin,
+          status: user.status,
+
+          token: generateToken(user._id),
+        });
+      } else {
+        res.status(401);
+        throw new Error('Invalid email or password');
+      }
+    } else {
+      const newUser = await User.create({
+        name,
+        email,
+        password,
+      });
+
+      if (newUser) {
+        res.status(201).json({
+          _id: newUser._id,
+          name: newUser.name,
+          email: newUser.email,
+          isAdmin: newUser.isAdmin,
+          status: newUser.status,
+
+          token: generateToken(newUser._id),
+        });
+      } else {
+        res.status(400);
+        throw new Error('Invalid user data');
+      }
+    }
+  } catch (error) {
+    res.status(400);
+    throw new Error('Something went wrong...');
+  }
+});
+
+// @desc    Login or Register with Google
+// @route   POST /api/users/auth/google
+// @access  Public
+const authUserGoogle = asyncHandler(async (req, res) => {
+  const { tokenId } = req.body;
+
+  try {
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+    const { payload } = await client.verifyIdToken({
+      idToken: tokenId,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const { emailVerified, name, email } = payload;
+    const password = email + process.env.JWT_SECRET;
+
+    const user = await User.findOne({ email });
+
+    if (emailVerified) {
+      if (user) {
+        if (await user.matchPassword(password)) {
+          res.json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+            status: user.status,
+
+            token: generateToken(user._id),
+          });
+        } else {
+          res.status(401);
+          throw new Error('Invalid email or password');
+        }
+      } else {
+        const newUser = await User.create({
+          name,
+          email,
+          password,
+        });
+
+        if (newUser) {
+          res.status(201).json({
+            _id: newUser._id,
+            name: newUser.name,
+            email: newUser.email,
+            isAdmin: newUser.isAdmin,
+            status: newUser.status,
+
+            token: generateToken(newUser._id),
+          });
+        } else {
+          res.status(400);
+          throw new Error('Invalid user data');
+        }
+      }
+    } else {
+      res.status(400);
+      throw new Error('Email address not verified');
+    }
+  } catch (error) {
+    res.status(400);
+    throw new Error('Something went wrong...');
+  }
+});
 
 export {
   authUser,
@@ -175,4 +299,6 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  authUserFacebook,
+  authUserGoogle,
 };

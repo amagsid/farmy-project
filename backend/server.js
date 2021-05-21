@@ -28,7 +28,10 @@ app.use('/api/subscriptions', subscriptionRoutes);
 app.use('/api/upload', uploadRoutes);
 
 app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID));
-
+app.get('/api/config/authid', (req, res) => res.json({
+    googleid: process.env.GOOGLE_CLIENT_ID,
+    facebookid: process.env.FACEBOOK_CLIENT_ID,
+  }));
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
