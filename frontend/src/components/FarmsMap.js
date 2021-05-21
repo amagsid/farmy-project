@@ -5,6 +5,7 @@ import Loader from './Loader';
 import Message from './Message';
 import { listFarms } from '../actions/farmActions';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import '../index.css';
 
 const FarmsMap = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const FarmsMap = () => {
     dispatch(listFarms());
   }, [dispatch]);
 
-  const [farmInfo, setFarmInfo] = useState('');
+  const [farmInfo, setFarmInfo] = useState(null);
 
   const redMarker = (
     <svg
@@ -72,12 +73,13 @@ const FarmsMap = () => {
             anchor="top"
             longitude={farmInfo.coordinates.lon}
             latitude={farmInfo.coordinates.lat}
-            closeOnClick={false}
-            onClose={() => setFarmInfo('')}
+            closeOnClick={true}
+            className="popup"
+            onClose={() => setFarmInfo(null)}
           >
             <div>
-              <h3>{farmInfo.name}</h3>
-              <p>{farmInfo.description}</p>
+              <h5>{farmInfo.name}</h5>
+              <h6>{farmInfo.description}</h6>
             </div>
           </Popup>
         )}
