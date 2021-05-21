@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-// import colors from 'colors';
+import colors from 'colors';
 import { createRequire } from 'module'; // Bring in the ability to create the 'require' method
 import users from './data/users.js';
 import User from './models/userModel.js';
