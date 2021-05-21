@@ -102,7 +102,7 @@ const HomeScreen = ({ match }) => {
                     <Link to={`/bundles/${bundle._id}`}>
                       <Bundle bundle={bundle} />
                     </Link>
-                    <LinkContainer to={`/subscription/${bundle._id}`}>
+                    <LinkContainer to={`/bundles/${bundle._id}`}>
                       <Button variant="outline-success" size="lg" block>
                         Subscribe
                       </Button>
