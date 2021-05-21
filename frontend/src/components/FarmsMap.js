@@ -1,43 +1,58 @@
-import React, { useState } from 'react';
-import ReactMapGL, { Marker } from 'react-map-gl';
+import React, { useRef, useEffect, useState } from 'react';
+import mapboxgl from 'mapbox-gl';
+import '../index.css';
+
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
 const FarmsMap = () => {
-  const [viewport, setViewport] = useState({
-    latitude: 52.06633748961447,
-    longitude: 5.271130529104891,
-    zoom: 7,
-  });
+  const mapContainerRef = useRef(null);
+
+  const [lng, setLng] = useState(-87.65);
+  const [lat, setLat] = useState(41.84);
+  const [zoom, setZoom] = useState(10);
 
   const data = [
-    { id: 1, lat: 52.00889302297123, long: 4.897595375672715 },
-    { id: 1, lat: 52.00889302297123, long: 4.897595375672715 },
+    {
+      coords: ['-87.637596', '41.940403'],
+    },
+    {
+      coords: ['-87.637596', '41.940403'],
+    },
   ];
+  // Initialize map when component mounts
+  useEffect(() => {
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [lng, lat],
+      zoom: zoom,
+    });
+
+    // Create default markers
+    data.map((feature) => new mapboxgl.Marker().setLngLat(feature.coords).addTo(map));
+
+    // Add navigation control (the +/- zoom buttons)
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+    map.on('move', () => {
+      setLng(map.getCenter().lng.toFixed(4));
+      setLat(map.getCenter().lat.toFixed(4));
+      setZoom(map.getZoom().toFixed(2));
+    });
+
+    // Clean up on unmount
+    return () => map.remove();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <>
-      <h1>Our providers of Fresh Products!</h1>
-      <ReactMapGL
-        {...viewport}
-        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        width="100%"
-        height="200px"
-        mapStyle="mapbox://styles/farmy/ckovlez1a01um17r5rmq19gkr"
-        onViewportChange={(viewport) => setViewport(viewport)}
-      >
-        {data.map((field) => (
-          <Marker key={field.id} latitude={field.lat} longitude={field.lon}>
-            <button>
-              <img
-                src="pk.eyJ1IjoiZmFybXkiLCJhIjoiY2tveGQ1OGs4MGV4bzJucGRoZ2VlNDVqbSJ9.Jv0nA83huBK0OEc6cmZaTg"
-                alt="pinpoint"
-                width="100"
-                height="100"
-              />
-            </button>
-          </Marker>
-        ))}
-      </ReactMapGL>
-    </>
+    <div>
+      <div>
+        <div>
+          Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+        </div>
+      </div>
+      <div ref={mapContainerRef} />
+    </div>
   );
 };
 
