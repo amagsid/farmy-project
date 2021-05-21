@@ -2,31 +2,31 @@
   {
     "name": "John Doe",
     "description": "Donec ut sollicitudin dolor. Sed a dictum erat, eget vulputate nisi. Nunc ac quam at tellus consequat sagittis.",
-    "coordinates": ["52.30879864206189", "5.84656215947842"]
+    "coordinates": { "lat": "52.30879864206189", "lon": "5.84656215947842" }
   },
   {
     "name": "Jane Doe",
     "description": "Donec vehicula a leo ut auctor. Cras sagittis felis et sem ultrices, a rhoncus purus rutrum. Sed at ultricies nibh, rhoncus congue enim.",
-    "coordinates": ["51.64575274473481", "5.094509898367651"]
+    "coordinates": { "lat": "51.64575274473481", "lon": "5.094509898367651" }
   },
   {
     "name": "Matthew Doe",
     "description": "Nunc sed vehicula nisl. Donec eleifend dapibus ultrices. Nunc vitae eros eget neque pharetra tincidunt at eget odio.",
-    "coordinates": ["52.77989794057259", "5.967647085041341"]
+    "coordinates": { "lat": "52.77989794057259", "lon": "5.967647085041341" }
   },
   {
     "name": "Courteney Doe",
     "description": "Aliquam at ligula orci. Donec velit quam, faucibus vel ornare et, lacinia quis dolor.",
-    "coordinates": ["50.90017194519338", "5.818126158157645"]
+    "coordinates": { "lat": "50.90017194519338", "lon": "5.818126158157645" }
   },
   {
     "name": "Lisa Doe",
     "description": "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec dictum pharetra nulla quis congue.",
-    "coordinates": ["52.753976422302244", "4.838149714833168"]
+    "coordinates": { "lat": "52.753976422302244", "lon": "4.838149714833168" }
   },
   {
     "name": "Matt Doe",
     "description": "Quisque ullamcorper diam id risus dignissim consequat. Phasellus fermentum risus eu metus varius volutpat.",
-    "coordinates": ["52.07653103380374", "6.031978704393116"]
+    "coordinates": { "lat": "52.07653103380374", "lon": "6.031978704393116" }
   }
 ]

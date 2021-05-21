@@ -11,7 +11,7 @@ const farmSchema = mongoose.Schema(
       required: true,
     },
     coordinates: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },
