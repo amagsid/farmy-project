@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listMySubscriptions, cancelSubscription } from '../actions/subscriptionActions';
-import ProdileEditTabs from '../components/ProdileEditTabs';
+import ProfileEditTabs from '../components/ProfileEditTabs';
 
 const SubscriptionListScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ const SubscriptionListScreen = ({ history }) => {
 
   return (
     <>
-      <ProdileEditTabs profile subscriptions preferences />
+      <ProfileEditTabs profile subscriptions preferences />
       <h2>
         you have {subscriptions.length} active{' '}
         {subscriptions.length === 1 ? 'subscription' : 'subscriptions'}{' '}

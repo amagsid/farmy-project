@@ -5,7 +5,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
-import ProdileEditTabs from '../components/ProdileEditTabs';
+import ProfileEditTabs from '../components/ProfileEditTabs';
 import FormContainer from '../components/FormContainer';
 
 const PreferenceScreen = ({ history }) => {
@@ -73,7 +73,7 @@ const PreferenceScreen = ({ history }) => {
 
   return (
     <FormContainer>
-      <ProdileEditTabs profile subscriptions preferences />
+      <ProfileEditTabs profile subscriptions preferences />
 
       {success && <Message variant="success">Preferences updated</Message>}
       {loading ? (
