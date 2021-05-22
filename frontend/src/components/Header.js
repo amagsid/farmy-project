@@ -5,15 +5,39 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import SearchBox from './SearchBox';
 import { logout } from '../actions/userActions';
+import ReactGA from 'react-ga';
+import env from 'react-dotenv';
 
 const Header = () => {
   const dispatch = useDispatch();
+  ReactGA.initialize(env.GUA_ID);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   const logoutHandler = () => {
     dispatch(logout());
+    ReactGA.event({
+      category: 'header click',
+      action: 'click logout',
+      label: 'Logout from Header',
+    });
+  };
+
+  const gaLoginEvent = () => {
+    ReactGA.event({
+      category: 'header click',
+      action: 'click login',
+      label: 'Login from Header',
+    });
+  };
+
+  const gaLogoEvent = () => {
+    ReactGA.event({
+      category: 'header click',
+      action: 'click logo',
+      label: 'View Home Page',
+    });
   };
 
   return (
@@ -21,7 +45,7 @@ const Header = () => {
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>Farmy</Navbar.Brand>
+            <Navbar.Brand onClick={gaLogoEvent}>Farmy</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -49,7 +73,7 @@ const Header = () => {
                 </NavDropdown>
               ) : (
                 <LinkContainer to="/login">
-                  <Nav.Link>
+                  <Nav.Link onClick={gaLoginEvent}>
                     <i className="fas fa-user"></i> Sign In
                   </Nav.Link>
                 </LinkContainer>
