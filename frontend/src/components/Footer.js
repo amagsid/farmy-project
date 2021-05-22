@@ -9,8 +9,7 @@ const Footer = () => {
 
   useEffect(() => {
     ReactGA.initialize(REACT_APP_GUA_ID);
-    console.log(REACT_APP_GUA_ID);
-    let pagePath = location.search ? location.pathname + location.search : location.pathname;
+    const pagePath = location.search ? location.pathname + location.search : location.pathname;
     ReactGA.pageview(`${pagePath}`);
   }, [location]);
 
