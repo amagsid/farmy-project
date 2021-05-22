@@ -72,6 +72,12 @@ const SubscriptionScreen = ({ match, history }) => {
       dispatch({ type: SUBSCRIPTION_PAY_RESET });
       dispatch({ type: SUBSCRIPTION_DELIVER_RESET });
       dispatch(getSubscriptionDetails(subscriptionId));
+      ReactGA.initialize(env.GUA_ID);
+      ReactGA.event({
+        category: 'subscribe',
+        action: 'subscription paid',
+        label: 'Payment Successful',
+      });
     } else if (!subscription.isPaid) {
       if (!window.paypal) {
         addPayPalScript();
@@ -83,12 +89,6 @@ const SubscriptionScreen = ({ match, history }) => {
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(paySubscription(subscriptionId, paymentResult));
-    ReactGA.initialize(env.GUA_ID);
-    ReactGA.event({
-      category: 'subscribe',
-      action: 'subscription paid',
-      label: 'Payment Successful',
-    });
   };
 
   const deliverHandler = () => {
