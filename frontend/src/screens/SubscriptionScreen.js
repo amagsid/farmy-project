@@ -16,7 +16,7 @@ import {
   SUBSCRIPTION_DELIVER_RESET,
 } from '../constants/subscriptionConstants';
 import ReactGA from 'react-ga';
-import env from 'react-dotenv';
+const { REACT_APP_GUA_ID } = process.env;
 
 const SubscriptionScreen = ({ match, history }) => {
   const subscriptionId = match.params.id;
@@ -72,7 +72,7 @@ const SubscriptionScreen = ({ match, history }) => {
       dispatch({ type: SUBSCRIPTION_PAY_RESET });
       dispatch({ type: SUBSCRIPTION_DELIVER_RESET });
       dispatch(getSubscriptionDetails(subscriptionId));
-      ReactGA.initialize(env.GUA_ID);
+      ReactGA.initialize(REACT_APP_GUA_ID);
       ReactGA.event({
         category: 'subscribe',
         action: 'subscription paid',

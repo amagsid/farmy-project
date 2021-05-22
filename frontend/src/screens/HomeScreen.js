@@ -14,7 +14,7 @@ import IntroductionCard from '../components/IntroductionCard';
 import feedback from '../feedback.json';
 import introduction from '../introduction.json';
 import ReactGA from 'react-ga';
-import env from 'react-dotenv';
+const { REACT_APP_GUA_ID } = process.env;
 
 const HomeScreen = ({ match }) => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
 
   useEffect(() => {
-    ReactGA.initialize(env.GUA_ID);
+    ReactGA.initialize(REACT_APP_GUA_ID);
     ReactGA.pageview('/');
   }, []);
 
