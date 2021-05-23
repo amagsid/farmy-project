@@ -15,7 +15,7 @@ const FarmsMap = () => {
     longitude: 5.2913,
     width: '100%',
     height: '50vh',
-    zoom: 6,
+    zoom: 5.8,
   });
 
   const farmsData = useSelector((state) => state.farmList);
@@ -79,7 +79,7 @@ const FarmsMap = () => {
           >
             <div>
               <h5>{farmInfo.name}</h5>
-              <h6>{farmInfo.description}</h6>
+              <p>{farmInfo.description}</p>
             </div>
           </Popup>
         )}

@@ -99,3 +99,7 @@ h2 {
   background-color: black;
   border-radius: 4px;
 }
+
+.popup p {
+  font-family: 'Times New Roman', Times, serif;
+}
