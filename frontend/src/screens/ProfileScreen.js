@@ -198,7 +198,7 @@ const ProfileScreen = ({ location, history }) => {
                 <Form.Control
                   type="text"
                   placeholder="Enter country"
-                  value={country || ''}
+                  value={country}
                   required
                   onChange={(e) => setCountry(e.target.value)}
                 ></Form.Control>
