@@ -22,7 +22,7 @@ const GoogleAuth = ({ apiKey, registerEvent }) => {
             onClick={renderProps.onClick}
             disabled={renderProps.disabled}
             label="Continue with Google"
-            style={{ width: '32.8rem', border: 'none' }}
+            style={{ width: '32.8rm', border: 'none' }}
           />
         )}
         onSuccess={responseSuccessGoogle}
