@@ -30,12 +30,12 @@ const Header = () => {
               {userInfo && !userInfo.isAdmin && (
                 <LinkContainer to="/preferences">
                   <Nav.Link>
-                    <i class="fas fa-utensils"></i> Preferences
+                    <i className="fas fa-utensils"></i> Preferences
                   </Nav.Link>
                 </LinkContainer>
               )}
               {userInfo && !userInfo.isAdmin && (
-                <LinkContainer to="/plan">
+                <LinkContainer to="/subscriptions">
                   <Nav.Link>
                     <i className="fas fa-calendar-alt"></i> Plan
                   </Nav.Link>

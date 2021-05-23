@@ -22,10 +22,11 @@ const userSchema = mongoose.Schema(
       default: false,
     },
     preferences: {
-      diet: { type: String },
-      cookingSkill: { type: String },
-      cuisine: { type: String },
-      cookingTime: { type: String },
+      diet: { type: String, default: '' },
+      cookingSkill: { type: String, default: '' },
+      // cuisine: { type: String, default: '' },
+      cuisine: { type: Array, default: [] },
+      cookingTime: { type: String, default: '' },
     },
   },
   {

@@ -11,7 +11,7 @@ import FormContainer from '../components/FormContainer';
 const PreferenceScreen = ({ history }) => {
   const [diet, setDiet] = useState('');
   const [cookingSkill, setCookingSkill] = useState('');
-  const [cuisine, setCuisine] = useState('');
+  const [cuisine, setCuisine] = useState([]);
   const [cookingTime, setCookingTime] = useState('');
 
   const dispatch = useDispatch();
@@ -52,6 +52,15 @@ const PreferenceScreen = ({ history }) => {
     );
   };
 
+  const handleCheck = (cuisineForCheck) => {
+    if (cuisine.includes(cuisineForCheck)) {
+      const filteredCuisine = cuisine.filter((x) => x !== cuisineForCheck);
+      setCuisine(filteredCuisine);
+    } else {
+      setCuisine([...cuisine, cuisineForCheck]);
+    }
+  };
+
   const diets = ['Vegetarian', 'Vegan', 'Mediterranean', 'Low-carb'];
   const cookingSkills = ['Beginner', 'Regular', 'Pro'];
   const cuisines = [
@@ -75,7 +84,6 @@ const PreferenceScreen = ({ history }) => {
     <FormContainer>
       <ProfileEditTabs profile subscriptions preferences />
 
-      {success && <Message variant="success">Preferences updated</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -106,11 +114,11 @@ const PreferenceScreen = ({ history }) => {
               ))}
             </Form.Control>
           </Form.Group>
-          <Form.Group>
-            <h6>Choose your favorite cuisine</h6>
+          {/* <Form.Group>
+            <h6>Choose your favorite cuisines</h6>
             <Form.Control
               as="select"
-              onChange={(e) => setCuisine(e.target.value)}
+              onChange={(e) => setCuisine([...cuisine, e.target.value])}
               value={cuisine || ''}
             >
               {cuisines.map((x, index) => (
@@ -119,7 +127,7 @@ const PreferenceScreen = ({ history }) => {
                 </option>
               ))}
             </Form.Control>
-          </Form.Group>
+          </Form.Group> */}
           <Form.Group>
             <h6>How much time for cooking?</h6>
             <Form.Control
@@ -133,6 +141,20 @@ const PreferenceScreen = ({ history }) => {
                 </option>
               ))}
             </Form.Control>
+          </Form.Group>
+          <Form.Group>
+            <h6>Select your favorite cuisines</h6>
+            {cuisines.map((x, index) => (
+              <Form.Check
+                key={index}
+                type="checkbox"
+                id={x}
+                label={x}
+                value={x}
+                checked={cuisine.includes(x)}
+                onChange={(e) => handleCheck(e.target.value)}
+              />
+            ))}
           </Form.Group>
 
           <Button type="submit" variant="primary">
