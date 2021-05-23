@@ -68,7 +68,6 @@ const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
 
     const updatedSubscription = await subscription.save();
 
-    console.log(updatedSubscription);
     // a transporter object
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -89,13 +88,16 @@ const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
       to: `${req.user.email}`,
       subject: 'You are subscribed',
       html: `<h1>Hi, ${req.user.name}!</h1>
-          <p>You have subscribed to the bundle of ${updatedSubscription.subscriptionItems[0].name}
+          <p>You have subscribed to the bundle${
+            updatedSubscription.subscriptionItems.length > 1 ? 's' : ''
+          }:
+          <ul>${updatedSubscription.subscriptionItems.map((item) => `<li>${item.name}`)}</ul>
           <br>
           <img src="https:${updatedSubscription.subscriptionItems[0].image}" width="200" />
           <br>
           The subscription has been paid by ${updatedSubscription.paymentMethod} payment method.</p>
           <small>If you want to unsubscribe from a product, you can do it on your profile page. 
-          Login to your account. 
+          Log in to your account. 
           Go to your profile page.
           Choose the product that you want to unsubscribe from and click on the Unsubscribe button.</small>`,
     });
