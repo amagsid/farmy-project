@@ -80,8 +80,6 @@ const ProfileScreen = ({ location, history }) => {
     }
   };
 
-  console.log(subId);
-
   return (
     <FormContainer>
       <ProfileEditTabs profile subscriptions preferences />

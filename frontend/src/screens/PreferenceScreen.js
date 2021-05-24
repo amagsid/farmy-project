@@ -48,7 +48,12 @@ const PreferenceScreen = ({ history }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
-      updateUserProfile({ id: user._id, preferences: { diet, cookingSkill, cuisine, cookingTime } })
+      updateUserProfile({
+        id: user._id,
+        // name: user.name,
+        // email: user.email,
+        preferences: { diet, cookingSkill, cuisine, cookingTime },
+      })
     );
   };
 
@@ -114,20 +119,7 @@ const PreferenceScreen = ({ history }) => {
               ))}
             </Form.Control>
           </Form.Group>
-          {/* <Form.Group>
-            <h6>Choose your favorite cuisines</h6>
-            <Form.Control
-              as="select"
-              onChange={(e) => setCuisine([...cuisine, e.target.value])}
-              value={cuisine || ''}
-            >
-              {cuisines.map((x, index) => (
-                <option key={index} value={x}>
-                  {x}
-                </option>
-              ))}
-            </Form.Control>
-          </Form.Group> */}
+
           <Form.Group>
             <h6>How much time for cooking?</h6>
             <Form.Control
