@@ -151,7 +151,7 @@ const PreferenceScreen = ({ history }) => {
             ))}
           </Form.Group>
 
-          <Button type="submit" variant="primary">
+          <Button className="update-button" type="submit" variant="primary">
             Update
           </Button>
         </Form>

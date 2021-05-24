@@ -60,7 +60,7 @@ const ProfileScreen = ({ location, history }) => {
         setCountry();
       }
     }
-  }, [dispatch, history, userInfo, user, subscriptions, subId]);
+  }, [dispatch, history, userInfo, user, subscriptions, subId, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -205,7 +205,7 @@ const ProfileScreen = ({ location, history }) => {
               </Form.Group>
             </>
           )}
-          <Button type="submit" variant="primary">
+          <Button className="update-button" type="submit" variant="primary">
             Update
           </Button>
         </Form>
