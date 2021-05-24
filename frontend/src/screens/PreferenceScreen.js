@@ -27,12 +27,13 @@ const PreferenceScreen = ({ history }) => {
 
   const subscriptionListMy = useSelector((state) => state.subscriptionListMy);
   const { subscriptions } = subscriptionListMy;
+  console.log(success);
 
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
     } else {
-      if (!user || !user.name || success || !subscriptions) {
+      if (!user || !user.name || !subscriptions) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
 
         dispatch(getUserDetails('profile'));
@@ -43,7 +44,7 @@ const PreferenceScreen = ({ history }) => {
         setCookingTime(user.preferences.cookingTime);
       }
     }
-  }, [dispatch, history, userInfo, user, success, subscriptions]);
+  }, [dispatch, history, userInfo, user, subscriptions]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -88,6 +89,7 @@ const PreferenceScreen = ({ history }) => {
   return (
     <FormContainer>
       <ProfileEditTabs profile subscriptions preferences />
+      {success && <Message variant="success">Preferences Updated</Message>}
 
       {loading ? (
         <Loader />

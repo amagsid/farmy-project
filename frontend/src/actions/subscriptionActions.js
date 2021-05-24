@@ -268,8 +268,6 @@ export const updateSubscription = (subscription) => async (dispatch, getState) =
       },
     };
 
-    console.log(subscription);
-
     const { subId } = subscription;
     // const { subId, address, city, postalCode, country } = subscription;
 

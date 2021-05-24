@@ -6,6 +6,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listMySubscriptions, cancelSubscription } from '../actions/subscriptionActions';
 import ProfileEditTabs from '../components/ProfileEditTabs';
+// import { SUBSCRIPTION_CANCEL_RESET } from '../constants/subscriptionConstants';
 
 const SubscriptionListScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -38,6 +39,17 @@ const SubscriptionListScreen = ({ history }) => {
       dispatch(cancelSubscription(id));
     }
   };
+
+  // useEffect(() => {
+  //   if (cancelSuccess) {
+  //     dispatch({ type: SUBSCRIPTION_CANCEL_RESET });
+  //     history.push('/subscriptions');
+  //   } else {
+  //     if (!user || !user.name || success) {
+  //       dispatch(listMySubscriptions());
+  //     }
+  //   }
+  // }, [dispatch, userInfo, history, subscriptions, success, cancelSuccess, user]);
 
   useEffect(() => {
     if (!user || !user.name || success) {

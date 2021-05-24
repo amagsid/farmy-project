@@ -46,7 +46,7 @@ const ProfileScreen = ({ location, history }) => {
     if (!userInfo) {
       history.push('/login');
     } else {
-      if (!user || !user.name || success || !subscriptions) {
+      if (!user || !user.name || !subscriptions) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
 
         dispatch(getUserDetails('profile'));
@@ -60,7 +60,7 @@ const ProfileScreen = ({ location, history }) => {
         setCountry();
       }
     }
-  }, [dispatch, history, userInfo, user, success, subscriptions, subId]);
+  }, [dispatch, history, userInfo, user, subscriptions, subId]);
 
   const submitHandler = (e) => {
     e.preventDefault();
