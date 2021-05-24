@@ -166,6 +166,7 @@ const updateUser = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 });
+
 // @desc    Login or Register with Facebook
 // @route   POST /api/users/auth/facebook
 // @access  Public
