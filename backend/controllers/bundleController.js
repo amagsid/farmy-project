@@ -38,16 +38,14 @@ const getBundles = asyncHandler(async (req, res) => {
     const ingredients = await Ingredient.find({ ...keyword }, 'bundles');
     if (ingredients.length > 0) {
       const ingredientBundles = ingredients.map((ingredient) => ingredient.bundles).flat(1);
-      keyword.$or.push(
-        { _id: ingredientBundles },
-        {
-          'reviews.comment': {
-            $regex: req.query.keyword,
-            $options: 'i',
-          },
-        },
-      );
+      keyword.$or.push({ _id: ingredientBundles });
     }
+    keyword.$or.push({
+      'reviews.comment': {
+        $regex: req.query.keyword,
+        $options: 'i',
+      },
+    });
   }
 
   const price = {

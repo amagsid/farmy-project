@@ -91,7 +91,9 @@ const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
           <p>You have subscribed to the bundle${
             updatedSubscription.subscriptionItems.length > 1 ? 's' : ''
           }:
-          <ul>${updatedSubscription.subscriptionItems.map((item) => `<li>${item.name}`)}</ul>
+          <ul>${updatedSubscription.subscriptionItems
+            .map((item) => `<li>${item.name}</li>`)
+            .join('')}</ul>
           <br>
           <img src="https:${updatedSubscription.subscriptionItems[0].image}" width="200" />
           <br>
