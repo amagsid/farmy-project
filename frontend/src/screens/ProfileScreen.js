@@ -15,7 +15,7 @@ const ProfileScreen = ({ location, history }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState(null);
-  const [subId, setSubId] = useState('');
+  const [subId, setSubId] = useState();
 
   const dispatch = useDispatch();
 
@@ -79,6 +79,8 @@ const ProfileScreen = ({ location, history }) => {
       );
     }
   };
+
+  console.log(subId);
 
   return (
     <FormContainer>
