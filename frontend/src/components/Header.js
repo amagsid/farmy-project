@@ -108,7 +108,7 @@ const Header = () => {
               )}
               {userInfo && !userInfo.isAdmin && (
                 <LinkContainer to="/subscriptions">
-                  <Nav.Link>
+                  <Nav.Link onClick={gaPlanEvent}>
                     <i className="fas fa-calendar-alt"></i> Plan
                   </Nav.Link>
                 </LinkContainer>
