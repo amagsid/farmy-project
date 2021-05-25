@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import asyncHandler from 'express-async-handler';
 import axios from 'axios';
 import { OAuth2Client } from 'google-auth-library';
@@ -249,12 +250,12 @@ const authUserGoogle = asyncHandler(async (req, res) => {
       audience: process.env.GOOGLE_CLIENT_ID,
     });
 
-    const { emailVerified, name, email } = payload;
+    const { email_verified, name, email } = payload;
     const password = email + process.env.JWT_SECRET;
 
     const user = await User.findOne({ email });
 
-    if (emailVerified) {
+    if (email_verified) {
       if (user) {
         if (await user.matchPassword(password)) {
           res.json({
