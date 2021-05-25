@@ -13,6 +13,7 @@ import FeedBack from '../components/FeedBack';
 import IntroductionCard from '../components/IntroductionCard';
 import feedback from '../feedback.json';
 import introduction from '../introduction.json';
+import FarmsMap from '../components/FarmsMap';
 
 const HomeScreen = ({ match }) => {
   const dispatch = useDispatch();
@@ -117,6 +118,9 @@ const HomeScreen = ({ match }) => {
                   );
                 })}
             </Row>
+          </Container>
+          <Container>
+            <FarmsMap />
           </Container>
         </>
       ) : (

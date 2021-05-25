@@ -93,3 +93,13 @@ h2 {
     font-size: 2.5vw;
   }
 }
+
+.popup {
+  width: 300px;
+  background-color: black;
+  border-radius: 4px;
+}
+
+.popup p {
+  font-family: 'Times New Roman', Times, serif;
+}
