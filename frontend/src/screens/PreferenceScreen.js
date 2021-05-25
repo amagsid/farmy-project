@@ -33,7 +33,7 @@ const PreferenceScreen = ({ history }) => {
     if (!userInfo) {
       history.push('/login');
     } else {
-      if (!user || !user.name || !subscriptions) {
+      if (!user || !user.name || success || !subscriptions) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
 
         dispatch(getUserDetails('profile'));
@@ -44,15 +44,13 @@ const PreferenceScreen = ({ history }) => {
         setCookingTime(user.preferences.cookingTime);
       }
     }
-  }, [dispatch, history, userInfo, user, subscriptions]);
+  }, [dispatch, history, userInfo, user, subscriptions, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
       updateUserProfile({
         id: user._id,
-        // name: user.name,
-        // email: user.email,
         preferences: { diet, cookingSkill, cuisine, cookingTime },
       })
     );
@@ -89,7 +87,7 @@ const PreferenceScreen = ({ history }) => {
   return (
     <FormContainer>
       <ProfileEditTabs profile subscriptions preferences />
-      {success && <Message variant="success">Preferences Updated</Message>}
+      {/* {success && <Message variant="success">Preferences Updated</Message>} */}
 
       {loading ? (
         <Loader />
