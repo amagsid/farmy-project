@@ -6,9 +6,10 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Meta from '../components/Meta';
 import Rating from '../components/Rating';
-
+import ReactGA from 'react-ga';
 import { listBundleDetails, createBundleReview } from '../actions/bundleActions';
 import { BUNDLE_CREATE_REVIEW_RESET } from '../constants/bundleConstants';
+const { REACT_APP_GUA_ID } = process.env;
 
 const BundleDetailsScreen = ({ match, history }) => {
   const [qty, setQty] = useState(1);
@@ -46,6 +47,12 @@ const BundleDetailsScreen = ({ match, history }) => {
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}&frq=${orderFrq}&orderper=${orderPer}`);
+    ReactGA.initialize(REACT_APP_GUA_ID);
+    ReactGA.event({
+      category: 'subscribe',
+      action: 'click add to cart',
+      label: 'Add to Cart from Bundle Details Page',
+    });
   };
 
   const submitHandler = (e) => {

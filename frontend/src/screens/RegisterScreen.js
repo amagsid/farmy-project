@@ -8,6 +8,8 @@ import FormContainer from '../components/FormContainer';
 import { register } from '../actions/userActions';
 import Email from 'react-email-autocomplete';
 import emailValidator from 'validator';
+import ReactGA from 'react-ga';
+const { REACT_APP_GUA_ID } = process.env;
 
 const RegisterScreen = ({ location, history }) => {
   const [name, setName] = useState('');
@@ -33,6 +35,15 @@ const RegisterScreen = ({ location, history }) => {
   const { loading, error, userInfo } = userRegister;
 
   const redirect = '/register/bundleplan';
+
+  const gaLoginEvent = () => {
+    ReactGA.initialize(REACT_APP_GUA_ID);
+    ReactGA.event({
+      category: 'page click',
+      action: 'click login',
+      label: 'Login from Register Page',
+    });
+  };
 
   useEffect(() => {
     if (userInfo) {
@@ -111,7 +122,9 @@ const RegisterScreen = ({ location, history }) => {
       <Row className="py-3">
         <Col>
           Have an Account?
-          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>Login</Link>
+          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'} onClick={gaLoginEvent}>
+            Login
+          </Link>
         </Col>
       </Row>
     </FormContainer>

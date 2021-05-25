@@ -15,8 +15,10 @@ import {
   SUBSCRIPTION_PAY_RESET,
   SUBSCRIPTION_DELIVER_RESET,
 } from '../constants/subscriptionConstants';
+import ReactGA from 'react-ga';
+const { REACT_APP_GUA_ID } = process.env;
 
-const SubscriptionScreen = ({ match, history }) => {
+const SubscriptionScreen = ({ match, history, location }) => {
   const subscriptionId = match.params.id;
 
   const [sdkReady, setSdkReady] = useState(false);
@@ -81,6 +83,14 @@ const SubscriptionScreen = ({ match, history }) => {
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(paySubscription(subscriptionId, paymentResult));
+    ReactGA.initialize(REACT_APP_GUA_ID);
+    ReactGA.event({
+      category: 'subscribe',
+      action: 'subscription paid',
+      label: 'Payment Successful',
+    });
+    const pagePath = location.search ? location.pathname + location.search : location.pathname;
+    history.push(`${pagePath}?isPaid=true`);
   };
 
   const deliverHandler = () => {
