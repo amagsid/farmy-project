@@ -6,7 +6,7 @@ import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import { listMySubscriptions, updateSubscription } from '../actions/subscriptionActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
-import ProdileEditTabs from '../components/ProdileEditTabs';
+import ProfileEditTabs from '../components/ProfileEditTabs';
 import FormContainer from '../components/FormContainer';
 
 const ProfileScreen = ({ location, history }) => {
@@ -15,7 +15,7 @@ const ProfileScreen = ({ location, history }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState(null);
-  const [subId, setSubId] = useState('');
+  const [subId, setSubId] = useState();
 
   const dispatch = useDispatch();
 
@@ -60,7 +60,7 @@ const ProfileScreen = ({ location, history }) => {
         setCountry();
       }
     }
-  }, [dispatch, history, userInfo, user, success, subscriptions, subId]);
+  }, [dispatch, history, userInfo, user, subscriptions, subId, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -82,14 +82,14 @@ const ProfileScreen = ({ location, history }) => {
 
   return (
     <FormContainer>
-      <ProdileEditTabs profile subscriptions preferences />
+      <ProfileEditTabs profile subscriptions preferences />
 
       <h2>
         {timeInHours > 0 && timeInHours < 12
           ? 'Good morning'
           : timeInHours >= 12 && timeInHours <= 15
           ? 'good afternoon'
-          : timeInHours > 16 && timeInHours <= 24
+          : timeInHours >= 16 && timeInHours <= 24
           ? 'good evening'
           : 'hello'}
         , {user.name}!
@@ -198,14 +198,14 @@ const ProfileScreen = ({ location, history }) => {
                 <Form.Control
                   type="text"
                   placeholder="Enter country"
-                  value={country || ''}
+                  value={country}
                   required
                   onChange={(e) => setCountry(e.target.value)}
                 ></Form.Control>
               </Form.Group>
             </>
           )}
-          <Button type="submit" variant="primary">
+          <Button className="update-button" type="submit" variant="primary">
             Update
           </Button>
         </Form>
