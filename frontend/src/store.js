@@ -32,6 +32,7 @@ import {
   subscriptionUpdateReducer,
   subscriptionCancelReducer,
 } from './reducers/subscriptionReducers';
+import { farmListReducer } from './reducers/farmReducer';
 
 const reducer = combineReducers({
   bundleList: bundleListReducer,
@@ -59,6 +60,7 @@ const reducer = combineReducers({
   subscriptionList: subscriptionListReducer,
   subscriptionUpdate: subscriptionUpdateReducer,
   subscriptionCancel: subscriptionCancelReducer,
+  farmList: farmListReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
