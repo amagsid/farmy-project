@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-const ProdileEditTabs = ({ profile, subscriptions, preferences }) => {
+const ProfileEditTabs = ({ profile, subscriptions, preferences }) => {
+  // const ActiveStyle = {
+  //   background: 'red',
+  // };
+  // const inActiveStyle = {
+  //   ...ActiveStyle,
+  //   background: 'transparent',
+  //   'border-color': 'transparent',
+  //   color: 'grey',
+  // };
+
   return (
     <Nav className="justify-content-center mb-4">
       <Nav.Item>
@@ -28,14 +38,14 @@ const ProdileEditTabs = ({ profile, subscriptions, preferences }) => {
       <Nav.Item>
         {preferences ? (
           <LinkContainer to="/preferences">
-            <Nav.Link>Preferences</Nav.Link>
+            <Nav.Link> Diet Preferences</Nav.Link>
           </LinkContainer>
         ) : (
-          <Nav.Link>Preferences</Nav.Link>
+          <Nav.Link>Diet Preferences</Nav.Link>
         )}
       </Nav.Item>
     </Nav>
   );
 };
 
-export default ProdileEditTabs;
+export default ProfileEditTabs;

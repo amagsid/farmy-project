@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listMySubscriptions, cancelSubscription } from '../actions/subscriptionActions';
-import ProdileEditTabs from '../components/ProdileEditTabs';
+import ProfileEditTabs from '../components/ProfileEditTabs';
+// import { SUBSCRIPTION_CANCEL_RESET } from '../constants/subscriptionConstants';
 
 const SubscriptionListScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -39,6 +40,17 @@ const SubscriptionListScreen = ({ history }) => {
     }
   };
 
+  // useEffect(() => {
+  //   if (cancelSuccess) {
+  //     dispatch({ type: SUBSCRIPTION_CANCEL_RESET });
+  //     history.push('/subscriptions');
+  //   } else {
+  //     if (!user || !user.name || success) {
+  //       dispatch(listMySubscriptions());
+  //     }
+  //   }
+  // }, [dispatch, userInfo, history, subscriptions, success, cancelSuccess, user]);
+
   useEffect(() => {
     if (!user || !user.name || success) {
       dispatch(listMySubscriptions());
@@ -49,7 +61,7 @@ const SubscriptionListScreen = ({ history }) => {
 
   return (
     <>
-      <ProdileEditTabs profile subscriptions preferences />
+      <ProfileEditTabs profile subscriptions preferences />
       <h2>
         you have {subscriptions.length} active{' '}
         {subscriptions.length === 1 ? 'subscription' : 'subscriptions'}{' '}
