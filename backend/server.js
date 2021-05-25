@@ -9,6 +9,7 @@ import bundleRoutes from './routes/bundleRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import subscriptionRoutes from './routes/subscriptionRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
+import farmRoutes from './routes/farmRoutes.js';
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use('/api/bundles', bundleRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/subscriptions', subscriptionRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/farms', farmRoutes);
 
 app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID));
 

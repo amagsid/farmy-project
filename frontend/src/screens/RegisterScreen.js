@@ -10,6 +10,10 @@ import { register } from '../actions/userActions';
 import GoogleAuth from '../components/GoogleAuth';
 import FacebookAuth from '../components/FacebookAuth';
 import useEventGaTracker from '../hooks/useEventGaTracker';
+import Email from 'react-email-autocomplete';
+import emailValidator from 'validator';
+import ReactGA from 'react-ga';
+const { REACT_APP_GUA_ID } = process.env;
 
 const RegisterScreen = ({ location, history }) => {
   const [name, setName] = useState('');
@@ -32,6 +36,15 @@ const RegisterScreen = ({ location, history }) => {
   const { userInfo } = userLogin;
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
+
+  const gaLoginEvent = () => {
+    ReactGA.initialize(REACT_APP_GUA_ID);
+    ReactGA.event({
+      category: 'page click',
+      action: 'click login',
+      label: 'Login from Register Page',
+    });
+  };
 
   useEffect(() => {
     if (userInfo) {
@@ -136,8 +149,10 @@ const RegisterScreen = ({ location, history }) => {
 
       <Row className="py-3">
         <Col>
-          Have an Account?{' '}
-          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>Login</Link>
+          Have an Account?
+          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'} onClick={gaLoginEvent}>
+            Login
+          </Link>
         </Col>
       </Row>
     </FormContainer>

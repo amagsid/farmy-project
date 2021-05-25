@@ -88,8 +88,24 @@ h2 {
 .signup-bundle-button {
   margin: 0 auto;
 }
+
+.update-button {
+  background-color: rgb(82, 78, 78);
+  border-radius: 5px;
+}
+
 @media (max-width: 900px) {
   .carousel-caption h2 {
     font-size: 2.5vw;
   }
+}
+
+.popup {
+  width: 300px;
+  background-color: black;
+  border-radius: 4px;
+}
+
+.popup p {
+  font-family: 'Times New Roman', Times, serif;
 }

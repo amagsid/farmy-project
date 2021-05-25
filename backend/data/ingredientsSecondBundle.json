@@ -16,7 +16,7 @@
         "description": "Our new sampling of Springtime flavours. This bundle contains two packs of each smoothie:2 x Raspberry Rhubarb - Apple, Rhubarb, Pomegranate, Raspberries",
         "status": "",
         "category": "BREAKFASTBUNDLESPLITIMAGE",
-        "price": "£14.00",
+        "price": 14.00,
         "countInStock": 0,
         "rating": 0,
         "numReviews": 0
@@ -38,7 +38,7 @@
         "description": "A golden blend that tastes as vibrant as it looks. A twist of lime brings the tropical fruit flavours in this smoothie to life: succulent mango, exotic papaya, sweet pineapple.",
         "status": "",
         "category": "SMOOTHIE-SUPERGREEN INGREDIENTS 2C748BB3-ABDC-4ED6-BFFC-5474C2B364FB",
-        "price": "£24.00",
+        "price": 24.00,
         "countInStock": 0,
         "rating": 0,
         "numReviews": 0
@@ -60,7 +60,7 @@
         "description": "Pink power! Sweet strawberry and creamy banana join sour cherries and tart red goji berries in this vitamin C-packed smoothie. Papaya lends a gentle exotic fruitiness.",
         "status": "",
         "category": "LEANGREEN",
-        "price": "£24.00",
+        "price": 24.00,
         "countInStock": 0,
         "rating": 0,
         "numReviews": 0
