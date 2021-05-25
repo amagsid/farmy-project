@@ -15,6 +15,7 @@ import feedback from '../feedback.json';
 import introduction from '../introduction.json';
 import ReactGA from 'react-ga';
 import FarmsMap from '../components/FarmsMap';
+import PersonalizedRecommendations from '../components/PersonalizedRecommendations';
 const { REACT_APP_GUA_ID } = process.env;
 
 const HomeScreen = ({ match }) => {
@@ -50,6 +51,7 @@ const HomeScreen = ({ match }) => {
       {!keyword ? (
         <>
           {userInfo && <Message variant="success">Welcome {userInfo.name}!</Message>}
+          {userInfo && <PersonalizedRecommendations/>}
           <Container className="mb-5">
             <h1>pay less to eat healthy</h1>
             <Row>

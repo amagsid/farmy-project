@@ -68,6 +68,10 @@ const bundleSchema = mongoose.Schema(
         required: true,
       },
     ],
+    preferences: {
+      diet: { type: String, default: '' },
+      cuisine: { type: Array, default: [] },
+    },
     reviews: [reviewSchema],
     rating: {
       type: Number,
