@@ -51,7 +51,7 @@ const HomeScreen = ({ match }) => {
       {!keyword ? (
         <>
           {userInfo && <Message variant="success">Welcome {userInfo.name}!</Message>}
-          {userInfo && <PersonalizedRecommendations/>}
+          {userInfo && <PersonalizedRecommendations preferences={userInfo.preferences.diet} />}
           <Container className="mb-5">
             <h1>pay less to eat healthy</h1>
             <Row>
