@@ -111,7 +111,6 @@ const ProfileScreen = ({ location, history }) => {
               onChange={(e) => setName(e.target.value)}
             ></Form.Control>
           </Form.Group>
-
           <Form.Group controlId="email">
             <Form.Label>Email Address</Form.Label>
             <Form.Control
@@ -121,7 +120,6 @@ const ProfileScreen = ({ location, history }) => {
               onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
           </Form.Group>
-
           <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -131,7 +129,6 @@ const ProfileScreen = ({ location, history }) => {
               onChange={(e) => setPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
-
           <Form.Group controlId="confirmPassword">
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
@@ -149,13 +146,14 @@ const ProfileScreen = ({ location, history }) => {
           ) : (
             <>
               <Form.Group>
-                <h6>Change address </h6>
+                <h6>Change subscription address </h6>
                 <Form.Control
+                  className="disabled"
                   as="select"
                   value={subscriptions._id}
                   onChange={(e) => setSubId(e.target.value)}
                 >
-                  <option>choose a subscription to change its address</option>
+                  <option>choose a subscription</option>
                   {subscriptions.map((x) => (
                     <option key={x._id} value={x._id}>
                       {x.subscriptionItems[0].name}
@@ -169,7 +167,6 @@ const ProfileScreen = ({ location, history }) => {
                   type="text"
                   placeholder="Enter address"
                   value={address}
-                  required
                   onChange={(e) => setAddress(e.target.value)}
                 ></Form.Control>
               </Form.Group>
@@ -179,7 +176,6 @@ const ProfileScreen = ({ location, history }) => {
                   type="text"
                   placeholder="Enter city"
                   value={city || ''}
-                  required
                   onChange={(e) => setCity(e.target.value)}
                 ></Form.Control>
               </Form.Group>
@@ -189,7 +185,6 @@ const ProfileScreen = ({ location, history }) => {
                   type="text"
                   placeholder="Enter postal code"
                   value={postalCode || ''}
-                  required
                   onChange={(e) => setPostalCode(e.target.value)}
                 ></Form.Control>
               </Form.Group>
@@ -199,7 +194,6 @@ const ProfileScreen = ({ location, history }) => {
                   type="text"
                   placeholder="Enter country"
                   value={country}
-                  required
                   onChange={(e) => setCountry(e.target.value)}
                 ></Form.Control>
               </Form.Group>
