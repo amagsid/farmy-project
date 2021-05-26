@@ -9,6 +9,7 @@ import Rating from '../components/Rating';
 import ReactGA from 'react-ga';
 import { listBundleDetails, createBundleReview } from '../actions/bundleActions';
 import { BUNDLE_CREATE_REVIEW_RESET } from '../constants/bundleConstants';
+import FarmDetails from '../components/FarmDetails';
 const { REACT_APP_GUA_ID } = process.env;
 
 const BundleDetailsScreen = ({ match, history }) => {
@@ -23,6 +24,8 @@ const BundleDetailsScreen = ({ match, history }) => {
 
   const bundleDetails = useSelector((state) => state.bundleDetails);
   const { loading, error, bundle } = bundleDetails;
+
+  const randomIndex = Math.floor(Math.random() * 2);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -184,6 +187,9 @@ const BundleDetailsScreen = ({ match, history }) => {
             </Col>
           </Row>
           <Container>
+            {bundle.ingredients && (
+              <FarmDetails farmId={bundle.ingredients[0]?.farms[randomIndex]} />
+            )}
             <h3>What you will find inside this bundle:</h3>
             <Row>
               {bundle.ingredients?.map(({ origin, price, name, image, _id }) => (

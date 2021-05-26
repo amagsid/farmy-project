@@ -14,6 +14,13 @@ const ingredientSchema = mongoose.Schema(
         ref: 'Bundle',
       },
     ],
+    farms: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Farm',
+      },
+    ],
     // bundlesNames: [
     //   {
     //     name: { type: String, required: true },

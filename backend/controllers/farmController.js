@@ -1,13 +1,26 @@
 import asyncHandler from 'express-async-handler';
 import Farm from '../models/farmModel.js';
+import Ingredient from '../models/ingredientModel.js';
 
 // @desc    Fetch all farms
 // @route   GET /api/farms
 // @access  Public
-const getFarms = asyncHandler(async (req, res) => {
+export const getFarms = asyncHandler(async (req, res) => {
   const farms = await Farm.find({});
 
   res.json(farms);
 });
 
-export default getFarms;
+export const getFarmById = asyncHandler(async (req, res) => {
+  const farm = await Farm.findById(req.params.id).populate({
+    path: 'farms',
+    model: Farm,
+  });
+
+  if (farm) {
+    res.json(farm);
+  } else {
+    res.status(404);
+    throw new Error('Farm not found');
+  }
+});

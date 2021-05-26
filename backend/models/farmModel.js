@@ -18,6 +18,13 @@ const farmSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    ingredients: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Ingredient',
+      },
+    ],
   },
   {
     timestamps: true,

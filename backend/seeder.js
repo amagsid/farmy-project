@@ -48,26 +48,53 @@ const importData = async () => {
     const secondBundle = bundleId[1]._id;
     const thirdBundle = bundleId[2]._id;
 
+    // const firstIngredient = firstIngredients.map((ingredient) => ({
+    //   ...ingredient,
+    //   createdByUser: adminUser,
+    //   bundles: firstBundle,
+    // }));
+    // const secondIngredient = secondIngredients.map((ingredient) => ({
+    //   ...ingredient,
+    //   createdByUser: adminUser,
+    //   bundles: secondBundle,
+    // }));
+    // const thirdIngredient = thirdIngredients.map((ingredient) => ({
+    //   ...ingredient,
+    //   createdByUser: adminUser,
+    //   bundles: thirdBundle,
+    // }));
+
+    const farmInfo = await Farm.insertMany(sampleFarms);
+
+    const firstFarmId = farmInfo[0]._id;
+    const secondFarmId = farmInfo[1]._id;
+    const thirdFarmId = farmInfo[2]._id;
+    const fourthFarmId = farmInfo[3]._id;
+    const fifthFarmId = farmInfo[4]._id;
+    const sixthFarmId = farmInfo[5]._id;
+
     const firstIngredient = firstIngredients.map((ingredient) => ({
       ...ingredient,
       createdByUser: adminUser,
       bundles: firstBundle,
+      farms: [firstFarmId, secondFarmId],
     }));
     const secondIngredient = secondIngredients.map((ingredient) => ({
       ...ingredient,
       createdByUser: adminUser,
       bundles: secondBundle,
+      farms: [thirdFarmId, fourthFarmId],
     }));
     const thirdIngredient = thirdIngredients.map((ingredient) => ({
       ...ingredient,
       createdByUser: adminUser,
       bundles: thirdBundle,
+      farms: [fifthFarmId, sixthFarmId],
     }));
 
     const firstIngredientId = await Ingredient.insertMany(firstIngredient);
     const secondIngredientId = await Ingredient.insertMany(secondIngredient);
     const thirdIngredientId = await Ingredient.insertMany(thirdIngredient);
-    const farmInfo = await Farm.insertMany(sampleFarms);
 
     const firstIngredientIds = firstIngredientId.map((item) => item._id);
     const secondIngredientIds = secondIngredientId.map((item) => item._id);
@@ -100,6 +127,67 @@ const importData = async () => {
       },
       { upsert: true },
     );
+
+    await Farm.updateOne(
+      { _id: firstFarmId },
+      {
+        $set: {
+          ingredients: [...firstIngredientIds],
+        },
+      },
+      { upsert: true },
+    );
+
+    await Farm.updateOne(
+      { _id: secondFarmId },
+      {
+        $set: {
+          ingredients: [...firstIngredientIds],
+        },
+      },
+      { upsert: true },
+    );
+
+    await Farm.updateOne(
+      { _id: thirdFarmId },
+      {
+        $set: {
+          ingredients: [...secondIngredientIds],
+        },
+      },
+      { upsert: true },
+    );
+
+    await Farm.updateOne(
+      { _id: fourthFarmId },
+      {
+        $set: {
+          ingredients: [...secondIngredientIds],
+        },
+      },
+      { upsert: true },
+    );
+
+    await Farm.updateOne(
+      { _id: fifthFarmId },
+      {
+        $set: {
+          ingredients: [...thirdIngredientIds],
+        },
+      },
+      { upsert: true },
+    );
+
+    await Farm.updateOne(
+      { _id: sixthFarmId },
+      {
+        $set: {
+          ingredients: [...thirdIngredientIds],
+        },
+      },
+      { upsert: true },
+    );
+
     console.log('Data Imported!'.green.inverse);
     process.exit();
   } catch (error) {
@@ -114,6 +202,7 @@ const destroyData = async () => {
     await Bundle.deleteMany();
     await Subscription.deleteMany();
     await Farm.deleteMany();
+    await Ingredient.deleteMany();
 
     console.log('Data Destroyed!'.red.inverse);
     process.exit();

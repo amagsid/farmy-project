@@ -13,10 +13,13 @@ const FarmStory = () => {
     <>
       {getTwoRandomStories.map((item) => (
         <Card key={item._id} className="rounded" style={{ minHeight: '5rem' }}>
-          <Card.Body as="div">{item.story}</Card.Body>
-          <Card.Subtitle as="div" style={{ textAlign: 'center' }}>
-            {item.name}
-          </Card.Subtitle>
+          <Card.Body
+            as="div"
+            style={{ display: 'flex', justifyContent: 'space-between', fontSize: 'large' }}
+          >
+            <span> {item.story}</span>
+            <span>{item.name}</span>
+          </Card.Body>
         </Card>
       ))}
     </>
