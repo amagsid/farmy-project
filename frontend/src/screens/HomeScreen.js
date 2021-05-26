@@ -45,13 +45,11 @@ const HomeScreen = ({ match }) => {
   return (
     <>
       <Meta />
-
       {loading && loadingLatest && <Loader />}
       {error && errorLatest && <Message variant="danger">{error}</Message>}
       {!keyword ? (
         <>
           {userInfo && <Message variant="success">Welcome {userInfo.name}!</Message>}
-          {userInfo && <PersonalizedRecommendations preferences={userInfo.preferences.diet} />}
           <Container className="mb-5">
             <h1>pay less to eat healthy</h1>
             <Row>
@@ -69,7 +67,13 @@ const HomeScreen = ({ match }) => {
                 })}
             </Row>
           </Container>
-
+          {userInfo && userInfo.preferences?.diet !== '' ? (
+            <PersonalizedRecommendations preferences={userInfo.preferences.diet} />
+          ) : (
+            <h1>
+              Please fill in <Link to="/preferences">preferences</Link> to see recommendations
+            </h1>
+          )}
           {!bundles.length && !bundlesListLatest.length && (
             <Message variant="primary">Nothing found</Message>
           )}
