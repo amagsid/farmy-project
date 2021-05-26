@@ -8,6 +8,7 @@ import { listMySubscriptions, updateSubscription } from '../actions/subscription
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 import ProfileEditTabs from '../components/ProfileEditTabs';
 import FormContainer from '../components/FormContainer';
+import axios from 'axios';
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('');
@@ -52,12 +53,23 @@ const ProfileScreen = ({ location, history }) => {
         dispatch(getUserDetails('profile'));
         dispatch(listMySubscriptions());
       } else {
+        const chosenSubscription = async () => {
+          const config = {
+            headers: {
+              Authorization: `Bearer ${userInfo.token}`,
+            },
+          };
+          const {
+            data: { shippingAddress },
+          } = await axios.get(`/api/subscriptions/${subId}`, config);
+          setAddress(shippingAddress.address);
+          setCity(shippingAddress.city);
+          setPostalCode(shippingAddress.postalCode);
+          setCountry(shippingAddress.country);
+        };
+        chosenSubscription();
         setName(user.name);
         setEmail(user.email);
-        setAddress();
-        setCity();
-        setPostalCode();
-        setCountry();
       }
     }
   }, [dispatch, history, userInfo, user, subscriptions, subId, success]);
@@ -148,9 +160,8 @@ const ProfileScreen = ({ location, history }) => {
               <Form.Group>
                 <h6>Change subscription address </h6>
                 <Form.Control
-                  className="disabled"
                   as="select"
-                  value={subscriptions._id}
+                  // defaultValue={'defaultSub'}
                   onChange={(e) => setSubId(e.target.value)}
                 >
                   <option>choose a subscription</option>
