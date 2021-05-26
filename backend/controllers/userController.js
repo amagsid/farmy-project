@@ -4,6 +4,7 @@ import axios from 'axios';
 import { OAuth2Client } from 'google-auth-library';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js';
+import Bundle from '../models/bundleModel.js';
 // @desc    Auth user & get token
 // @route   POST /api/users/login
 // @access  Public
@@ -112,6 +113,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       preferences: updatedUser.preferences,
       token: generateToken(updatedUser._id),
     });
+    const bundles = await Bundle.find({});
+    const filteredBundle = await bundles.filter((b) => b.category.includes(user.preferences.diet));
+    console.log(filteredBundle);
   } else {
     res.status(404);
     throw new Error('User not found');
