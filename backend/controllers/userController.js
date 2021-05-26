@@ -1,10 +1,12 @@
 /* eslint-disable camelcase */
 import asyncHandler from 'express-async-handler';
 import axios from 'axios';
+import nodemailer from 'nodemailer';
 import { OAuth2Client } from 'google-auth-library';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js';
 import Bundle from '../models/bundleModel.js';
+
 // @desc    Auth user & get token
 // @route   POST /api/users/login
 // @access  Public
@@ -106,6 +108,41 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
     const updatedUser = await user.save();
 
+    const bundles = await Bundle.find({});
+    const filteredBundle = bundles.filter((b) => b.category.includes(user.preferences.diet));
+    // a transporter object
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.GMAIL_ACCOUNT,
+        pass: process.env.GMAIL_PASSWORD,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
+    // sends email to a specific user's email
+    const info = await transporter.sendMail({
+      from: `"Farmy" <${process.env.GMAIL_ACCOUNT}>`,
+      to: `${req.user.email}`,
+      subject: 'Farmy Recommendations For You',
+      html: `<h1>Hi, ${req.user.name}!</h1>
+      <p>Here are carefully selected Farmy Bundles for you according to your preferences:</p>
+      <ul>${filteredBundle
+        .map(
+          (bundle) => `<br>
+          <a href="http://localhost:3000/bundles/${bundle._id}">${bundle.name}</a>
+      <p>${bundle.description}</p>
+      <img src="https:${bundle.image}" width="200" />
+      <br>
+      `,
+        )
+        .join('')}</ul>
+      `,
+    });
+
     res.json({
       _id: updatedUser._id,
       name: updatedUser.name,
@@ -114,9 +151,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       preferences: updatedUser.preferences,
       token: generateToken(updatedUser._id),
     });
-    const bundles = await Bundle.find({});
-    const filteredBundle = await bundles.filter((b) => b.category.includes(user.preferences.diet));
-    console.log(filteredBundle);
   } else {
     res.status(404);
     throw new Error('User not found');
