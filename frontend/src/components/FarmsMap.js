@@ -69,7 +69,6 @@ const FarmsMap = () => {
         ))}
         {farmInfo && (
           <Popup
-            tipSize={5}
             anchor="top"
             longitude={farmInfo.coordinates.lon}
             latitude={farmInfo.coordinates.lat}

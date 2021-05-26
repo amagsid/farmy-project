@@ -15,6 +15,7 @@ import feedback from '../feedback.json';
 import introduction from '../introduction.json';
 import ReactGA from 'react-ga';
 import FarmsMap from '../components/FarmsMap';
+import FarmStory from '../components/FarmStory';
 const { REACT_APP_GUA_ID } = process.env;
 
 const HomeScreen = ({ match }) => {
@@ -126,8 +127,10 @@ const HomeScreen = ({ match }) => {
                 })}
             </Row>
           </Container>
-          <Container>
+          <Container className="mb-5">
+            <h1>Our suppliers</h1>
             <FarmsMap />
+            <FarmStory />
           </Container>
         </>
       ) : (
