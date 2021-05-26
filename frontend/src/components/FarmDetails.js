@@ -21,8 +21,10 @@ const FarmDetails = ({ farmId }) => {
       {loading && <Loader />}
       {error && <Message variant="danger">{error}</Message>}
       {farm && (
-        <Card className="rounded" style={{ minHeight: '5rem' }}>
-          <Card.Title as="div">{farm.name}</Card.Title>
+        <Card className="rounded m-4" style={{ minHeight: '5rem', fontSize: 'large' }}>
+          <Card.Header as="div" style={{ backgroundColor: 'lightGreen' }}>
+            {farm.name}
+          </Card.Header>
           <Card.Body as="div">{farm.story}</Card.Body>
         </Card>
       )}
