@@ -14,6 +14,10 @@ const farmSchema = mongoose.Schema(
       type: Object,
       required: true,
     },
+    story: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

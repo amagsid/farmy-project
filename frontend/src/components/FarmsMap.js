@@ -48,7 +48,7 @@ const FarmsMap = () => {
       <ReactMapGL
         {...viewport}
         onViewportChange={setViewport}
-        mapboxApiAccessToken="pk.eyJ1IjoiZmFybXkiLCJhIjoiY2tveGQ1OGs4MGV4bzJucGRoZ2VlNDVqbSJ9.Jv0nA83huBK0OEc6cmZaTg"
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         mapStyle="mapbox://styles/farmy/ckoygud5q2ilp17mhpwgqk0f9"
       >
         {farm?.map(({ coordinates, description, name }) => (
