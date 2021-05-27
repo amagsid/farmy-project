@@ -45,13 +45,13 @@ const importData = async () => {
 
     await Farm.insertMany(farms);
 
-    const bundleId = await Bundle.insertMany(sampleBundles);
-    const vitaminBoostBundle = bundleId[0]._id;
-    const chefsTableBundle = bundleId[1]._id;
-    const fridayBundle = bundleId[2]._id;
-    const berriesBundle = bundleId[3]._id;
-    const veggiesBundle = bundleId[4]._id;
-    const soupBundle = bundleId[5]._id;
+    const bundleIds = await Bundle.insertMany(sampleBundles);
+    const vitaminBoostBundle = bundleIds[0]._id;
+    const chefsTableBundle = bundleIds[1]._id;
+    const fridayBundle = bundleIds[2]._id;
+    const berriesBundle = bundleIds[3]._id;
+    const veggiesBundle = bundleIds[4]._id;
+    const soupBundle = bundleIds[5]._id;
 
     // VITAMIN BOOST BUNDLE
     const vitaminBoostBundleIngredients = vitaminBoostIngredients.map((ingredient) => ({
