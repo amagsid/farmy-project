@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
-import Bundle from '../components/Bundle';
-import { Row, Col, Container, Button } from 'react-bootstrap';
+import Rating from './Rating';
+import { Row, Col, Container, Card } from 'react-bootstrap';
 
 const PersonalizedRecommendations = ({ preferences }) => {
   const bundleList = useSelector((state) => state.bundleList);
@@ -14,26 +14,54 @@ const PersonalizedRecommendations = ({ preferences }) => {
   return (
     <>
       <Container className="mb-5">
-        <>
-          <h1>
-            We have chosen these bundles for you according to your{' '}
-            <Link to="/preferences">preferences</Link>:
-          </h1>
-          <Row>
-            {filteredBundle.map((bundle) => (
-              <Col key={bundle._id}>
-                <Link to={`/bundles/${bundle._id}`}>
-                  <Bundle bundle={bundle} />
-                </Link>
-                <LinkContainer to={`/bundles/${bundle._id}`}>
-                  <Button variant="outline-success" size="lg" block>
-                    Subscribe
-                  </Button>
-                </LinkContainer>
-              </Col>
-            ))}
-          </Row>
-        </>
+        <Row>
+          <Col
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <h1>
+              We have chosen these bundles for you according to your{' '}
+              <Link to="/preferences">preferences</Link>:
+            </h1>
+          </Col>
+
+          {filteredBundle.map((bundle) => (
+            <Col key={bundle._id}>
+              <Link to={`/bundles/${bundle._id}`}>
+                <Card className="my-3 p-3 rounded">
+                  <Row>
+                    <Col>
+                      <LinkContainer to={`/bundles/${bundle._id}`}>
+                        <>
+                          <Card.Img src={bundle.image} variant="top" />
+                          <Card.Text as="div">
+                            <Rating value={bundle.rating} />
+                          </Card.Text>
+                        </>
+                      </LinkContainer>
+                    </Col>
+                    <Col>
+                      {' '}
+                      <Card.Body>
+                        <LinkContainer to={`/bundles/${bundle._id}`}>
+                          <Card.Title as="div">
+                            <strong>{bundle.name}</strong>
+                          </Card.Title>
+                        </LinkContainer>
+
+                        <Card.Text as="h3">${bundle.price}</Card.Text>
+                      </Card.Body>
+                    </Col>
+                  </Row>
+                </Card>
+                {/* <Bundle bundle={bundle} /> */}
+              </Link>
+            </Col>
+          ))}
+        </Row>
       </Container>
     </>
   );

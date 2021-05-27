@@ -70,8 +70,12 @@ const HomeScreen = ({ match }) => {
           {userInfo && userInfo.preferences?.diet !== '' ? (
             <PersonalizedRecommendations preferences={userInfo.preferences.diet} />
           ) : (
-            <h1>
-              Please fill in <Link to="/preferences">preferences</Link> to see recommendations
+            <h1 style={{ color: '#808080	' }} className="border">
+              Please fill in{' '}
+              <Link to="/preferences" style={{ color: '#808080	' }}>
+                preferences
+              </Link>{' '}
+              to see recommendations
             </h1>
           )}
           {!bundles.length && !bundlesListLatest.length && (
