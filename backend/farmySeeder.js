@@ -54,17 +54,21 @@ const importData = async () => {
     const veggiesBundleId = bundleIds[4]._id;
     const soupBundleId = bundleIds[5]._id;
 
-    const linkBundleIngredients = async (
+    const linkBundleIngredientsFarms = async (
       ingredients,
       bundleId,
       ingredientModel,
       bundleModel,
       admin,
+      firstFarmId,
+      secondFarmId,
+      farmModel,
     ) => {
       const bundleOfIngredients = ingredients.map((ingredient) => ({
         ...ingredient,
         createdByUser: admin,
         bundles: bundleId,
+        farms: [firstFarmId, secondFarmId],
       }));
       const ingredientsInsert = await ingredientModel.insertMany(bundleOfIngredients);
       await bundleModel.updateOne(
@@ -76,25 +80,86 @@ const importData = async () => {
         },
         { upsert: true },
       );
+      await farmModel.updateOne(
+        { _id: firstFarmId },
+        {
+          $set: {
+            ingredients: [...ingredientsInsert],
+          },
+        },
+        { upsert: true },
+      );
+      await farmModel.updateOne(
+        { _id: secondFarmId },
+        {
+          $set: {
+            ingredients: [...ingredientsInsert],
+          },
+        },
+        { upsert: true },
+      );
     };
-    await linkBundleIngredients(
+
+    await linkBundleIngredientsFarms(
       vitaminBoostIngredients,
       vitaminBoostBundleId,
       Ingredient,
       Bundle,
       adminUser,
+      farmIds[0],
+      farmIds[1],
+      Farm,
     );
-    await linkBundleIngredients(
+    await linkBundleIngredientsFarms(
       chefsTableIngredients,
       chefsTableBundleId,
       Ingredient,
       Bundle,
       adminUser,
+      farmIds[2],
+      farmIds[3],
+      Farm,
     );
-    await linkBundleIngredients(fridayIngredients, fridayBundleId, Ingredient, Bundle, adminUser);
-    await linkBundleIngredients(berriesIngredients, berriesBundleId, Ingredient, Bundle, adminUser);
-    await linkBundleIngredients(veggiesIngredients, veggiesBundleId, Ingredient, Bundle, adminUser);
-    await linkBundleIngredients(soupIngredients, soupBundleId, Ingredient, Bundle, adminUser);
+    await linkBundleIngredientsFarms(
+      fridayIngredients,
+      fridayBundleId,
+      Ingredient,
+      Bundle,
+      adminUser,
+      farmIds[4],
+      farmIds[5],
+      Farm,
+    );
+    await linkBundleIngredientsFarms(
+      berriesIngredients,
+      berriesBundleId,
+      Ingredient,
+      Bundle,
+      adminUser,
+      farmIds[6],
+      farmIds[7],
+      Farm,
+    );
+    await linkBundleIngredientsFarms(
+      veggiesIngredients,
+      veggiesBundleId,
+      Ingredient,
+      Bundle,
+      adminUser,
+      farmIds[8],
+      farmIds[9],
+      Farm,
+    );
+    await linkBundleIngredientsFarms(
+      soupIngredients,
+      soupBundleId,
+      Ingredient,
+      Bundle,
+      adminUser,
+      farmIds[10],
+      farmIds[11],
+      Farm,
+    );
 
     // Function To Update The Ingredients Bundles
     const updateIngredientsBundles = async (ingredientModel, ingredientName, ...bundlesIds) => {
