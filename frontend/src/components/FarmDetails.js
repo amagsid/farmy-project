@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { listFarmDetails } from '../actions/farmActions';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { Card } from 'react-bootstrap';
+import { Card, Image } from 'react-bootstrap';
 
 const FarmDetails = ({ farmId }) => {
   const dispatch = useDispatch();
@@ -11,7 +11,6 @@ const FarmDetails = ({ farmId }) => {
   const farmDetails = useSelector((state) => state.farmDetails);
 
   const { loading, error, farm } = farmDetails;
-  console.log(farm);
 
   useEffect(() => {
     dispatch(listFarmDetails(farmId));
@@ -22,10 +21,13 @@ const FarmDetails = ({ farmId }) => {
       {error && <Message variant="danger">{error}</Message>}
       {farm && (
         <Card className="rounded m-4" style={{ minHeight: '5rem', fontSize: 'large' }}>
-          <Card.Header as="div" style={{ backgroundColor: 'lightGreen' }}>
-            {farm.name}
-          </Card.Header>
-          <Card.Body as="div">{farm.story}</Card.Body>
+          <Card as="div">
+            <h5>{farm.name}</h5>
+          </Card>
+          <div className="farm-details">
+            <p>{farm.story}</p>
+            <img alt="farm" src={farm.image} />
+          </div>
         </Card>
       )}
     </>

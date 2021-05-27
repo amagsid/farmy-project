@@ -18,6 +18,10 @@ const farmSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    image: {
+      type: String,
+      required: true,
+    },
     ingredients: [
       {
         type: mongoose.Schema.Types.ObjectId,

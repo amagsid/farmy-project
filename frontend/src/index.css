@@ -109,3 +109,13 @@ h2 {
 .popup p {
   font-family: 'Times New Roman', Times, serif;
 }
+
+.farm-details {
+  display: flex;
+  flex-direction: row;
+}
+
+.farm-details img {
+  display: block;
+  width: 50%;
+}

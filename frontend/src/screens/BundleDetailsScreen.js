@@ -187,9 +187,6 @@ const BundleDetailsScreen = ({ match, history }) => {
             </Col>
           </Row>
           <Container>
-            {bundle.ingredients && (
-              <FarmDetails farmId={bundle.ingredients[0]?.farms[randomIndex]} />
-            )}
             <h3>What you will find inside this bundle:</h3>
             <Row>
               {bundle.ingredients?.map(({ origin, price, name, image, _id }) => (
@@ -207,6 +204,12 @@ const BundleDetailsScreen = ({ match, history }) => {
                 </Col>
               ))}
             </Row>
+          </Container>
+          <Container>
+            <h3>Meet one of our suppliers</h3>
+            {bundle.ingredients && (
+              <FarmDetails farmId={bundle.ingredients[0]?.farms[randomIndex]} />
+            )}
           </Container>
           <Row>
             <Col md={6}>
