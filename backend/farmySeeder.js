@@ -43,7 +43,8 @@ const importData = async () => {
       createdByUser: adminUser,
     }));
 
-    await Farm.insertMany(farms);
+    const farmInfo = await Farm.insertMany(farms);
+    const farmIds = farmInfo.map((item) => item._id);
 
     const bundleIds = await Bundle.insertMany(sampleBundles);
     const vitaminBoostBundleId = bundleIds[0]._id;
