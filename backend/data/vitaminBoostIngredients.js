@@ -27,15 +27,6 @@ const vitaminBoostIngredients = [
     countInStock: 50,
   },
   {
-    name: 'Raspberries',
-    image:
-      'https://images.unsplash.com/photo-1563559776084-759c4c52567f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1187&q=80',
-    description: 'Organic Raspberries',
-    category: ['Berry', 'Berries', 'Healthy'],
-    price: 4.99,
-    countInStock: 150,
-  },
-  {
     name: 'Strawberries',
     image:
       'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8c3RyYXdiZXJyaWVzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',

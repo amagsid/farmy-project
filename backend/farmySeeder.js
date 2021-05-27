@@ -96,17 +96,82 @@ const importData = async () => {
     await linkBundleIngredients(soupIngredients, soupBundleId, Ingredient, Bundle, adminUser);
 
     // Function To Update The Ingredients Bundles
-    // const updateIngredientsBundles = async(ingredientModel, ingredientName);
-
-    await Ingredient.updateMany(
-      { name: 'Carrots' },
-      {
-        $set: {
-          bundles: [chefsTableBundleId, soupBundleId, veggiesBundleId, vitaminBoostBundleId],
+    const updateIngredientsBundles = async (ingredientModel, ingredientName, ...bundlesIds) => {
+      await ingredientModel.updateMany(
+        { name: ingredientName },
+        {
+          $set: {
+            bundles: [...bundlesIds],
+          },
         },
-      },
-      { upsert: true },
+        { upsert: true },
+      );
+    };
+
+    await updateIngredientsBundles(
+      Ingredient,
+      'Carrots',
+      chefsTableBundleId,
+      soupBundleId,
+      veggiesBundleId,
+      vitaminBoostBundleId,
     );
+
+    await updateIngredientsBundles(
+      Ingredient,
+      'Cucumbers',
+      chefsTableBundleId,
+      veggiesBundleId,
+      vitaminBoostBundleId,
+    );
+
+    await updateIngredientsBundles(Ingredient, 'Kale', chefsTableBundleId, vitaminBoostBundleId);
+
+    await updateIngredientsBundles(
+      Ingredient,
+      'Tomatoes',
+      chefsTableBundleId,
+      soupBundleId,
+      veggiesBundleId,
+      vitaminBoostBundleId,
+    );
+
+    await updateIngredientsBundles(
+      Ingredient,
+      'Red Onions',
+      chefsTableBundleId,
+      soupBundleId,
+      veggiesBundleId,
+    );
+
+    await updateIngredientsBundles(Ingredient, 'Parsnip', chefsTableBundleId, soupBundleId);
+
+    await updateIngredientsBundles(Ingredient, 'Parsley', chefsTableBundleId, soupBundleId);
+
+    await updateIngredientsBundles(
+      Ingredient,
+      'Blueberries',
+      berriesBundleId,
+      vitaminBoostBundleId,
+    );
+
+    await updateIngredientsBundles(
+      Ingredient,
+      'Raspberries',
+      berriesBundleId,
+      vitaminBoostBundleId,
+    );
+
+    await updateIngredientsBundles(
+      Ingredient,
+      'Strawberries',
+      berriesBundleId,
+      vitaminBoostBundleId,
+    );
+
+    await updateIngredientsBundles(Ingredient, 'Grapes', berriesBundleId, fridayBundleId);
+
+    await updateIngredientsBundles(Ingredient, 'Apples', vitaminBoostBundleId, fridayBundleId);
 
     console.log('Data Imported!'.green.inverse);
     process.exit();
