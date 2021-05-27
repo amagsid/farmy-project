@@ -43,6 +43,8 @@ const ProfileScreen = ({ location, history }) => {
 
   const timeInHours = new Date().getHours();
 
+  // console.log(success);
+
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
