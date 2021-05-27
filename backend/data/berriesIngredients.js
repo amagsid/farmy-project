@@ -2,7 +2,7 @@ const berriesIngredients = [
   {
     name: 'Blueberries',
     image:
-      'https://images.unsplash.com/photo-1514756331096-242fdeb70d4a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+      'https://images.unsplash.com/photo-1502741338009-cac2772e18bc?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZWJlcnJpZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60git',
     description: 'Organic Blueberries',
     category: ['Berry', 'Berries', 'Healthy'],
     price: 4.99,
