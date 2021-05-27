@@ -1,14 +1,5 @@
 const fridayIngredients = [
   {
-    name: 'Apples',
-    image:
-      'https://images.unsplash.com/photo-1610397962076-02407a169a5b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8YXBwbGVzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    description: 'Organic Apples',
-    category: ['Fruit', 'Fruits', 'Healthy'],
-    price: 3.5,
-    countInStock: 50,
-  },
-  {
     name: 'Grapes',
     image:
       'https://images.unsplash.com/photo-1537640538966-79f369143f8f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8Z3JhcGVzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',

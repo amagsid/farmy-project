@@ -95,108 +95,18 @@ const importData = async () => {
     await linkBundleIngredients(veggiesIngredients, veggiesBundleId, Ingredient, Bundle, adminUser);
     await linkBundleIngredients(soupIngredients, soupBundleId, Ingredient, Bundle, adminUser);
 
-    // // VITAMIN BOOST BUNDLE
-    // const vitaminBoostBundleIngredients = vitaminBoostIngredients.map((ingredient) => ({
-    //   ...ingredient,
-    //   createdByUser: adminUser,
-    //   bundles: vitaminBoostBundleId,
-    // }));
-    // const vitaminBoostInsert = await Ingredient.insertMany(vitaminBoostBundleIngredients);
+    // Function To Update The Ingredients Bundles
+    // const updateIngredientsBundles = async(ingredientModel, ingredientName);
 
-    // await Bundle.updateOne(
-    //   { _id: vitaminBoostBundleId },
-    //   {
-    //     $set: {
-    //       ingredients: [...vitaminBoostInsert],
-    //     },
-    //   },
-    //   { upsert: true }
-    // );
-
-    // // CHEFS TABLE BUNDLE
-    // const chefsTableBundleIngredients = chefsTableIngredients.map((ingredient) => ({
-    //   ...ingredient,
-    //   createdByUser: adminUser,
-    //   bundles: chefsTableBundleId,
-    // }));
-    // const chefsTableInsert = await Ingredient.insertMany(chefsTableBundleIngredients);
-    // await Bundle.updateOne(
-    //   { _id: chefsTableBundleId },
-    //   {
-    //     $set: {
-    //       ingredients: [...chefsTableInsert],
-    //     },
-    //   },
-    //   { upsert: true }
-    // );
-
-    // // ITS FRIDAY BUNDLE
-    // const fridayBundleIngredients = fridayIngredients.map((ingredient) => ({
-    //   ...ingredient,
-    //   createdByUser: adminUser,
-    //   bundles: fridayBundleId,
-    // }));
-    // const fridayBundleInsert = await Ingredient.insertMany(fridayBundleIngredients);
-    // await Bundle.updateOne(
-    //   { _id: fridayBundleId },
-    //   {
-    //     $set: {
-    //       ingredients: [...fridayBundleInsert],
-    //     },
-    //   },
-    //   { upsert: true }
-    // );
-
-    // // BERRIES BUNDLE
-    // const berriesBundleIngredients = berriesIngredients.map((ingredient) => ({
-    //   ...ingredient,
-    //   createdByUser: adminUser,
-    //   bundles: berriesBundleId,
-    // }));
-    // const berriesBundleInsert = await Ingredient.insertMany(berriesBundleIngredients);
-    // await Bundle.updateOne(
-    //   { _id: berriesBundleId },
-    //   {
-    //     $set: {
-    //       ingredients: [...berriesBundleInsert],
-    //     },
-    //   },
-    //   { upsert: true }
-    // );
-
-    // // VEGGIES BUNDLE
-    // const veggiesBundleIngredients = veggiesIngredients.map((ingredient) => ({
-    //   ...ingredient,
-    //   createdByUser: adminUser,
-    //   bundles: veggiesBundleId,
-    // }));
-    // const veggiesBundleInsert = await Ingredient.insertMany(veggiesBundleIngredients);
-    // await Bundle.updateOne(
-    //   { _id: veggiesBundleId },
-    //   {
-    //     $set: {
-    //       ingredients: [...veggiesBundleInsert],
-    //     },
-    //   },
-    //   { upsert: true }
-    // );
-
-    // // SOUP BUNDLE
-    // const soupBundleIngredients = soupIngredients.map((ingredient) => ({
-    //   ...ingredient,
-    //   createdByUser: adminUser,
-    //   bundles: soupBundleId,
-    // }));
-    // const soupBundleInsert = await Ingredient.insertMany(soupBundleIngredients);
-    // await Bundle.updateOne(
-    //   { _id: soupBundleId },
-    //   {
-    //     $set: {
-    //       ingredients: [...soupBundleInsert],
-    //     },
-    //   },
-    //   { upsert: true }
-    // );
+    await Ingredient.updateMany(
+      { name: 'Carrots' },
+      {
+        $set: {
+          bundles: [chefsTableBundleId, soupBundleId, veggiesBundleId, vitaminBoostBundleId],
+        },
+      },
+      { upsert: true },
+    );
 
     console.log('Data Imported!'.green.inverse);
     process.exit();
@@ -227,3 +137,106 @@ if (process.argv[2] === '-d') {
 } else {
   importData();
 }
+
+// // VITAMIN BOOST BUNDLE
+// const vitaminBoostBundleIngredients = vitaminBoostIngredients.map((ingredient) => ({
+//   ...ingredient,
+//   createdByUser: adminUser,
+//   bundles: vitaminBoostBundleId,
+// }));
+// const vitaminBoostInsert = await Ingredient.insertMany(vitaminBoostBundleIngredients);
+
+// await Bundle.updateOne(
+//   { _id: vitaminBoostBundleId },
+//   {
+//     $set: {
+//       ingredients: [...vitaminBoostInsert],
+//     },
+//   },
+//   { upsert: true }
+// );
+
+// // CHEFS TABLE BUNDLE
+// const chefsTableBundleIngredients = chefsTableIngredients.map((ingredient) => ({
+//   ...ingredient,
+//   createdByUser: adminUser,
+//   bundles: chefsTableBundleId,
+// }));
+// const chefsTableInsert = await Ingredient.insertMany(chefsTableBundleIngredients);
+// await Bundle.updateOne(
+//   { _id: chefsTableBundleId },
+//   {
+//     $set: {
+//       ingredients: [...chefsTableInsert],
+//     },
+//   },
+//   { upsert: true }
+// );
+
+// // ITS FRIDAY BUNDLE
+// const fridayBundleIngredients = fridayIngredients.map((ingredient) => ({
+//   ...ingredient,
+//   createdByUser: adminUser,
+//   bundles: fridayBundleId,
+// }));
+// const fridayBundleInsert = await Ingredient.insertMany(fridayBundleIngredients);
+// await Bundle.updateOne(
+//   { _id: fridayBundleId },
+//   {
+//     $set: {
+//       ingredients: [...fridayBundleInsert],
+//     },
+//   },
+//   { upsert: true }
+// );
+
+// // BERRIES BUNDLE
+// const berriesBundleIngredients = berriesIngredients.map((ingredient) => ({
+//   ...ingredient,
+//   createdByUser: adminUser,
+//   bundles: berriesBundleId,
+// }));
+// const berriesBundleInsert = await Ingredient.insertMany(berriesBundleIngredients);
+// await Bundle.updateOne(
+//   { _id: berriesBundleId },
+//   {
+//     $set: {
+//       ingredients: [...berriesBundleInsert],
+//     },
+//   },
+//   { upsert: true }
+// );
+
+// // VEGGIES BUNDLE
+// const veggiesBundleIngredients = veggiesIngredients.map((ingredient) => ({
+//   ...ingredient,
+//   createdByUser: adminUser,
+//   bundles: veggiesBundleId,
+// }));
+// const veggiesBundleInsert = await Ingredient.insertMany(veggiesBundleIngredients);
+// await Bundle.updateOne(
+//   { _id: veggiesBundleId },
+//   {
+//     $set: {
+//       ingredients: [...veggiesBundleInsert],
+//     },
+//   },
+//   { upsert: true }
+// );
+
+// // SOUP BUNDLE
+// const soupBundleIngredients = soupIngredients.map((ingredient) => ({
+//   ...ingredient,
+//   createdByUser: adminUser,
+//   bundles: soupBundleId,
+// }));
+// const soupBundleInsert = await Ingredient.insertMany(soupBundleIngredients);
+// await Bundle.updateOne(
+//   { _id: soupBundleId },
+//   {
+//     $set: {
+//       ingredients: [...soupBundleInsert],
+//     },
+//   },
+//   { upsert: true }
+// );
