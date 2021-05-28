@@ -98,10 +98,11 @@ const RegisterScreen = ({ location, history }) => {
       {message && <Message variant="danger">{message}</Message>}
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
-      <Form onSubmit={submitHandler}>
+      <Form onSubmit={submitHandler} className="mb-2">
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
+            className="inputBG"
             type="name"
             placeholder="Enter name"
             value={name}
@@ -112,7 +113,8 @@ const RegisterScreen = ({ location, history }) => {
         <Form.Group controlId="email" onBlur={validateEmail}>
           <Form.Label>Email Address</Form.Label>
           <Email
-            className="form-control"
+            // className="inputBG"
+            className="form-control inputBG"
             type="email"
             placeholder="Enter email"
             value={email}
@@ -128,6 +130,7 @@ const RegisterScreen = ({ location, history }) => {
         <Form.Group controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
+            className="inputBG"
             type="password"
             placeholder="Enter password"
             value={password}
@@ -137,6 +140,7 @@ const RegisterScreen = ({ location, history }) => {
         <Form.Group controlId="confirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
+            className="inputBG"
             type="password"
             placeholder="Confirm password"
             value={confirmPassword}
