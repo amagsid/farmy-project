@@ -145,7 +145,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             (bundle) => `<br>
             <a href="http://localhost:3000/bundles/${bundle._id}">${bundle.name}</a>
         <p>${bundle.description}</p>
-        <img src="https:${bundle.image}" width="200" />
+        <img src="${bundle.image}" width="200" />
         <br>
         `,
           )

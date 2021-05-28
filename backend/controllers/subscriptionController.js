@@ -81,6 +81,7 @@ const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
         rejectUnauthorized: false,
       },
     });
+    console.log(updatedSubscription);
 
     // sends email to a specific user's email
     const info = await transporter.sendMail({
@@ -95,7 +96,7 @@ const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
             .map((item) => `<li>${item.name}</li>`)
             .join('')}</ul>
           <br>
-          <img src="https:${updatedSubscription.subscriptionItems[0].image}" width="200" />
+          <img src="${updatedSubscription.subscriptionItems[0].image}" width="200" />
           <br>
           The subscription has been paid by ${updatedSubscription.paymentMethod} payment method.</p>
           <small>If you want to unsubscribe from a product, you can do it on your profile page. 
