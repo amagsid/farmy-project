@@ -119,6 +119,7 @@ const ProfileScreen = ({ location, history }) => {
           <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.Control
+              className="inputBG"
               type="name"
               placeholder="Enter name"
               value={name}
@@ -128,6 +129,7 @@ const ProfileScreen = ({ location, history }) => {
           <Form.Group controlId="email">
             <Form.Label>Email Address</Form.Label>
             <Form.Control
+              className="inputBG"
               type="email"
               placeholder="Enter email"
               value={email}
@@ -137,6 +139,7 @@ const ProfileScreen = ({ location, history }) => {
           <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
+              className="inputBG"
               type="password"
               placeholder="Enter password"
               value={password}
@@ -146,6 +149,7 @@ const ProfileScreen = ({ location, history }) => {
           <Form.Group controlId="confirmPassword">
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
+              className="inputBG"
               type="password"
               placeholder="Confirm password"
               value={confirmPassword}
@@ -162,6 +166,7 @@ const ProfileScreen = ({ location, history }) => {
               <Form.Group>
                 <h6>Change subscription address </h6>
                 <Form.Control
+                  className="inputBG"
                   as="select"
                   // defaultValue={'defaultSub'}
                   onChange={(e) => setSubId(e.target.value)}
@@ -177,6 +182,7 @@ const ProfileScreen = ({ location, history }) => {
               <Form.Group controlId="address">
                 <Form.Label>Address</Form.Label>
                 <Form.Control
+                  className="inputBG"
                   type="text"
                   placeholder="Enter address"
                   value={address}
@@ -186,6 +192,7 @@ const ProfileScreen = ({ location, history }) => {
               <Form.Group controlId="">
                 <Form.Label>City</Form.Label>
                 <Form.Control
+                  className="inputBG"
                   type="text"
                   placeholder="Enter city"
                   value={city || ''}
@@ -195,6 +202,7 @@ const ProfileScreen = ({ location, history }) => {
               <Form.Group controlId="postalCode">
                 <Form.Label>Postal Code</Form.Label>
                 <Form.Control
+                  className="inputBG"
                   type="text"
                   placeholder="Enter postal code"
                   value={postalCode || ''}
@@ -204,6 +212,7 @@ const ProfileScreen = ({ location, history }) => {
               <Form.Group controlId="country">
                 <Form.Label>Country</Form.Label>
                 <Form.Control
+                  className="inputBG"
                   type="text"
                   placeholder="Enter country"
                   value={country}
@@ -212,7 +221,7 @@ const ProfileScreen = ({ location, history }) => {
               </Form.Group>
             </>
           )}
-          <Button className="update-button" type="submit" variant="primary">
+          <Button type="submit" variant="primary">
             Update
           </Button>
         </Form>

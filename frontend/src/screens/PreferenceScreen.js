@@ -96,7 +96,12 @@ const PreferenceScreen = ({ history }) => {
         <Form onSubmit={submitHandler}>
           <Form.Group>
             <h6>Choose your favorite diet</h6>
-            <Form.Control as="select" onChange={(e) => setDiet(e.target.value)} value={diet || ''}>
+            <Form.Control
+              as="select"
+              onChange={(e) => setDiet(e.target.value)}
+              value={diet || ''}
+              className="inputBG"
+            >
               <option value="" disabled={diet !== ''}>
                 Choose a diet..
               </option>
@@ -110,6 +115,7 @@ const PreferenceScreen = ({ history }) => {
           <Form.Group>
             <h6>What is your cooking skill level?</h6>
             <Form.Control
+              className="inputBG"
               as="select"
               onChange={(e) => setCookingSkill(e.target.value)}
               value={cookingSkill || ''}
@@ -128,6 +134,7 @@ const PreferenceScreen = ({ history }) => {
           <Form.Group>
             <h6>How much time for cooking?</h6>
             <Form.Control
+              className="inputBG"
               as="select"
               onChange={(e) => setCookingTime(e.target.value)}
               value={cookingTime || ''}
@@ -146,6 +153,7 @@ const PreferenceScreen = ({ history }) => {
             <h6>Select your favorite cuisines</h6>
             {cuisines.map((x, index) => (
               <Form.Check
+                className="inputBG"
                 key={index}
                 type="checkbox"
                 id={x}
@@ -157,7 +165,7 @@ const PreferenceScreen = ({ history }) => {
             ))}
           </Form.Group>
 
-          <Button className="update-button" type="submit" variant="primary">
+          <Button type="submit" variant="primary">
             Update
           </Button>
         </Form>

@@ -166,7 +166,7 @@ const HomeScreen = ({ match }) => {
           {bundles.length ? (
             <Row>
               {bundles.map((bundle) => (
-                <Col key={bundle._id}>
+                <Col key={bundle._id} md={4}>
                   <Link to={`/bundles/${bundle._id}`}>
                     <Bundle bundle={bundle} />
                   </Link>
