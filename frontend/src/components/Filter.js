@@ -61,7 +61,7 @@ const Filter = ({ keyword }) => {
               <Form.Control as="select" onChange={(e) => setRating(e.target.value)} value={rating}>
                 {ratingsArray.map((ratingOption) => (
                   <option key={ratingOption} value={ratingOption}>
-                    {ratingOption} rating
+                    Rating: {ratingOption}
                   </option>
                 ))}
               </Form.Control>
