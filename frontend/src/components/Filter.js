@@ -3,7 +3,7 @@ import { Form, Button, InputGroup, FormControl, Col, Row } from 'react-bootstrap
 import { useDispatch } from 'react-redux';
 import { listBundles } from '../actions/bundleActions';
 
-const Filter = ({ keyword}) => {
+const Filter = ({ keyword }) => {
   const dispatch = useDispatch();
 
   const initialValue = '';
@@ -20,8 +20,8 @@ const Filter = ({ keyword}) => {
     // eslint-disable-next-line
   }, [dispatch, keyword, formSubmit]);
 
-  const categoriesArray = ['All', 'FROZEN CATEGORY', 'SMOOTHIES CATEGORY', 'BAGS SQUARE'];
-  const ratingsArray = ['Any rating', 1, 2, 3, 4, 5];
+  const categoriesArray = ['All', 'Vegan', 'Vegetarian', 'Low-carb', 'Mediterranean'];
+  const ratingsArray = ['Any', 1, 2, 3, 4, 5];
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -58,14 +58,10 @@ const Filter = ({ keyword}) => {
           </Col>
           <Col sm={12} md={6} lg={6} xl={3}>
             <Form.Group controlId="rating">
-              <Form.Control
-                as="select"
-                onChange={(e) => setRating(Number(e.target.value))}
-                value={rating}
-              >
+              <Form.Control as="select" onChange={(e) => setRating(e.target.value)} value={rating}>
                 {ratingsArray.map((ratingOption) => (
                   <option key={ratingOption} value={ratingOption}>
-                    {ratingOption}
+                    Rating: {ratingOption}
                   </option>
                 ))}
               </Form.Control>
