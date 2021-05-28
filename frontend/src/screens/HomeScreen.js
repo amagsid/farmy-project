@@ -72,13 +72,15 @@ const HomeScreen = ({ match }) => {
               preferences={userInfo.preferences && userInfo.preferences.diet}
             />
           ) : (
-            <h1 style={{ color: '#808080	' }} className="border">
-              Please fill in{' '}
-              <Link to="/preferences" style={{ color: '#808080	' }}>
-                preferences
-              </Link>{' '}
-              to see recommendations
-            </h1>
+            userInfo && (
+              <h2 style={{ color: '#808080	' }} className="border text-center">
+                Please fill in{' '}
+                <Link to="/preferences" style={{ color: '#808080	' }}>
+                  preferences
+                </Link>{' '}
+                to see recommendations
+              </h2>
+            )
           )}
           {!bundles.length && !bundlesListLatest.length && (
             <Message variant="primary">Nothing found</Message>
