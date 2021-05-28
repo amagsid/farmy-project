@@ -51,6 +51,7 @@ const ShippingScreen = ({ history }) => {
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
+            className="inputBG"
             type="text"
             placeholder="Enter your name"
             value={name || ''}
@@ -62,6 +63,7 @@ const ShippingScreen = ({ history }) => {
         <Form.Group controlId="phoneNumber" onBlur={validatePhoneNumber}>
           <Form.Label>Phone Number</Form.Label>
           <PhoneInput
+            style={{ backgroundColor: 'white' }}
             international
             defaultCountry="NL"
             placeholder="Enter phone number"
@@ -85,6 +87,7 @@ const ShippingScreen = ({ history }) => {
         <Form.Group controlId="address">
           <Form.Label>Address</Form.Label>
           <Form.Control
+            className="inputBG"
             type="text"
             placeholder="Enter address"
             value={address || ''}
@@ -96,6 +99,7 @@ const ShippingScreen = ({ history }) => {
         <Form.Group controlId="city">
           <Form.Label>City</Form.Label>
           <Form.Control
+            className="inputBG"
             type="text"
             placeholder="Enter city"
             value={city || ''}
@@ -107,6 +111,7 @@ const ShippingScreen = ({ history }) => {
         <Form.Group controlId="postalCode">
           <Form.Label>Postal Code</Form.Label>
           <Form.Control
+            className="inputBG"
             type="text"
             placeholder="Enter postal code"
             value={postalCode || ''}
@@ -118,6 +123,7 @@ const ShippingScreen = ({ history }) => {
         <Form.Group controlId="country">
           <Form.Label>Country</Form.Label>
           <Form.Control
+            className="inputBG"
             type="text"
             placeholder="Enter country"
             value={country || ''}
