@@ -48,10 +48,10 @@ const FarmsMap = () => {
       <ReactMapGL
         {...viewport}
         onViewportChange={setViewport}
-        mapboxApiAccessToken="pk.eyJ1IjoiZmFybXkiLCJhIjoiY2tveGQ1OGs4MGV4bzJucGRoZ2VlNDVqbSJ9.Jv0nA83huBK0OEc6cmZaTg"
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         mapStyle="mapbox://styles/farmy/ckoygud5q2ilp17mhpwgqk0f9"
       >
-        {farm?.map(({ coordinates, description, name }) => (
+        {farm?.map(({ coordinates, description, name, number }) => (
           <Marker
             latitude={coordinates.lat}
             longitude={coordinates.lon}
@@ -61,7 +61,7 @@ const FarmsMap = () => {
           >
             <div
               style={{ cursor: 'pointer' }}
-              onClick={() => setFarmInfo({ name, description, coordinates })}
+              onClick={() => setFarmInfo({ name, description, coordinates, number })}
             >
               {redMarker}
             </div>
@@ -69,7 +69,6 @@ const FarmsMap = () => {
         ))}
         {farmInfo && (
           <Popup
-            tipSize={5}
             anchor="top"
             longitude={farmInfo.coordinates.lon}
             latitude={farmInfo.coordinates.lat}
@@ -80,6 +79,7 @@ const FarmsMap = () => {
             <div>
               <h5>{farmInfo.name}</h5>
               <p>{farmInfo.description}</p>
+              <small>Contact by: {farmInfo.number}</small>
             </div>
           </Popup>
         )}

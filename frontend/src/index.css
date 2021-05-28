@@ -125,3 +125,14 @@ sup {
 .popup p {
   font-family: 'Times New Roman', Times, serif;
 }
+
+.farm-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.farm-details img {
+  display: block;
+  width: 20%;
+}

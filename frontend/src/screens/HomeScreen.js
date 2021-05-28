@@ -15,6 +15,7 @@ import feedback from '../feedback.json';
 import introduction from '../introduction.json';
 import ReactGA from 'react-ga';
 import FarmsMap from '../components/FarmsMap';
+import FarmStory from '../components/FarmStory';
 import PersonalizedRecommendations from '../components/PersonalizedRecommendations';
 const { REACT_APP_GUA_ID } = process.env;
 
@@ -94,11 +95,6 @@ const HomeScreen = ({ match }) => {
                   {bundlesListLatest.map((bundle) => (
                     <Col key={bundle._id}>
                       <Bundle bundle={bundle} />
-                      {/* <LinkContainer to={`/bundles/${bundle._id}`}>
-                      <Button variant="outline-success" size="lg" block>
-                        Subscribe
-                      </Button>
-                    </LinkContainer> */}
                     </Col>
                   ))}
                 </Row>
@@ -140,8 +136,10 @@ const HomeScreen = ({ match }) => {
                 })}
             </Row>
           </Container>
-          <Container>
+          <Container className="mb-5">
+            <h1>Our Farmers</h1>
             <FarmsMap />
+            <FarmStory />
           </Container>
         </>
       ) : (
