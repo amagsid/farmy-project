@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { listFarmDetails } from '../actions/farmActions';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { Card, Image } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 const FarmDetails = ({ farmId }) => {
   const dispatch = useDispatch();

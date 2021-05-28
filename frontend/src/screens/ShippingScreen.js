@@ -10,7 +10,7 @@ import 'react-phone-number-input/style.css';
 
 const ShippingScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
+  const { error, shippingAddress } = cart;
 
   const [address, setAddress] = useState(shippingAddress.address);
   const [city, setCity] = useState(shippingAddress.city);
@@ -19,6 +19,7 @@ const ShippingScreen = ({ history }) => {
   const [name, setName] = useState(shippingAddress.name);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isValidNumber, setIsValidNumber] = useState(null);
+  const [message, setMessage] = useState(null);
 
   const validatePhoneNumber = () => {
     if (isValidPhoneNumber(phoneNumber)) {
@@ -32,13 +33,19 @@ const ShippingScreen = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(saveShippingAddress({ name, phoneNumber, address, city, postalCode, country }));
-    history.push('/payment');
+    if (phoneNumber === '') {
+      setMessage('Please Fill Phone Number ');
+    } else {
+      dispatch(saveShippingAddress({ name, phoneNumber, address, city, postalCode, country }));
+      history.push('/payment');
+    }
   };
 
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 />
+      {message && <Message variant="danger">{message}</Message>}
+      {error && <Message variant="danger">{error}</Message>}
       <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="name">

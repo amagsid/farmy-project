@@ -3,15 +3,6 @@ import { Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 const ProfileEditTabs = ({ profile, subscriptions, preferences }) => {
-  // const ActiveStyle = {
-  //   background: 'red',
-  // };
-  // const inActiveStyle = {
-  //   ...ActiveStyle,
-  //   background: 'transparent',
-  //   'border-color': 'transparent',
-  //   color: 'grey',
-  // };
 
   return (
     <Nav className="justify-content-center mb-4">

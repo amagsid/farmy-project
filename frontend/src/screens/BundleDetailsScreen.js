@@ -92,7 +92,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                 <ListGroup.Item>
                   <h3>{bundle.name}</h3>
                 </ListGroup.Item>
-                <ListGroup.Item>Price: ${bundle.price}</ListGroup.Item>
+                <ListGroup.Item>Price: €{bundle.price}</ListGroup.Item>
                 <ListGroup.Item>Description: {bundle.description}</ListGroup.Item>
               </ListGroup>
             </Col>
@@ -118,14 +118,14 @@ const BundleDetailsScreen = ({ match, history }) => {
                   {bundle.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>Qty</Col>
+                        <Col>Quantity</Col>
                         <Col>
                           <Form.Control
                             as="select"
                             value={qty}
                             onChange={(e) => setQty(e.target.value)}
                           >
-                            {[...Array(bundle.countInStock).keys()].map((x) => (
+                            {[...Array(bundle.countInStock - orderFrq).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>
                                 {x + 1}
                               </option>
@@ -207,14 +207,14 @@ const BundleDetailsScreen = ({ match, history }) => {
             <h3>What you will find inside this bundle:</h3>
             <Row>
               {bundle.ingredients?.map(({ origin, price, name, image, _id }) => (
-                <Col xs={12} s={4} md={4} lg={3} key={_id}>
+                <Col className="my-3" xs={12} s={4} md={4} lg={3} key={_id}>
                   <Card>
                     <Card.Img variant="top" src={image} alt={name} />
                     <Card.Body>
                       <Card.Title>{name}</Card.Title>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
-                      <ListGroup.Item>Price: {price}</ListGroup.Item>
+                      <ListGroup.Item>Price: €{price}</ListGroup.Item>
                       <ListGroup.Item>Origin: {origin}</ListGroup.Item>
                     </ListGroup>
                   </Card>

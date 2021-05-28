@@ -1,6 +1,5 @@
 import asyncHandler from 'express-async-handler';
 import Farm from '../models/farmModel.js';
-import Ingredient from '../models/ingredientModel.js';
 
 // @desc    Fetch all farms
 // @route   GET /api/farms
