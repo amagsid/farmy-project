@@ -2,16 +2,6 @@ main {
   min-height: 80vh;
 }
 
-img {
-  height: 250px;
-  min-height: 150px;
-  max-height: 600px;
-  width: 450px;
-  min-width: 150px;
-  max-width: 600px;
-  object-fit: cover;
-}
-
 h3 {
   padding: 1rem 0;
 }
