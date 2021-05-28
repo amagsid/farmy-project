@@ -51,7 +51,7 @@ const FarmsMap = () => {
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         mapStyle="mapbox://styles/farmy/ckoygud5q2ilp17mhpwgqk0f9"
       >
-        {farm?.map(({ coordinates, description, name }) => (
+        {farm?.map(({ coordinates, description, name, number }) => (
           <Marker
             latitude={coordinates.lat}
             longitude={coordinates.lon}
@@ -61,7 +61,7 @@ const FarmsMap = () => {
           >
             <div
               style={{ cursor: 'pointer' }}
-              onClick={() => setFarmInfo({ name, description, coordinates })}
+              onClick={() => setFarmInfo({ name, description, coordinates, number })}
             >
               {redMarker}
             </div>
@@ -79,6 +79,7 @@ const FarmsMap = () => {
             <div>
               <h5>{farmInfo.name}</h5>
               <p>{farmInfo.description}</p>
+              <small>Contact by: {farmInfo.number}</small>
             </div>
           </Popup>
         )}

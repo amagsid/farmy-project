@@ -113,9 +113,10 @@ h2 {
 .farm-details {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .farm-details img {
   display: block;
-  width: 50%;
+  width: 20%;
 }
