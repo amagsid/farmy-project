@@ -21,7 +21,7 @@ const Bundle = ({ bundle }) => {
           <Rating value={bundle.rating} text={`${bundle.numReviews} reviews`} />
         </Card.Text>
 
-        <Card.Text as="h3">${bundle.price}</Card.Text>
+        <Card.Text as="h3">€{bundle.price}</Card.Text>
       </Card.Body>
     </Card>
   );

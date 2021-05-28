@@ -96,7 +96,6 @@ const LoginScreen = ({ location, history }) => {
         </Button>
       </Form>
 
-      <div className="or"> OR </div>
       {apiKey && (
         <>
           <GoogleAuth

@@ -8,6 +8,7 @@ import Meta from '../components/Meta';
 import Rating from '../components/Rating';
 import ReactGA from 'react-ga';
 import { listBundleDetails, createBundleReview } from '../actions/bundleActions';
+import { listMySubscriptions } from '../actions/subscriptionActions';
 import { BUNDLE_CREATE_REVIEW_RESET } from '../constants/bundleConstants';
 import FarmDetails from '../components/FarmDetails';
 const { REACT_APP_GUA_ID } = process.env;
@@ -15,11 +16,14 @@ const { REACT_APP_GUA_ID } = process.env;
 const BundleDetailsScreen = ({ match, history }) => {
   const [qty, setQty] = useState(1);
   const [orderFrq, setOrderFrq] = useState(1);
-  const [orderPer, setOrderPer] = useState('week');
+  const [orderPer, setOrderPer] = useState('Weekly');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
-  const arrayOfTime = ['Week', '2 Weeks', 'Month'];
+  const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
+  const arrayOfThree = [1, 2, 3];
+  const arrayOfFour = [1, 2, 3, 4];
+
   const dispatch = useDispatch();
 
   const bundleDetails = useSelector((state) => state.bundleDetails);
@@ -29,6 +33,13 @@ const BundleDetailsScreen = ({ match, history }) => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const subscriptionListMy = useSelector((state) => state.subscriptionListMy);
+  const {
+    loading: loadingSubscriptions,
+    error: errorSubscriptions,
+    subscriptions,
+  } = subscriptionListMy;
 
   const bundleReviewCreate = useSelector((state) => state.bundleReviewCreate);
   const {
@@ -43,10 +54,11 @@ const BundleDetailsScreen = ({ match, history }) => {
       setComment('');
     }
     if (!bundle._id || bundle._id !== match.params.id) {
+      dispatch(listMySubscriptions());
       dispatch(listBundleDetails(match.params.id));
       dispatch({ type: BUNDLE_CREATE_REVIEW_RESET });
     }
-  }, [dispatch, match, bundle._id, successBundleReview]);
+  }, [dispatch, match, subscriptions, bundle._id, successBundleReview]);
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}&frq=${orderFrq}&orderper=${orderPer}`);
@@ -89,7 +101,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                 <ListGroup.Item>
                   <h3>{bundle.name}</h3>
                 </ListGroup.Item>
-                <ListGroup.Item>Price: ${bundle.price}</ListGroup.Item>
+                <ListGroup.Item>Price: €{bundle.price}</ListGroup.Item>
                 <ListGroup.Item>Description: {bundle.description}</ListGroup.Item>
               </ListGroup>
             </Col>
@@ -100,7 +112,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                     <Row>
                       <Col>Price:</Col>
                       <Col>
-                        <strong>${bundle.price}</strong>
+                        <strong>€{bundle.price}</strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -115,14 +127,14 @@ const BundleDetailsScreen = ({ match, history }) => {
                   {bundle.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>Qty</Col>
+                        <Col>Quantity</Col>
                         <Col>
                           <Form.Control
                             as="select"
                             value={qty}
                             onChange={(e) => setQty(e.target.value)}
                           >
-                            {[...Array(bundle.countInStock).keys()].map((x) => (
+                            {[...Array(bundle.countInStock - orderFrq).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>
                                 {x + 1}
                               </option>
@@ -155,18 +167,32 @@ const BundleDetailsScreen = ({ match, history }) => {
                   {bundle.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>Times per {orderPer}</Col>
+                        <Col>
+                          Times per{' '}
+                          {orderPer === 'Weekly'
+                            ? 'Week'
+                            : orderPer === 'Monthly'
+                            ? 'Month'
+                            : '2 Weeks'}
+                        </Col>
                         <Col>
                           <Form.Control
                             as="select"
                             value={orderFrq}
                             onChange={(e) => setOrderFrq(e.target.value)}
                           >
-                            {[...Array(bundle.countInStock).keys()].map((x) => (
-                              <option key={x + 1} value={x + 1}>
-                                {x + 1}
-                              </option>
-                            ))}
+                            {(orderPer === 'Weekly' || orderPer === 'Monthly') &&
+                              arrayOfThree.map((x) => (
+                                <option key={x} value={x}>
+                                  {x}
+                                </option>
+                              ))}
+                            {orderPer === 'Every 2 Weeks' &&
+                              arrayOfFour.map((x) => (
+                                <option key={x} value={x}>
+                                  {x}
+                                </option>
+                              ))}
                           </Form.Control>
                         </Col>
                       </Row>
@@ -197,7 +223,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                       <Card.Title>{name}</Card.Title>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
-                      <ListGroup.Item>Price: {price}</ListGroup.Item>
+                      <ListGroup.Item>Price: €{price}</ListGroup.Item>
                       <ListGroup.Item>Origin: {origin}</ListGroup.Item>
                     </ListGroup>
                   </Card>
@@ -213,7 +239,7 @@ const BundleDetailsScreen = ({ match, history }) => {
           </Container>
           <Row>
             <Col md={6}>
-              <h2>Reviews</h2>
+              <h4>Here's what our customers say about us..</h4>
               {bundle.reviews.length === 0 && <Message>No Reviews</Message>}
               <ListGroup variant="flush">
                 {bundle.reviews.map((review) => (
@@ -225,43 +251,62 @@ const BundleDetailsScreen = ({ match, history }) => {
                   </ListGroup.Item>
                 ))}
                 <ListGroup.Item>
-                  <h2>Write a Customer Review</h2>
                   {successBundleReview && (
                     <Message variant="success">Review submitted successfully</Message>
                   )}
+
                   {loadingBundleReview && <Loader />}
                   {errorBundleReview && <Message variant="danger">{errorBundleReview}</Message>}
-                  {userInfo ? (
-                    <Form onSubmit={submitHandler}>
-                      <Form.Group controlId="rating">
-                        <Form.Label>Rating</Form.Label>
-                        <Form.Control
-                          as="select"
-                          value={rating}
-                          onChange={(e) => setRating(e.target.value)}
-                        >
-                          <option value="">Select...</option>
-                          <option value="1">1 - Poor</option>
-                          <option value="2">2 - Fair</option>
-                          <option value="3">3 - Good</option>
-                          <option value="4">4 - Very Good</option>
-                          <option value="5">5 - Excellent</option>
-                        </Form.Control>
-                      </Form.Group>
-                      <Form.Group controlId="comment">
-                        <Form.Label>Comment</Form.Label>
-                        <Form.Control
-                          as="textarea"
-                          row="3"
-                          value={comment}
-                          onChange={(e) => setComment(e.target.value)}
-                        ></Form.Control>
-                      </Form.Group>
-                      <Button disabled={loadingBundleReview} type="submit" variant="primary">
-                        Submit
-                      </Button>
-                    </Form>
+                  {loadingSubscriptions ? (
+                    <Loader />
+                  ) : errorSubscriptions ? (
+                    <Message variant="danger">{errorSubscriptions}</Message>
                   ) : (
+                    <>
+                      {userInfo && subscriptions.length > 0 ? (
+                        <Form onSubmit={submitHandler}>
+                          <h6>
+                            Enjoying Farmy? leave us a review. Can we do something better? let us
+                            know!
+                          </h6>
+                          <Form.Group controlId="rating">
+                            <Form.Label>Rating</Form.Label>
+                            <Form.Control
+                              as="select"
+                              value={rating}
+                              onChange={(e) => setRating(e.target.value)}
+                            >
+                              <option value="">Select...</option>
+                              <option value="1">1 - Poor</option>
+                              <option value="2">2 - Fair</option>
+                              <option value="3">3 - Good</option>
+                              <option value="4">4 - Very Good</option>
+                              <option value="5">5 - Excellent</option>
+                            </Form.Control>
+                          </Form.Group>
+                          <Form.Group controlId="comment">
+                            <Form.Label>Comment</Form.Label>
+                            <Form.Control
+                              as="textarea"
+                              row="3"
+                              value={comment}
+                              onChange={(e) => setComment(e.target.value)}
+                            ></Form.Control>
+                          </Form.Group>
+                          <Button disabled={loadingBundleReview} type="submit" variant="primary">
+                            Submit
+                          </Button>
+                        </Form>
+                      ) : userInfo && subscriptions.length === 0 ? (
+                        <h6>
+                          subscribe to one of our <Link to={`/`}>bundles</Link>
+                          to leave a review
+                        </h6>
+                      ) : null}
+                    </>
+                  )}
+
+                  {!userInfo && (
                     <Message>
                       Please <Link to="/login">sign in</Link> to write a review{' '}
                     </Message>
