@@ -3,7 +3,7 @@ import { Form, Button, InputGroup, FormControl, Col, Row } from 'react-bootstrap
 import { useDispatch } from 'react-redux';
 import { listBundles } from '../actions/bundleActions';
 
-const Filter = ({ keyword}) => {
+const Filter = ({ keyword }) => {
   const dispatch = useDispatch();
 
   const initialValue = '';
@@ -20,7 +20,7 @@ const Filter = ({ keyword}) => {
     // eslint-disable-next-line
   }, [dispatch, keyword, formSubmit]);
 
-  const categoriesArray = ['All', 'FROZEN CATEGORY', 'SMOOTHIES CATEGORY', 'BAGS SQUARE'];
+  const categoriesArray = ['All', 'Vegan', 'Vegetarian', 'Low-carb', 'Mediterranean'];
   const ratingsArray = ['Any rating', 1, 2, 3, 4, 5];
 
   const submitHandler = (e) => {
