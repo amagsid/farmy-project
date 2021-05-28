@@ -157,8 +157,8 @@ const SubscriptionScreen = ({ match, history, location }) => {
                           <Link to={`/bundles/${item.product}`}>{item.name}</Link>
                         </Col>
                         <Col md={6}>
-                          {item.qty} people x ${item.price} x {item.orderFrq} every {item.orderPer}=
-                          ${item.qty * item.price * item.orderFrq}
+                          {item.qty} people x €{item.price} x {item.orderFrq} every {item.orderPer}=
+                          €{item.qty * item.price * item.orderFrq}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -177,25 +177,25 @@ const SubscriptionScreen = ({ match, history, location }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>${subscription.itemsPrice}</Col>
+                  <Col>€{subscription.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>${subscription.shippingPrice}</Col>
+                  <Col>€{subscription.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
-                  <Col>${subscription.taxPrice}</Col>
+                  <Col>€{subscription.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>${subscription.totalPrice}</Col>
+                  <Col>€{subscription.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
               {!subscription.isPaid && (

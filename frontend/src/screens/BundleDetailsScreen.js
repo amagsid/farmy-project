@@ -197,7 +197,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                       <Card.Title>{name}</Card.Title>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
-                      <ListGroup.Item>Price: {price}</ListGroup.Item>
+                      <ListGroup.Item>Price: €{price}</ListGroup.Item>
                       <ListGroup.Item>Origin: {origin}</ListGroup.Item>
                     </ListGroup>
                   </Card>
