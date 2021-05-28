@@ -97,7 +97,7 @@ const PlaceSubscriptionScreen = ({ history }) => {
                           <Link to={`/bundles/${item.product}`}>{item.name}</Link>
                         </Col>
                         <Col md={6}>
-                          {item.qty} people x €{item.price} x {item.orderFrq} times every{' '}
+                          {item.qty} bundles x €{item.price} x {item.orderFrq} times every{' '}
                           {item.orderPer}= €{item.qty * item.price * item.orderFrq}
                         </Col>
                       </Row>
