@@ -109,7 +109,7 @@ const HomeScreen = ({ match }) => {
               {bundles &&
                 bundles.length &&
                 bundles.map((bundle) => (
-                  <Col key={bundle._id}>
+                  <Col key={bundle._id} xl={4}>
                     <Link to={`/bundles/${bundle._id}`}>
                       <Bundle bundle={bundle} />
                     </Link>

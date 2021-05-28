@@ -90,10 +90,10 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar expand="lg" collapseOnSelect>
-        <Container>
-          <LinkContainer to="/">
-            <Navbar.Brand onClick={gaLogoEvent}>Farmy</Navbar.Brand>
+      <Navbar expand="lg" collapseOnSelect >
+        <Container style={{color: "#ffffff"}}>
+          <LinkContainer to="/" >
+            <Navbar.Brand onClick={gaLogoEvent} >Farmy</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
