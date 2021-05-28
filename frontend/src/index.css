@@ -4,7 +4,11 @@ main {
 }
 
 header {
-  background-color: rgb(122, 169, 122);
+  background-color: lightgreen;
+}
+
+footer {
+  background-color: lightgreen;
 }
 
 h3 {
@@ -32,7 +36,9 @@ h2 {
 
 /* carousel */
 
-.carousel-item-next, .carousel-item-prev, .carousel-item.active {
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
   display: flex;
 }
 
