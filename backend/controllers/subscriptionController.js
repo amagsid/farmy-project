@@ -81,7 +81,6 @@ const updateSubscriptionToPaid = asyncHandler(async (req, res) => {
         rejectUnauthorized: false,
       },
     });
-    console.log(updatedSubscription);
 
     // sends email to a specific user's email
     const info = await transporter.sendMail({
