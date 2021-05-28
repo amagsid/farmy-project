@@ -97,6 +97,9 @@ const PreferenceScreen = ({ history }) => {
           <Form.Group>
             <h6>Choose your favorite diet</h6>
             <Form.Control as="select" onChange={(e) => setDiet(e.target.value)} value={diet || ''}>
+              <option value="" disabled={diet !== ''}>
+                Choose a diet..
+              </option>
               {diets.map((x, index) => (
                 <option key={index} value={x}>
                   {x}
@@ -111,6 +114,9 @@ const PreferenceScreen = ({ history }) => {
               onChange={(e) => setCookingSkill(e.target.value)}
               value={cookingSkill || ''}
             >
+              <option value="" disabled={cookingSkill !== ''}>
+                Choose a level..
+              </option>
               {cookingSkills.map((x, index) => (
                 <option key={index} value={x}>
                   {x}
@@ -126,6 +132,9 @@ const PreferenceScreen = ({ history }) => {
               onChange={(e) => setCookingTime(e.target.value)}
               value={cookingTime || ''}
             >
+              <option value="" disabled={cookingTime !== ''}>
+                Choose a duration..
+              </option>
               {cookingDurations.map((x, index) => (
                 <option key={index} value={x}>
                   {x}
