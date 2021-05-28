@@ -85,7 +85,7 @@ const CartScreen = ({ match, location, history }) => {
                         </option>
                       ))}
                     </Form.Control>
-                    <small>weekly</small>
+                    <small>{orderPer}</small>
                   </Col>
                   <Col md={2}>
                     <Form.Control
