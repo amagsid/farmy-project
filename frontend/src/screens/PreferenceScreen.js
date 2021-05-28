@@ -27,7 +27,6 @@ const PreferenceScreen = ({ history }) => {
 
   const subscriptionListMy = useSelector((state) => state.subscriptionListMy);
   const { subscriptions } = subscriptionListMy;
-  console.log(success);
 
   useEffect(() => {
     if (!userInfo) {
@@ -87,7 +86,7 @@ const PreferenceScreen = ({ history }) => {
   return (
     <FormContainer>
       <ProfileEditTabs profile subscriptions preferences />
-      {/* {success && <Message variant="success">Preferences Updated</Message>} */}
+      {success && <Message variant="success">Preferences Updated</Message>}
 
       {loading ? (
         <Loader />

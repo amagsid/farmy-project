@@ -21,10 +21,22 @@ const RegisterScreen = ({ location, history }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState(null);
+  const [isValidEmailMessage, setIsValidEmailMessage] = useState(null);
+  const [isNotValidEmailMessage, setIsNotValidEmailMessage] = useState(null);
   const [apiKey, setApiKey] = useState('');
   const EventGaTracker = useEventGaTracker('SignUp');
+  const validatedEmail = emailValidator.isEmail(email.trim());
+
+  const validateEmail = () => {
+    if (validatedEmail) {
+      setIsValidEmailMessage('Valid Email.');
+    } else {
+      setIsNotValidEmailMessage('Enter valid Email!');
+    }
+  };
 
   const dispatch = useDispatch();
+
   const userHistoryRoutes = useSelector((state) => state.userHistoryRoutes);
   const { routesHistory } = userHistoryRoutes;
   const signupOriginPath = routesHistory[routesHistory.length - 3];
@@ -35,7 +47,7 @@ const RegisterScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const redirect = location.search ? location.search.split('=')[1] : '/';
+  const redirect = '/register/bundleplan';
 
   const gaLoginEvent = () => {
     ReactGA.initialize(REACT_APP_GUA_ID);
@@ -69,8 +81,11 @@ const RegisterScreen = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       setMessage('Passwords do not match');
+    } else if (!validatedEmail) {
+      setMessage('Email is not valid');
     } else {
       dispatch(register(name, email, password));
       EventGaTracker('successfully signup', signupOriginPath);
@@ -94,15 +109,21 @@ const RegisterScreen = ({ location, history }) => {
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="email">
+        <Form.Group controlId="email" onBlur={validateEmail}>
           <Form.Label>Email Address</Form.Label>
-          <Form.Control
+          <Email
+            className="form-control"
             type="email"
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          ></Form.Control>
+          />
         </Form.Group>
+        {isValidEmailMessage ? (
+          <Message variant="info">{isValidEmailMessage}</Message>
+        ) : isNotValidEmailMessage ? (
+          <Message variant="danger">{isNotValidEmailMessage}</Message>
+        ) : null}
 
         <Form.Group controlId="password">
           <Form.Label>Password</Form.Label>
@@ -113,7 +134,6 @@ const RegisterScreen = ({ location, history }) => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
         <Form.Group controlId="confirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control

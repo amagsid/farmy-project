@@ -102,7 +102,14 @@ const Header = () => {
               {userInfo && !userInfo.isAdmin && (
                 <LinkContainer to="/preferences">
                   <Nav.Link>
-                    <i className="fas fa-utensils"></i> Preferences
+                    <i className="fas fa-utensils"></i> Preferences{' '}
+                    {userInfo.preferences?.diet === '' ? (
+                      <sup>
+                        <span className="badge badge-danger rounded-pill "> &middot; </span>
+                      </sup>
+                    ) : (
+                      ''
+                    )}
                   </Nav.Link>
                 </LinkContainer>
               )}

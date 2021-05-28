@@ -31,8 +31,7 @@ import {
   USER_AUTH_GOOGLE_SUCCESS,
   USER_AUTH_GOOGLE_FAIL,
   USER_HISTORY_SUCCESS,
-  USER_HISTORY_RESET,
-
+  // USER_HISTORY_RESET,
 } from '../constants/userConstants';
 import { SUBSCRIPTION_LIST_MY_RESET } from '../constants/subscriptionConstants';
 
@@ -292,79 +291,67 @@ export const updateUser = (user) => async (dispatch, getState) => {
 };
 export const authFacebook = (accessToken, userID) => async (dispatch) => {
   try {
-    dispatch({ type: USER_AUTH_FACEBOOK_REQUEST })
+    dispatch({ type: USER_AUTH_FACEBOOK_REQUEST });
 
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
-    }
+    };
 
-    const { data } = await axios.post(
-      '/api/users/auth/facebook',
-      { accessToken, userID },
-      config
-    )
+    const { data } = await axios.post('/api/users/auth/facebook', { accessToken, userID }, config);
 
-    dispatch({ type: USER_AUTH_FACEBOOK_SUCCESS })
+    dispatch({ type: USER_AUTH_FACEBOOK_SUCCESS });
 
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data })
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
-    localStorage.setItem('userInfo', JSON.stringify(data))
+    localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_AUTH_FACEBOOK_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
   }
-}
+};
 
 export const authGoogle = (tokenId) => async (dispatch) => {
   try {
-    dispatch({ type: USER_AUTH_GOOGLE_REQUEST })
+    dispatch({ type: USER_AUTH_GOOGLE_REQUEST });
 
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
-    }
+    };
 
-    const { data } = await axios.post(
-      '/api/users/auth/google',
-      { tokenId },
-      config
-    )
+    const { data } = await axios.post('/api/users/auth/google', { tokenId }, config);
 
-    dispatch({ type: USER_AUTH_GOOGLE_SUCCESS })
+    dispatch({ type: USER_AUTH_GOOGLE_SUCCESS });
 
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data })
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
-    localStorage.setItem('userInfo', JSON.stringify(data))
+    localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_AUTH_GOOGLE_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
   }
-}
+};
 
 export const createRoutesHistory = (path) => (dispatch, getState) => {
   const {
     userHistoryRoutes: { routesHistory },
-  } = getState()
+  } = getState();
 
-  const routesHistoryArr = Object.values(routesHistory)
+  const routesHistoryArr = Object.values(routesHistory);
   if (routesHistoryArr) {
-    routesHistoryArr.push(path)
+    routesHistoryArr.push(path);
   }
   if (routesHistoryArr.length > 4) {
-    routesHistoryArr.shift()
+    routesHistoryArr.shift();
   }
-  dispatch({ type: USER_HISTORY_SUCCESS, payload: routesHistoryArr })
-}
+  dispatch({ type: USER_HISTORY_SUCCESS, payload: routesHistoryArr });
+};
