@@ -21,8 +21,6 @@ const BundleDetailsScreen = ({ match, history }) => {
   const [comment, setComment] = useState('');
 
   const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
-  const arrayOfThree = [1, 2, 3];
-  const arrayOfFour = [1, 2, 3, 4];
 
   const dispatch = useDispatch();
 
@@ -94,7 +92,7 @@ const BundleDetailsScreen = ({ match, history }) => {
           <Meta title={bundle.name} />
           <Row>
             <Col md={6}>
-              <Image src={bundle.image} alt={bundle.name} fluid  />
+              <Image src={bundle.image} alt={bundle.name} fluid />
             </Col>
             <Col md={3}>
               <ListGroup variant="flush">
@@ -112,7 +110,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                     <Row>
                       <Col>Price:</Col>
                       <Col>
-                        <strong>€{bundle.price}</strong>
+                        <strong>${bundle.price}</strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -167,32 +165,18 @@ const BundleDetailsScreen = ({ match, history }) => {
                   {bundle.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>
-                          Times per{' '}
-                          {orderPer === 'Weekly'
-                            ? 'Week'
-                            : orderPer === 'Monthly'
-                            ? 'Month'
-                            : '2 Weeks'}
-                        </Col>
+                        <Col>Times per {orderPer}</Col>
                         <Col>
                           <Form.Control
                             as="select"
                             value={orderFrq}
                             onChange={(e) => setOrderFrq(e.target.value)}
                           >
-                            {(orderPer === 'Weekly' || orderPer === 'Monthly') &&
-                              arrayOfThree.map((x) => (
-                                <option key={x} value={x}>
-                                  {x}
-                                </option>
-                              ))}
-                            {orderPer === 'Every 2 Weeks' &&
-                              arrayOfFour.map((x) => (
-                                <option key={x} value={x}>
-                                  {x}
-                                </option>
-                              ))}
+                            {[...Array(bundle.countInStock - qty).keys()].map((x) => (
+                              <option key={x + 1} value={x + 1}>
+                                {x + 1}
+                              </option>
+                            ))}
                           </Form.Control>
                         </Col>
                       </Row>
