@@ -150,7 +150,7 @@ const HomeScreen = ({ match }) => {
             )}
           </Container>
 
-          <Container className="mb-5">
+          <Container className="mb-4">
             <h1>Our Farmers</h1>
             <FarmsMap />
             <FarmStory />

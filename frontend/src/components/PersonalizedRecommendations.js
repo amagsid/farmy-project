@@ -18,7 +18,7 @@ const PersonalizedRecommendations = ({ preferences }) => {
           <Col
             style={{
               display: 'flex',
-              justifyContent: 'center',
+              justifyContent: 'space-around',
               alignItems: 'center',
             }}
           >
@@ -28,9 +28,9 @@ const PersonalizedRecommendations = ({ preferences }) => {
           </Col>
 
           {filteredBundle.map((bundle) => (
-            <Col key={bundle._id}>
+            <Col key={bundle._id} md={2}>
               <Link to={`/bundles/${bundle._id}`}>
-                <Card className="my-3 p-3 rounded">
+                <Card className="m-2 p-2" style={{ minHeight: '18rem' }}>
                   <Row>
                     <Col>
                       <LinkContainer to={`/bundles/${bundle._id}`}>
