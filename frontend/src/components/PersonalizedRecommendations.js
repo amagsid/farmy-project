@@ -18,7 +18,7 @@ const PersonalizedRecommendations = ({ preferences }) => {
           <Col
             style={{
               display: 'flex',
-              justifyContent: 'space-around',
+              justifyContent: 'center',
               alignItems: 'center',
             }}
           >
@@ -30,12 +30,16 @@ const PersonalizedRecommendations = ({ preferences }) => {
           {filteredBundle.map((bundle) => (
             <Col key={bundle._id} md={2}>
               <Link to={`/bundles/${bundle._id}`}>
-                <Card className="m-2 p-2" style={{ minHeight: '18rem' }}>
+                <Card className="m-2 p-2" style={{ minHeight: '20rem', minWidth: '10rem' }}>
                   <Row>
                     <Col>
                       <LinkContainer to={`/bundles/${bundle._id}`}>
                         <>
-                          <Card.Img src={bundle.image} variant="top" />
+                          <Card.Img
+                            src={bundle.image}
+                            variant="top"
+                            style={{ width: '8.9rem', height: '8rem' }}
+                          />
                           <Card.Text as="div">
                             <Rating value={bundle.rating} />
                           </Card.Text>
@@ -46,7 +50,7 @@ const PersonalizedRecommendations = ({ preferences }) => {
                       {' '}
                       <Card.Body>
                         <LinkContainer to={`/bundles/${bundle._id}`}>
-                          <Card.Title as="div">
+                          <Card.Title as="h6">
                             <strong>{bundle.name}</strong>
                           </Card.Title>
                         </LinkContainer>
