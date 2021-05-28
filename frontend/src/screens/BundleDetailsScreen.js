@@ -15,11 +15,14 @@ const { REACT_APP_GUA_ID } = process.env;
 const BundleDetailsScreen = ({ match, history }) => {
   const [qty, setQty] = useState(1);
   const [orderFrq, setOrderFrq] = useState(1);
-  const [orderPer, setOrderPer] = useState('week');
+  const [orderPer, setOrderPer] = useState('Weekly');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
-  const arrayOfTime = ['Week', '2 Weeks', 'Month'];
+  const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
+  const arrayOfThree = [1, 2, 3];
+  const arrayOfFour = [1, 2, 3, 4];
+
   const dispatch = useDispatch();
 
   const bundleDetails = useSelector((state) => state.bundleDetails);
@@ -155,18 +158,32 @@ const BundleDetailsScreen = ({ match, history }) => {
                   {bundle.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>Times per {orderPer}</Col>
+                        <Col>
+                          Times per{' '}
+                          {orderPer === 'Weekly'
+                            ? 'Week'
+                            : orderPer === 'Monthly'
+                            ? 'Month'
+                            : '2 Weeks'}
+                        </Col>
                         <Col>
                           <Form.Control
                             as="select"
                             value={orderFrq}
                             onChange={(e) => setOrderFrq(e.target.value)}
                           >
-                            {[...Array(bundle.countInStock - qty).keys()].map((x) => (
-                              <option key={x + 1} value={x + 1}>
-                                {x + 1}
-                              </option>
-                            ))}
+                            {(orderPer === 'Weekly' || orderPer === 'Monthly') &&
+                              arrayOfThree.map((x) => (
+                                <option key={x} value={x}>
+                                  {x}
+                                </option>
+                              ))}
+                            {orderPer === 'Every 2 Weeks' &&
+                              arrayOfFour.map((x) => (
+                                <option key={x} value={x}>
+                                  {x}
+                                </option>
+                              ))}
                           </Form.Control>
                         </Col>
                       </Row>

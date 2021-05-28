@@ -17,7 +17,7 @@ const CartScreen = ({ match, location, history }) => {
     location.search ? location.search.slice(1).split('&')[2].split('=')[1] : 1
   );
 
-  const arrayOfTime = ['Week', '2 Weeks', 'Month'];
+  const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
 
   const dispatch = useDispatch();
 
