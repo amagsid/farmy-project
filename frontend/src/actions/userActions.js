@@ -31,7 +31,6 @@ import {
   USER_AUTH_GOOGLE_SUCCESS,
   USER_AUTH_GOOGLE_FAIL,
   USER_HISTORY_SUCCESS,
-  // USER_HISTORY_RESET,
 } from '../constants/userConstants';
 import { SUBSCRIPTION_LIST_MY_RESET } from '../constants/subscriptionConstants';
 

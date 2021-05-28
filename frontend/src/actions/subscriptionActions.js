@@ -22,7 +22,6 @@ import {
   SUBSCRIPTION_UPDATE_REQUEST,
   SUBSCRIPTION_UPDATE_SUCCESS,
   SUBSCRIPTION_UPDATE_FAIL,
-  // SUBSCRIPTION_UPDATE_RESET,
   SUBSCRIPTION_CANCEL_SUCCESS,
   SUBSCRIPTION_CANCEL_FAIL,
   SUBSCRIPTION_CANCEL_REQUEST,
@@ -269,11 +268,8 @@ export const updateSubscription = (subscription) => async (dispatch, getState) =
     };
 
     const { subId } = subscription;
-    // const { subId, address, city, postalCode, country } = subscription;
-
     const { data } = await axios.put(`/api/subscriptions/${subId}`, subscription, config);
 
-    // console.log(data);
 
     dispatch({
       type: SUBSCRIPTION_UPDATE_SUCCESS,

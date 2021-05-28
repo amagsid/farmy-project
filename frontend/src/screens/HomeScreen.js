@@ -98,22 +98,27 @@ const HomeScreen = ({ match }) => {
             <h1>Our Bundles</h1>
 
             <Filter keyword={keyword} />
-            <Row>
-              {bundles &&
-                bundles.length &&
-                bundles.map((bundle) => (
-                  <Col key={bundle._id}>
-                    <Link to={`/bundles/${bundle._id}`}>
-                      <Bundle bundle={bundle} />
-                    </Link>
-                    <LinkContainer to={`/bundles/${bundle._id}`}>
-                      <Button variant="outline-success" size="lg" block>
-                        Subscribe
-                      </Button>
-                    </LinkContainer>
-                  </Col>
-                ))}
-            </Row>
+            {loading && <Loader />}
+            {bundles.length === 0 && !loading ? (
+              <h3>No Bundles Found!</h3>
+            ) : (
+              <Row>
+                {bundles &&
+                  bundles.length &&
+                  bundles.map((bundle) => (
+                    <Col sm={12} md={6} lg={6} xl={3} key={bundle._id}>
+                      <Link to={`/bundles/${bundle._id}`}>
+                        <Bundle bundle={bundle} />
+                      </Link>
+                      <LinkContainer to={`/bundles/${bundle._id}`}>
+                        <Button variant="outline-success" size="lg" block>
+                          Subscribe
+                        </Button>
+                      </LinkContainer>
+                    </Col>
+                  ))}
+              </Row>
+            )}
           </Container>
 
           <Container className="mb-5">
