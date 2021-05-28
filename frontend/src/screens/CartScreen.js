@@ -41,7 +41,7 @@ const CartScreen = ({ match, location, history }) => {
 
   return (
     <Row>
-      <Col md={8}>
+      <Col md={12} className="my-3">
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <Message>
@@ -56,10 +56,12 @@ const CartScreen = ({ match, location, history }) => {
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
                   <Col md={2}>
-                    <Link to={`/bundles/${item.product}`}>{item.name}</Link>
+                    <Link to={`/bundles/${item.product}`} style={{ fontSize: 'large' }}>
+                      {item.name}
+                    </Link>
                   </Col>
                   <Col md={1}>€{item.price}</Col>
-                  <Col md={2}>
+                  <Col md={1.5}>
                     <Form.Control
                       as="select"
                       value={item.qty}
@@ -87,7 +89,7 @@ const CartScreen = ({ match, location, history }) => {
                     </Form.Control>
                     <small>Per {orderPer}</small>
                   </Col>
-                  <Col md={2}>
+                  <Col md={2.5}>
                     <Form.Control
                       as="select"
                       value={item.orderPer}
@@ -115,7 +117,7 @@ const CartScreen = ({ match, location, history }) => {
           </ListGroup>
         )}
       </Col>
-      <Col md={4}>
+      <Col md={6} className="m-auto text-center">
         <Card>
           <ListGroup variant="flush">
             <ListGroup.Item>

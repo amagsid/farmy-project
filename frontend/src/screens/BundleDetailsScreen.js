@@ -94,7 +94,7 @@ const BundleDetailsScreen = ({ match, history }) => {
           <Meta title={bundle.name} />
           <Row>
             <Col md={6}>
-              <Image src={bundle.image} alt={bundle.name} fluid  />
+              <Image src={bundle.image} alt={bundle.name} fluid />
             </Col>
             <Col md={3}>
               <ListGroup variant="flush">
@@ -128,7 +128,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                     <ListGroup.Item>
                       <Row>
                         <Col>Quantity</Col>
-                        <Col>
+                        <Col md={10} className="m-1">
                           <Form.Control
                             as="select"
                             value={qty}
@@ -148,7 +148,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                     <ListGroup.Item>
                       <Row>
                         <Col>How often</Col>
-                        <Col>
+                        <Col md={10} className="m-1">
                           <Form.Control
                             as="select"
                             value={orderPer}
@@ -175,7 +175,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                             ? 'Month'
                             : '2 Weeks'}
                         </Col>
-                        <Col>
+                        <Col md={10} className="m-1">
                           <Form.Control
                             as="select"
                             value={orderFrq}
