@@ -206,7 +206,7 @@ const BundleDetailsScreen = ({ match, history }) => {
             </Row>
           </Container>
           <Container>
-            <h3>Meet one of our suppliers</h3>
+            <h3>Meet The Farmer</h3>
             {bundle.ingredients && (
               <FarmDetails farmId={bundle.ingredients[0]?.farms[randomIndex]} />
             )}

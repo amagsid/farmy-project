@@ -128,7 +128,7 @@ const HomeScreen = ({ match }) => {
             </Row>
           </Container>
           <Container className="mb-5">
-            <h1>Our suppliers</h1>
+            <h1>Our Farmers</h1>
             <FarmsMap />
             <FarmStory />
           </Container>
