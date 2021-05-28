@@ -1,6 +1,12 @@
 main {
   min-height: 80vh;
 }
+header 
+{
+  background-color: rgb(41, 138, 41);
+
+}
+
 
 h3 {
   padding: 1rem 0;
