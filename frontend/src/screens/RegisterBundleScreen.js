@@ -15,8 +15,7 @@ const RegisterBundleScreen = ({ history }) => {
   const [selectedBundleId, setSelectedBundleId] = useState('');
   const [houseHold, setHouseHold] = useState(1);
 
-  // This array to map for the options of household and frequency and how often
-  const arrayOfNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const arrayOfNumbers = [1, 2, 3, 4, 5];
   const arrayOfTime = ['Week', '2 Weeks', 'Month'];
 
   const dispatch = useDispatch();

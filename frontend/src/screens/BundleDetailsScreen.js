@@ -16,11 +16,14 @@ const { REACT_APP_GUA_ID } = process.env;
 const BundleDetailsScreen = ({ match, history }) => {
   const [qty, setQty] = useState(1);
   const [orderFrq, setOrderFrq] = useState(1);
-  const [orderPer, setOrderPer] = useState('week');
+  const [orderPer, setOrderPer] = useState('Weekly');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
-  const arrayOfTime = ['Week', '2 Weeks', 'Month'];
+  const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
+  const arrayOfThree = [1, 2, 3];
+  const arrayOfFour = [1, 2, 3, 4];
+
   const dispatch = useDispatch();
 
   const bundleDetails = useSelector((state) => state.bundleDetails);
@@ -124,14 +127,14 @@ const BundleDetailsScreen = ({ match, history }) => {
                   {bundle.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>Qty</Col>
+                        <Col>Quantity</Col>
                         <Col>
                           <Form.Control
                             as="select"
                             value={qty}
                             onChange={(e) => setQty(e.target.value)}
                           >
-                            {[...Array(bundle.countInStock).keys()].map((x) => (
+                            {[...Array(bundle.countInStock - orderFrq).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>
                                 {x + 1}
                               </option>
@@ -164,18 +167,32 @@ const BundleDetailsScreen = ({ match, history }) => {
                   {bundle.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>Times per {orderPer}</Col>
+                        <Col>
+                          Times per{' '}
+                          {orderPer === 'Weekly'
+                            ? 'Week'
+                            : orderPer === 'Monthly'
+                            ? 'Month'
+                            : '2 Weeks'}
+                        </Col>
                         <Col>
                           <Form.Control
                             as="select"
                             value={orderFrq}
                             onChange={(e) => setOrderFrq(e.target.value)}
                           >
-                            {[...Array(bundle.countInStock).keys()].map((x) => (
-                              <option key={x + 1} value={x + 1}>
-                                {x + 1}
-                              </option>
-                            ))}
+                            {(orderPer === 'Weekly' || orderPer === 'Monthly') &&
+                              arrayOfThree.map((x) => (
+                                <option key={x} value={x}>
+                                  {x}
+                                </option>
+                              ))}
+                            {orderPer === 'Every 2 Weeks' &&
+                              arrayOfFour.map((x) => (
+                                <option key={x} value={x}>
+                                  {x}
+                                </option>
+                              ))}
                           </Form.Control>
                         </Col>
                       </Row>
@@ -199,14 +216,14 @@ const BundleDetailsScreen = ({ match, history }) => {
             <h3>What you will find inside this bundle:</h3>
             <Row>
               {bundle.ingredients?.map(({ origin, price, name, image, _id }) => (
-                <Col xs={12} s={4} md={4} lg={3} key={_id}>
+                <Col className="my-3" xs={12} s={4} md={4} lg={3} key={_id}>
                   <Card>
                     <Card.Img variant="top" src={image} alt={name} />
                     <Card.Body>
                       <Card.Title>{name}</Card.Title>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
-                      <ListGroup.Item>Price: {price}</ListGroup.Item>
+                      <ListGroup.Item>Price: €{price}</ListGroup.Item>
                       <ListGroup.Item>Origin: {origin}</ListGroup.Item>
                     </ListGroup>
                   </Card>

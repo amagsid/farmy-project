@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { listFarmDetails } from '../actions/farmActions';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { Card, Image } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 const FarmDetails = ({ farmId }) => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const FarmDetails = ({ farmId }) => {
 
   useEffect(() => {
     dispatch(listFarmDetails(farmId));
-  }, [dispatch, farmId]);
+  }, [dispatch]);
   return (
     <>
       {loading && <Loader />}
@@ -25,7 +26,7 @@ const FarmDetails = ({ farmId }) => {
             <h5>{farm.name}</h5>
           </Card.Header>
           <div className="farm-details">
-            <div style={{ padding: '0.5rem' }}>{farm.story}</div>
+            <div style={{ padding: '0.5rem' }}>"{farm.story}"</div>
             <img alt="farm" src={farm.image} />
           </div>
         </Card>
