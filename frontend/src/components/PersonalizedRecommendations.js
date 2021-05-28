@@ -51,12 +51,11 @@ const PersonalizedRecommendations = ({ preferences }) => {
                           </Card.Title>
                         </LinkContainer>
 
-                        <Card.Text as="h3">${bundle.price}</Card.Text>
+                        <Card.Text as="h3">€{bundle.price}</Card.Text>
                       </Card.Body>
                     </Col>
                   </Row>
                 </Card>
-                {/* <Bundle bundle={bundle} /> */}
               </Link>
             </Col>
           ))}
