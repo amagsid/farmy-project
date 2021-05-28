@@ -16,6 +16,7 @@ import introduction from '../introduction.json';
 import ReactGA from 'react-ga';
 import FarmsMap from '../components/FarmsMap';
 import FarmStory from '../components/FarmStory';
+import PersonalizedRecommendations from '../components/PersonalizedRecommendations';
 const { REACT_APP_GUA_ID } = process.env;
 
 const HomeScreen = ({ match }) => {
@@ -45,7 +46,6 @@ const HomeScreen = ({ match }) => {
   return (
     <>
       <Meta />
-
       {loading && loadingLatest && <Loader />}
       {error && errorLatest && <Message variant="danger">{error}</Message>}
       {!keyword ? (
@@ -68,7 +68,21 @@ const HomeScreen = ({ match }) => {
                 })}
             </Row>
           </Container>
-
+          {userInfo && userInfo.preferences?.diet !== '' ? (
+            <PersonalizedRecommendations
+              preferences={userInfo.preferences && userInfo.preferences.diet}
+            />
+          ) : (
+            userInfo && (
+              <h2 style={{ color: '#808080	' }} className="border text-center">
+                Please fill in{' '}
+                <Link to="/preferences" style={{ color: '#808080	' }}>
+                  preferences
+                </Link>{' '}
+                to see recommendations
+              </h2>
+            )
+          )}
           {!bundles.length && !bundlesListLatest.length && (
             <Message variant="primary">Nothing found</Message>
           )}
@@ -81,11 +95,6 @@ const HomeScreen = ({ match }) => {
                   {bundlesListLatest.map((bundle) => (
                     <Col key={bundle._id}>
                       <Bundle bundle={bundle} />
-                      {/* <LinkContainer to={`/bundles/${bundle._id}`}>
-                      <Button variant="outline-success" size="lg" block>
-                        Subscribe
-                      </Button>
-                    </LinkContainer> */}
                     </Col>
                   ))}
                 </Row>
@@ -134,21 +143,15 @@ const HomeScreen = ({ match }) => {
           </Container>
         </>
       ) : (
-        <>
+        <Container className="mb-5">
           <Link to="/" className="btn btn-light">
             Go Back
           </Link>
-          <Row>
-            {keyword && (
-              <>
-                <h1>Search Results for "{keyword}"</h1>
-              </>
-            )}
-          </Row>
+          {keyword && <h1>Search Results for "{keyword}"</h1>}
 
-          <Row>
-            {bundles.length ? (
-              bundles.map((bundle) => (
+          {bundles.length ? (
+            <Row>
+              {bundles.map((bundle) => (
                 <Col key={bundle._id}>
                   <Link to={`/bundles/${bundle._id}`}>
                     <Bundle bundle={bundle} />
@@ -159,12 +162,27 @@ const HomeScreen = ({ match }) => {
                     </Button>
                   </LinkContainer>
                 </Col>
-              ))
-            ) : (
+              ))}
+            </Row>
+          ) : (
+            <>
               <Message variant="danger">No results found.</Message>
-            )}
-          </Row>
-        </>
+              <h3>You may also like</h3>
+              <Row>
+                {bundlesListLatest.map((bundle) => (
+                  <Col key={bundle._id}>
+                    <Bundle bundle={bundle} />
+                    <LinkContainer to={`/bundles/${bundle._id}`}>
+                      <Button variant="outline-success" size="lg" block>
+                        Subscribe
+                      </Button>
+                    </LinkContainer>
+                  </Col>
+                ))}
+              </Row>
+            </>
+          )}
+        </Container>
       )}
     </>
   );

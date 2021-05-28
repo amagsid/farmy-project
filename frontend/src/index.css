@@ -93,6 +93,22 @@ h2 {
   background-color: rgb(82, 78, 78);
   border-radius: 5px;
 }
+sup {
+  top: -0.8em;
+  right: 0.8em;
+  position: relative;
+  font-size: 80%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+.badge {
+  width: 1.8em;
+  height: 1.8em;
+  font-weight: bolder;
+}
+.badge:hover {
+  background-color: #ced4da;
+}
 
 @media (max-width: 900px) {
   .carousel-caption h2 {

@@ -273,6 +273,8 @@ export const updateSubscription = (subscription) => async (dispatch, getState) =
 
     const { data } = await axios.put(`/api/subscriptions/${subId}`, subscription, config);
 
+    // console.log(data);
+
     dispatch({
       type: SUBSCRIPTION_UPDATE_SUCCESS,
       payload: data,

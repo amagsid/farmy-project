@@ -1,40 +1,73 @@
 const bundles = [
   {
-    name: 'Healthy ready meals, maximum taste, zero effort.',
+    name: 'Vitamin`s Boost',
     image:
-      '//cdn.shopify.com/s/files/1/0033/0212/9773/collections/Frozen_category_650x650_3252ff14-098b-48bd-ae2e-777c1f368fa2_1000x1000.jpg?v=1583273129',
+      'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80',
     description:
-      "Our healthy ready meals are delicious, vibrant dishes, handcrafted in small batches by our wonderful chefs. Frozen from fresh and packed with nutritious, quality ingredients, they're full of flavour as well as being gluten free and dairy free.",
-    status: 'Suitable for the oven or microwave in as little as 8 minutes.',
-    category: 'FROZEN CATEGORY',
-    price: 40,
+      'A careful selection of fresh seasonal fruits and veggies that will help you to get your daily dose of vitamins! You can make a delicious breakfast smoothie, healthy salad for lunch or nice side dish for dinner!',
+    category: ['Vegan', 'Vegetarian', 'Low-carb'],
+    price: 18,
     countInStock: 5,
     rating: 0,
     numReviews: 0,
   },
   {
-    name: 'Healthy smoothies, bursting with goodness',
+    name: 'Chef`s table',
     image:
-      '//cdn.shopify.com/s/files/1/0033/0212/9773/collections/smoothies_category_650x650_22985bd2-894d-4b28-a442-c282d7726eba_1000x1000.jpg?v=1583315575',
+      'https://images.unsplash.com/photo-1516865131505-4dabf2efc692?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1190&q=80',
     description:
-      'Kickstart your morning with a delicious, nutritious smoothie to awaken the senses and get you through the day.',
-    status:
-      'Pre-prepped and full of frozen fruit, veg and healthy grains with no nasties, simply add a splash of your chosen liquid (we love coconut water!) blitz, and you’re good to go.',
-    category: 'SMOOTHIES CATEGORY',
-    price: 50,
+      'Chef`s Table Bundle includes the freshest ingredients you need to create the most amazing dinner, that feels like it was made by a 5 star restaurant chef! It is bright, colorful, delicious and healthy!',
+    category: ['Mediterranean'],
+    price: 32,
     countInStock: 3,
     rating: 0,
     numReviews: 0,
   },
   {
-    name: 'Give the gift of healthy eating made easy!',
+    name: 'It`s Fridayyyyy!',
     image:
-      '//cdn.shopify.com/s/files/1/0033/0212/9773/collections/Bags_square_650x650_3ad696a6-8f1d-4a99-aa84-127696c6806b_1000x1000.jpg?v=1583315874',
-    description: 'Default Description',
-    status: 'Default Status',
-    category: 'BAGS SQUARE',
-    price: 20,
+      'https://images.unsplash.com/photo-1614473491229-17bf47b9e487?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80',
+    description:
+      'After hard week of work all you want to do is relax. At Farmy we have exacltly what you need to make your Friday better: selection of various cheeses, made by Dutch farmers! Cured meats, olives and various fruits to pair nicely with the cheese or wine! Relax, enjoy your weekend and enjoy selection of our best gourmet products!',
+    category: ['Mediterranean'],
+    price: 35,
     countInStock: 2,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: 'Berry me away!',
+    image:
+      'https://images.unsplash.com/photo-1563746098251-d35aef196e83?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1055&q=80',
+    description:
+      'Do you love berries as much as we do? If so, this bundle is perfect for you! It is fresh, delicious, packet with vitamins and nutrients! Contains freshly grown, organic berries you can enjoy everyday!',
+    category: ['Vegan', 'Vegetarian', 'Low-carb'],
+    price: 25,
+    countInStock: 4,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: 'I love veggies',
+    image:
+      'https://images.unsplash.com/photo-1568623970736-27bea63b4489?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1052&q=80',
+    description:
+      'We have put all the veggies you need for your weekly salads in one bundle! In this bundle you will find all the basics you need for a healthy, delicious salad: variety of fresh salad greens, cucumbers, bell peppers, tomatoes, onions and carrots.',
+    category: ['Vegan', 'Vegetarian', 'Low-carb'],
+    price: 15,
+    countInStock: 4,
+    rating: 0,
+    numReviews: 0,
+  },
+  {
+    name: 'Soup please',
+    image:
+      'https://images.unsplash.com/photo-1567137827022-fbe18eff7275?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80',
+    description:
+      'Do you love soup but run out of ideas for soup recipes? We have put various, low-carb vegetables into this bundle to make sure that from now on, everytime you make soup - you can create something new!',
+    category: ['Vegan', 'Vegetarian', 'Low-carb', 'Mediterranean'],
+    price: 12,
+    countInStock: 4,
     rating: 0,
     numReviews: 0,
   },
