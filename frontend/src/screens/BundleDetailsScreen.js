@@ -122,7 +122,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                             value={qty}
                             onChange={(e) => setQty(e.target.value)}
                           >
-                            {[...Array(bundle.countInStock).keys()].map((x) => (
+                            {[...Array(bundle.countInStock - orderFrq).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>
                                 {x + 1}
                               </option>
@@ -162,7 +162,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                             value={orderFrq}
                             onChange={(e) => setOrderFrq(e.target.value)}
                           >
-                            {[...Array(bundle.countInStock).keys()].map((x) => (
+                            {[...Array(bundle.countInStock - qty).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>
                                 {x + 1}
                               </option>
