@@ -15,11 +15,11 @@ const { REACT_APP_GUA_ID } = process.env;
 const BundleDetailsScreen = ({ match, history }) => {
   const [qty, setQty] = useState(1);
   const [orderFrq, setOrderFrq] = useState(1);
-  const [orderPer, setOrderPer] = useState('week');
+  const [orderPer, setOrderPer] = useState('weekly');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
-  const arrayOfTime = ['Week', '2 Weeks', 'Month'];
+  const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
   const dispatch = useDispatch();
 
   const bundleDetails = useSelector((state) => state.bundleDetails);
@@ -155,7 +155,14 @@ const BundleDetailsScreen = ({ match, history }) => {
                   {bundle.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>Times per {orderPer}</Col>
+                        <Col>
+                          Times per{' '}
+                          {orderPer === 'Weekly'
+                            ? 'Week'
+                            : orderPer === 'Monthly'
+                            ? 'Month'
+                            : '2 Weeks'}
+                        </Col>
                         <Col>
                           <Form.Control
                             as="select"
