@@ -49,7 +49,7 @@ const ProfileScreen = ({ location, history }) => {
     if (!userInfo) {
       history.push('/login');
     } else {
-      if (!user || !user.name || success || !subscriptions) {
+      if (!user || !user.name || !subscriptions) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
 
         dispatch(getUserDetails('profile'));

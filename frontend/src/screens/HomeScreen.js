@@ -13,11 +13,9 @@ import FeedBack from '../components/FeedBack';
 import IntroductionCard from '../components/IntroductionCard';
 import feedback from '../feedback.json';
 import introduction from '../introduction.json';
-import ReactGA from 'react-ga';
 import FarmsMap from '../components/FarmsMap';
 import FarmStory from '../components/FarmStory';
 import PersonalizedRecommendations from '../components/PersonalizedRecommendations';
-const { REACT_APP_GUA_ID } = process.env;
 
 const HomeScreen = ({ match }) => {
   const dispatch = useDispatch();
@@ -32,11 +30,6 @@ const HomeScreen = ({ match }) => {
   const { userInfo } = userLogin;
 
   const keyword = match.params.keyword;
-
-  useEffect(() => {
-    ReactGA.initialize(REACT_APP_GUA_ID);
-    ReactGA.pageview('/');
-  }, []);
 
   useEffect(() => {
     dispatch(listLatestBundles());
