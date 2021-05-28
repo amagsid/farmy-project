@@ -90,7 +90,7 @@ const RegisterBundleScreen = ({ history }) => {
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row className="pl-5 pb-5">
-                    <h3>Select number of people </h3>
+                    <h3>Select quantity of bundles </h3>
                     <Form.Control
                       as="select"
                       className="signup-bundle-options rounded pl-4"
