@@ -22,10 +22,9 @@ const PersonalizedRecommendations = ({ preferences }) => {
               alignItems: 'center',
             }}
           >
-            <h1>
-              We have chosen these bundles for you according to your{' '}
-              <Link to="/preferences">preferences</Link>:
-            </h1>
+            <h3>
+              Chosen for you based on your <Link to="/preferences">preferences</Link>
+            </h3>
           </Col>
 
           {filteredBundle.map((bundle) => (

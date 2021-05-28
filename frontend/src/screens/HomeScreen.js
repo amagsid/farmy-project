@@ -68,7 +68,9 @@ const HomeScreen = ({ match }) => {
             </Row>
           </Container>
           {userInfo && userInfo.preferences?.diet !== '' ? (
-            <PersonalizedRecommendations preferences={userInfo.preferences.diet} />
+            <PersonalizedRecommendations
+              preferences={userInfo.preferences && userInfo.preferences.diet}
+            />
           ) : (
             <h1 style={{ color: '#808080	' }} className="border">
               Please fill in{' '}
