@@ -49,7 +49,7 @@ const HomeScreen = ({ match }) => {
             <Carousel.Item>
               <img
                 className=" "
-                src="https://images.unsplash.com/photo-1558689509-900d3d3cc727?ixlib=rb-1.2.1&ixid=MnwxMjA3[…]90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2106&q=80"
+                src="https://i.ibb.co/gmGbMtP/istock-506164764-pesticide-epandage-1920-web.jpg"
                 alt="First slide"
               />
               <Carousel.Caption>
@@ -63,7 +63,7 @@ const HomeScreen = ({ match }) => {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://images.unsplash.com/photo-1499529112087-3cb3b73cec95?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3367&q=80"
+                src="https://i.ibb.co/NZybdWC/davide-cantelli-jpkfc5-d-DI-unsplash.jpg"
                 alt="Second slide"
               />
               <Carousel.Caption>

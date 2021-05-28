@@ -44,6 +44,7 @@ const Filter = ({ keyword }) => {
           <Col sm={12} md={6} lg={6} xl={3}>
             <Form.Group controlId="category">
               <Form.Control
+                className="inputBG"
                 as="select"
                 onChange={(e) => setCategory(e.target.value)}
                 value={category}
