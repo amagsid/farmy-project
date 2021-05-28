@@ -40,80 +40,72 @@ const SubscriptionListScreen = ({ history }) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (cancelSuccess) {
-  //     dispatch({ type: SUBSCRIPTION_CANCEL_RESET });
-  //     history.push('/subscriptions');
-  //   } else {
-  //     if (!user || !user.name || success) {
-  //       dispatch(listMySubscriptions());
-  //     }
-  //   }
-  // }, [dispatch, userInfo, history, subscriptions, success, cancelSuccess, user]);
-
   useEffect(() => {
-    if (!user || !user.name || success) {
+    if (!user || !user.name || cancelSuccess) {
       dispatch(listMySubscriptions());
     } else {
       history.push('/subscriptions');
     }
-  }, [dispatch, userInfo, history, subscriptions, success, cancelSuccess, user]);
+  }, [dispatch, userInfo, history, success, cancelSuccess, user]);
 
   return (
     <>
       <ProfileEditTabs profile subscriptions preferences />
-      <h2>
-        you have {subscriptions.length} active{' '}
-        {subscriptions.length === 1 ? 'subscription' : 'subscriptions'}{' '}
-      </h2>
+
       {loadingSubscriptions ? (
         <Loader />
       ) : errorSubscriptions ? (
         <Message variant="danger">{errorSubscriptions}</Message>
       ) : (
-        <Table striped bordered hover responsive className="table-sm">
-          <thead>
-            <tr>
-              <th></th>
-              <th>BUNDLES</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>Bundle Details</th>
-              <th>CANCEL</th>
-            </tr>
-          </thead>
-          <tbody>
-            {subscriptions.map((subscription) => (
-              <tr key={subscription._id}>
-                <td>
-                  <img
-                    style={{ width: '80px' }}
-                    src={subscription.subscriptionItems[0].image}
-                    alt={subscription.subscriptionItems[0].name}
-                  />
-                </td>
-                <td>{subscription.subscriptionItems[0].name}</td>
-                <td>{subscription.createdAt.substring(0, 10)}</td>
-                <td>{subscription.totalPrice}</td>
-                <td>
-                  <LinkContainer to={`/register/bundleplan`}>
-                    <Button>Change</Button>
-                  </LinkContainer>
-                </td>
-
-                <td>
-                  <Button
-                    variant="danger"
-                    className="btn-sm"
-                    onClick={() => cancelHandler(subscription._id)}
-                  >
-                    <i className="fas fa-trash"></i>
-                  </Button>
-                </td>
+        <>
+          <h2>
+            you have {subscriptions.length} active{' '}
+            {subscriptions.length === 1 ? 'subscription' : 'subscriptions'}{' '}
+          </h2>
+          <Table striped bordered hover responsive className="table-sm">
+            <thead>
+              <tr>
+                <th></th>
+                <th>BUNDLES</th>
+                <th>DATE</th>
+                <th>TOTAL</th>
+                <th>Bundle Details</th>
+                <th>CANCEL</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {subscriptions.map((subscription) => (
+                <tr key={subscription._id}>
+                  <td>
+                    <img
+                      style={{ width: '80px' }}
+                      src={subscription.subscriptionItems[0].image}
+                      alt={subscription.subscriptionItems[0].name}
+                    />
+                  </td>
+                  <td>{subscription.subscriptionItems[0].name}</td>
+                  <td>{subscription.createdAt.substring(0, 10)}</td>
+                  <td>{subscription.totalPrice}</td>
+                  <td>
+                    <LinkContainer to={`/register/bundleplan`}>
+                      <Button>Change</Button>
+                    </LinkContainer>
+                  </td>
+
+                  <td>
+                    <Button
+                      variant="danger"
+                      className="btn-sm"
+                      onClick={() => cancelHandler(subscription._id)}
+                    >
+                      <i className="fas fa-trash"></i>
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </>
       )}
     </>
   );

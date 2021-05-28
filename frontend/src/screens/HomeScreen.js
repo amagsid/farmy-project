@@ -141,21 +141,15 @@ const HomeScreen = ({ match }) => {
           </Container>
         </>
       ) : (
-        <>
+        <Container className="mb-5">
           <Link to="/" className="btn btn-light">
             Go Back
           </Link>
-          <Row>
-            {keyword && (
-              <>
-                <h1>Search Results for "{keyword}"</h1>
-              </>
-            )}
-          </Row>
+          {keyword && <h1>Search Results for "{keyword}"</h1>}
 
-          <Row>
-            {bundles.length ? (
-              bundles.map((bundle) => (
+          {bundles.length ? (
+            <Row>
+              {bundles.map((bundle) => (
                 <Col key={bundle._id}>
                   <Link to={`/bundles/${bundle._id}`}>
                     <Bundle bundle={bundle} />
@@ -166,12 +160,27 @@ const HomeScreen = ({ match }) => {
                     </Button>
                   </LinkContainer>
                 </Col>
-              ))
-            ) : (
+              ))}
+            </Row>
+          ) : (
+            <>
               <Message variant="danger">No results found.</Message>
-            )}
-          </Row>
-        </>
+              <h3>You may also like</h3>
+              <Row>
+                {bundlesListLatest.map((bundle) => (
+                  <Col key={bundle._id}>
+                    <Bundle bundle={bundle} />
+                    <LinkContainer to={`/bundles/${bundle._id}`}>
+                      <Button variant="outline-success" size="lg" block>
+                        Subscribe
+                      </Button>
+                    </LinkContainer>
+                  </Col>
+                ))}
+              </Row>
+            </>
+          )}
+        </Container>
       )}
     </>
   );

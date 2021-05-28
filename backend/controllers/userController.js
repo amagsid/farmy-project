@@ -2,11 +2,12 @@
 import asyncHandler from 'express-async-handler';
 import axios from 'axios';
 import nodemailer from 'nodemailer';
-import { OAuth2Client } from 'google-auth-library';
+import pkg from 'google-auth-library';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js';
 import Bundle from '../models/bundleModel.js';
 
+const { OAuth2Client } = pkg;
 // @desc    Auth user & get token
 // @route   POST /api/users/login
 // @access  Public
