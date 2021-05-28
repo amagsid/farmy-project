@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Container, Button } from 'react-bootstrap';
+import { Row, Col, Container, Button, Carousel } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -44,8 +44,8 @@ const HomeScreen = ({ match }) => {
       {!keyword ? (
         <>
           {userInfo && <Message variant="success">Welcome {userInfo.name}!</Message>}
-          <Container className="mb-5">
-            <h1>pay less to eat healthy</h1>
+
+          {/* <h1>pay less to eat healthy</h1>
             <Row>
               {introduction &&
                 introduction.map((card, index) => {
@@ -59,8 +59,53 @@ const HomeScreen = ({ match }) => {
                     </Col>
                   );
                 })}
-            </Row>
-          </Container>
+            </Row> */}
+
+          <Carousel>
+            <Carousel.Item>
+              <img
+                className=" "
+                src="https://images.unsplash.com/photo-1558689509-900d3d3cc727?ixlib=rb-1.2.1&ixid=MnwxMjA3[…]90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2106&q=80"
+                alt="First slide"
+              />
+              <Carousel.Caption>
+                <h3 className="label">Support your locals</h3>
+                <p className="label">
+                  A lot of products are produced locally. We want to make sure you eat healthy, and
+                  pay less.
+                </p>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                src="https://images.unsplash.com/photo-1499529112087-3cb3b73cec95?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3367&q=80"
+                alt="Second slide"
+              />
+              <Carousel.Caption>
+                <h3>Healthy & hand-crafted</h3>
+                <p className="label">
+                  The healthy eating you deserve straight from your freezer. 100% taste. Zero faff
+                  necessaryt.
+                </p>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                src="https://i.ibb.co/0mQhScV/image-delivery.jpg"
+                alt="Delivery"
+              />
+              <Carousel.Caption>
+                <h3>Next day delivery</h3>
+                <p className="label">
+                  Sustainable packaging keeps everything cool for up to 24 hours, order by 9pm.
+                  Flash frozen and delivered in a flash.
+                </p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          </Carousel>
+
           {userInfo && userInfo.preferences?.diet !== '' ? (
             <PersonalizedRecommendations
               preferences={userInfo.preferences && userInfo.preferences.diet}
@@ -122,19 +167,6 @@ const HomeScreen = ({ match }) => {
           </Container>
 
           <Container className="mb-5">
-            <h1>Loved by thousands of customers</h1>
-            <Row>
-              {feedback &&
-                feedback.map((feed, index) => {
-                  return (
-                    <Col key={index}>
-                      <FeedBack text={feed.feedback} name={feed.name} />
-                    </Col>
-                  );
-                })}
-            </Row>
-          </Container>
-          <Container className="mb-5">
             <h1>Our Farmers</h1>
             <FarmsMap />
             <FarmStory />
@@ -182,6 +214,19 @@ const HomeScreen = ({ match }) => {
           )}
         </Container>
       )}
+      <Container className="mb-5">
+        <h1>Loved by thousands of customers</h1>
+        <Row>
+          {feedback &&
+            feedback.map((feed, index) => {
+              return (
+                <Col key={index}>
+                  <FeedBack text={feed.feedback} name={feed.name} />
+                </Col>
+              );
+            })}
+        </Row>
+      </Container>
     </>
   );
 };

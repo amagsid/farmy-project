@@ -94,7 +94,7 @@ const BundleDetailsScreen = ({ match, history }) => {
           <Meta title={bundle.name} />
           <Row>
             <Col md={6}>
-              <Image src={bundle.image} alt={bundle.name} fluid />
+              <Image src={bundle.image} alt={bundle.name} fluid  />
             </Col>
             <Col md={3}>
               <ListGroup variant="flush">
@@ -216,9 +216,9 @@ const BundleDetailsScreen = ({ match, history }) => {
             <h3>What you will find inside this bundle:</h3>
             <Row>
               {bundle.ingredients?.map(({ origin, price, name, image, _id }) => (
-                <Col className="my-3" xs={12} s={4} md={4} lg={3} key={_id}>
-                  <Card>
-                    <Card.Img variant="top" src={image} alt={name} />
+                <Col xs={12} s={4} md={4} lg={3} key={_id}>
+                  <Card className="my-3">
+                    <Card.Img variant="top" src={image} alt={name} height="150px" />
                     <Card.Body>
                       <Card.Title>{name}</Card.Title>
                     </Card.Body>

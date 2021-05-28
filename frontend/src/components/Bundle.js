@@ -7,7 +7,7 @@ const Bundle = ({ bundle }) => {
   return (
     <Card className="my-3 p-3 rounded">
       <LinkContainer to={`/bundles/${bundle._id}`}>
-        <Card.Img src={bundle.image} variant="top" />
+        <Card.Img src={bundle.image} variant="top" height="200px" widht="200px"/>
       </LinkContainer>
 
       <Card.Body>
