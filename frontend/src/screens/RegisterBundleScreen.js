@@ -29,6 +29,8 @@ const RegisterBundleScreen = ({ history }) => {
 
   const selectedBundle = bundles.find((o) => o._id === selectedBundleId);
 
+  console.log(bundles);
+  console.log(selectedBundle);
   useEffect(() => {
     if (userInfo) {
       dispatch(listBundlesNewUser());
