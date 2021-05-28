@@ -21,7 +21,7 @@ const Filter = ({ keyword }) => {
   }, [dispatch, keyword, formSubmit]);
 
   const categoriesArray = ['All', 'Vegan', 'Vegetarian', 'Low-carb', 'Mediterranean'];
-  const ratingsArray = ['Any rating', 1, 2, 3, 4, 5];
+  const ratingsArray = ['Any', 1, 2, 3, 4, 5];
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -58,14 +58,10 @@ const Filter = ({ keyword }) => {
           </Col>
           <Col sm={12} md={6} lg={6} xl={3}>
             <Form.Group controlId="rating">
-              <Form.Control
-                as="select"
-                onChange={(e) => setRating(Number(e.target.value))}
-                value={rating}
-              >
+              <Form.Control as="select" onChange={(e) => setRating(e.target.value)} value={rating}>
                 {ratingsArray.map((ratingOption) => (
                   <option key={ratingOption} value={ratingOption}>
-                    {ratingOption}
+                    {ratingOption} rating
                   </option>
                 ))}
               </Form.Control>
