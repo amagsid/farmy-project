@@ -1,7 +1,6 @@
 import React from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
-// import { Button } from 'react-bootstrap';
 import { authGoogle } from '../actions/userActions';
 import GoogleButton from 'react-google-button';
 

@@ -6,15 +6,12 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listMySubscriptions, cancelSubscription } from '../actions/subscriptionActions';
 import ProfileEditTabs from '../components/ProfileEditTabs';
-// import { SUBSCRIPTION_CANCEL_RESET } from '../constants/subscriptionConstants';
 
 const SubscriptionListScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
-  // const subscriptionList = useSelector((state) => state.subscriptionList);
-  // // const { loading, error, subscriptions } = subscriptionList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -24,7 +21,6 @@ const SubscriptionListScreen = ({ history }) => {
 
   const subscriptionCancel = useSelector((state) => state.subscriptionCancel);
   const { success: cancelSuccess } = subscriptionCancel;
-  // const { success: cancelSuccess, loading: cancelLoading, error: cancelError } = subscriptionCancel;
 
   const subscriptionListMy = useSelector((state) => state.subscriptionListMy);
   const {

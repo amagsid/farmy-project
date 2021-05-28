@@ -13,8 +13,8 @@ const Meta = ({ title, description, keywords }) => {
 
 Meta.defaultProps = {
   title: 'Welcome To Farmy',
-  description: 'We sell the best products for cheap',
-  keywords: 'electronics, buy electronics, cheap electroincs',
+  description: 'Farm fresh produce straight to your doorstrep',
+  keywords: 'fresh produce, farm, veggetables, fruits, berries, healthy, organic',
 };
 
 export default Meta;
