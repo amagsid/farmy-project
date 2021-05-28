@@ -154,7 +154,7 @@ const SubscriptionScreen = ({ match, history, location }) => {
                           <Image src={item.image} alt={item.name} fluid rounded />
                         </Col>
                         <Col>
-                          <Link to={`/bundle/${item.product}`}>{item.name}</Link>
+                          <Link to={`/bundles/${item.product}`}>{item.name}</Link>
                         </Col>
                         <Col md={6}>
                           {item.qty} people x ${item.price} x {item.orderFrq} every {item.orderPer}=

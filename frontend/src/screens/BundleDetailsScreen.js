@@ -89,7 +89,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                 <ListGroup.Item>
                   <h3>{bundle.name}</h3>
                 </ListGroup.Item>
-                <ListGroup.Item>Price: ${bundle.price}</ListGroup.Item>
+                <ListGroup.Item>Price: €{bundle.price}</ListGroup.Item>
                 <ListGroup.Item>Description: {bundle.description}</ListGroup.Item>
               </ListGroup>
             </Col>
