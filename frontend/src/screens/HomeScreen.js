@@ -15,6 +15,7 @@ import feedback from '../feedback.json';
 import introduction from '../introduction.json';
 import ReactGA from 'react-ga';
 import FarmsMap from '../components/FarmsMap';
+import PersonalizedRecommendations from '../components/PersonalizedRecommendations';
 const { REACT_APP_GUA_ID } = process.env;
 
 const HomeScreen = ({ match }) => {
@@ -44,7 +45,6 @@ const HomeScreen = ({ match }) => {
   return (
     <>
       <Meta />
-
       {loading && loadingLatest && <Loader />}
       {error && errorLatest && <Message variant="danger">{error}</Message>}
       {!keyword ? (
@@ -67,7 +67,21 @@ const HomeScreen = ({ match }) => {
                 })}
             </Row>
           </Container>
-
+          {userInfo && userInfo.preferences?.diet !== '' ? (
+            <PersonalizedRecommendations
+              preferences={userInfo.preferences && userInfo.preferences.diet}
+            />
+          ) : (
+            userInfo && (
+              <h2 style={{ color: '#808080	' }} className="border text-center">
+                Please fill in{' '}
+                <Link to="/preferences" style={{ color: '#808080	' }}>
+                  preferences
+                </Link>{' '}
+                to see recommendations
+              </h2>
+            )
+          )}
           {!bundles.length && !bundlesListLatest.length && (
             <Message variant="primary">Nothing found</Message>
           )}
