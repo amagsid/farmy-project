@@ -8,7 +8,7 @@ import { addToCart, removeFromCart } from '../actions/cartActions';
 const CartScreen = ({ match, location, history }) => {
   const bundleId = match.params.id;
 
-  const arrayOfTime = ['Week', '2 Weeks', 'Month'];
+  const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
 
   const qty = location.search ? Number(location.search.slice(1).split('&')[0].split('=')[1]) : 1;
   const orderFrq = location.search
