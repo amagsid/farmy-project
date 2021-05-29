@@ -19,9 +19,7 @@ const CartScreen = ({ match, location, history }) => {
     location.search ? location.search.slice(1).split('&')[2].split('=')[1] : 'Weekly'
   );
 
-  console.log(qty, orderFrq, orderPer);
-
-  const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
+  const arrayOfTime = ['Weekly', 'Every-2-Weeks', 'Monthly'];
   const arrayOfFrequencyWeekly = [1, 2, 3];
   const arrayOfFrequencyTwoWeeks = [1, 2, 3, 4];
 
@@ -35,6 +33,7 @@ const CartScreen = ({ match, location, history }) => {
       history.push(`/cart/${bundleId}?qty=${qty}&frq=${orderFrq}&orderper=${orderPer}`);
       dispatch(addToCart(bundleId, qty, orderFrq, orderPer));
     }
+    history.push(`/cart/${bundleId}?qty=${qty}&frq=${orderFrq}&orderper=${orderPer}`);
   }, [dispatch, bundleId, qty, history, orderFrq, orderPer]);
 
   const removeFromCartHandler = (id) => {
@@ -81,7 +80,7 @@ const CartScreen = ({ match, location, history }) => {
                     </Form.Control>
                     <small>Quantity</small>
                   </Col>
-                  <Col md={2}>
+                  <Col md={3}>
                     <Form.Control
                       as="select"
                       value={item.orderPer}
@@ -93,8 +92,9 @@ const CartScreen = ({ match, location, history }) => {
                         </option>
                       ))}
                     </Form.Control>
-                  </Col>{' '}
-                  <Col md={2}>
+                    <small>How Often</small>
+                  </Col>
+                  <Col md={1.5}>
                     <Form.Control
                       as="select"
                       value={orderFrq}
@@ -106,7 +106,7 @@ const CartScreen = ({ match, location, history }) => {
                             {x}
                           </option>
                         ))}
-                      {orderPer === 'Every 2 Weeks' &&
+                      {orderPer === 'Every-2-Weeks' &&
                         arrayOfFrequencyTwoWeeks.map((x) => (
                           <option key={x} value={x}>
                             {x}

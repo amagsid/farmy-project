@@ -20,11 +20,14 @@ const BundleDetailsScreen = ({ match, history }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
-  const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
+  const arrayOfTime = ['Weekly', 'Every-2-Weeks', 'Monthly'];
   const arrayOfFrequencyWeekly = [1, 2, 3];
   const arrayOfFrequencyTwoWeeks = [1, 2, 3, 4];
 
   const dispatch = useDispatch();
+
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
 
   const bundleDetails = useSelector((state) => state.bundleDetails);
   const { loading, error, bundle } = bundleDetails;
@@ -183,7 +186,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                                   {x}
                                 </option>
                               ))}
-                            {orderPer === 'Every 2 Weeks' &&
+                            {orderPer === 'Every-2-Weeks' &&
                               arrayOfFrequencyTwoWeeks.map((x) => (
                                 <option key={x} value={x}>
                                   {x}
@@ -199,10 +202,15 @@ const BundleDetailsScreen = ({ match, history }) => {
                       onClick={addToCartHandler}
                       className="btn-block"
                       type="button"
-                      disabled={bundle.countInStock === 0}
+                      disabled={bundle.countInStock === 0 || cartItems.length > 0}
                     >
                       Add To Cart
                     </Button>
+                    {cartItems.length > 0 && (
+                      <Message variant="info">
+                        You already have one bundle in your cart. <Link to="/cart">Checkout</Link>
+                      </Message>
+                    )}
                   </ListGroup.Item>
                 </ListGroup>
               </Card>
@@ -261,7 +269,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                     <Loader />
                   ) : (
                     <>
-                      {userInfo && subscriptions.length > 0 ? (
+                      {userInfo && subscriptions && subscriptions.length > 0 ? (
                         <Form onSubmit={submitHandler}>
                           <h6>
                             Enjoying Farmy? Leave us a review. Can we do something better? Let us
