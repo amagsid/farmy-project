@@ -4591,7 +4591,7 @@ input[type='button'].btn-block {
 .navbar-light .navbar-nav .active > .nav-link,
 .navbar-light .navbar-nav .nav-link.show,
 .navbar-light .navbar-nav .nav-link.active {
-  color: #1a1a1a;
+  color: #b36458;
 }
 .navbar-light .navbar-toggler {
   color: rgba(0, 0, 0, 0.3);
@@ -4608,14 +4608,14 @@ input[type='button'].btn-block {
 }
 .navbar-light .navbar-text a:hover,
 .navbar-light .navbar-text a:focus {
-  color: #1a1a1a;
+  color: #b36458;
 }
 .navbar-dark .navbar-brand {
   color: #fff;
 }
 .navbar-dark .navbar-brand:hover,
 .navbar-dark .navbar-brand:focus {
-  color: #fff;
+  color: #b36458;
 }
 .navbar-dark .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.5);
@@ -4631,7 +4631,7 @@ input[type='button'].btn-block {
 .navbar-dark .navbar-nav .active > .nav-link,
 .navbar-dark .navbar-nav .nav-link.show,
 .navbar-dark .navbar-nav .nav-link.active {
-  color: #fff;
+  color:#b36458;
 }
 .navbar-dark .navbar-toggler {
   color: rgba(255, 255, 255, 0.5);
@@ -5128,7 +5128,7 @@ a.badge-dark.focus {
   color: #6c6b6b;
 }
 .alert-success {
-  color: #27633c;
+  color: #b36458;
   background-color: #dbf2e3;
   border-color: #cdedd8;
 }

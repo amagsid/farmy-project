@@ -94,13 +94,7 @@ const Header = () => {
         <Container style={{ color: '#ffffff' }}>
           <LinkContainer to="/">
             <Navbar.Brand onClick={gaLogoEvent}>
-              <img
-                src="https://i.ibb.co/mBnWcKg/Farmy-copy-1.png"
-                width="80"
-                
-                // className="d-inline-block align-top"
-                alt="Farmy logo"
-              />
+              <img src="https://i.ibb.co/mBnWcKg/Farmy-copy-1.png" width="80" alt="Farmy logo" />
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -122,13 +116,13 @@ const Header = () => {
                 </LinkContainer>
               )}
               {userInfo && !userInfo.isAdmin && (
-                <LinkContainer to="/subscriptions">
+                <LinkContainer to="/subscriptions" style={{ color: '#b36458' }}>
                   <Nav.Link onClick={gaPlanEvent}>
                     <i className="fas fa-calendar-alt"></i> Plan
                   </Nav.Link>
                 </LinkContainer>
               )}
-              <LinkContainer to="/cart" style={{ color: 'white' }}>
+              <LinkContainer to="/cart" style={{ color: '#b36458' }}>
                 <Nav.Link onClick={gaCartEvent}>
                   <i className="fas fa-shopping-cart"></i> Cart
                 </Nav.Link>

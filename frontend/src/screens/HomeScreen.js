@@ -43,7 +43,11 @@ const HomeScreen = ({ match }) => {
       {error && errorLatest && <Message variant="danger">{error}</Message>}
       {!keyword ? (
         <>
-          {userInfo && <Message variant="success">Welcome {userInfo.name}!</Message>}
+          {userInfo && (
+            <Message style={{ color: '#b36458' }} variant="success">
+              Welcome {userInfo.name}!
+            </Message>
+          )}
 
           <Carousel style={{ color: 'white', fontSize: 'large' }}>
             <Carousel.Item>
