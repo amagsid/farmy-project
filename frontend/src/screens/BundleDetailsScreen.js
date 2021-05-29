@@ -224,6 +224,7 @@ const BundleDetailsScreen = ({ match, history }) => {
           </Container>
           <Container>
             <h3>Meet The Farmer</h3>
+            {bundle.ingredients && console.log(bundle.ingredients[0].farms[randomIndex])}
             {bundle.ingredients && (
               <FarmDetails farmId={bundle.ingredients[0]?.farms[randomIndex]} />
             )}
@@ -231,16 +232,21 @@ const BundleDetailsScreen = ({ match, history }) => {
           <Row>
             <Col md={6}>
               <h4>Here's what our customers say about us..</h4>
-              {bundle.reviews.length === 0 && <Message>No Reviews</Message>}
-              <ListGroup variant="flush">
-                {bundle.reviews.map((review) => (
-                  <ListGroup.Item key={review._id}>
-                    <strong>{review.name}</strong>
-                    <Rating value={review.rating} />
-                    <p>{review.createdAt.substring(0, 10)}</p>
-                    <p>{review.comment}</p>
-                  </ListGroup.Item>
-                ))}
+              {bundle.reviews.length === 0 ? (
+                <Message>No Reviews</Message>
+              ) : (
+                <ListGroup variant="flush">
+                  {bundle.reviews.map((review) => (
+                    <ListGroup.Item key={review._id}>
+                      <strong>{review.name}</strong>
+                      <Rating value={review.rating} />
+                      <p>{review.createdAt.substring(0, 10)}</p>
+                      <p>{review.comment}</p>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              )}
+              <ListGroup>
                 <ListGroup.Item>
                   {successBundleReview && (
                     <Message variant="success">Review submitted successfully</Message>
