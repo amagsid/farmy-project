@@ -61,8 +61,7 @@ const BundleDetailsScreen = ({ match, history }) => {
   }, [dispatch, match, subscriptions, bundle._id, successBundleReview]);
 
   const addToCartHandler = () => {
-    history.push(`/cart`);
-    // history.push(`/cart/${match.params.id}?qty=${qty}&frq=${orderFrq}&orderper=${orderPer}`);
+    history.push(`/cart/${match.params.id}?qty=${qty}&frq=${orderFrq}&orderper=${orderPer}`);
     ReactGA.initialize(REACT_APP_GUA_ID);
     ReactGA.event({
       category: 'subscribe',

@@ -7,14 +7,17 @@ import { addToCart, removeFromCart } from '../actions/cartActions';
 
 const CartScreen = ({ match, location, history }) => {
   const bundleId = match.params.id;
-  const [qty, setQty] = useState();
-  // location.search ? Number(location.search.slice(1).split('&')[0].split('=')[1]) : 1;
+  const [qty, setQty] = useState(
+    location.search ? Number(location.search.slice(1).split('&')[0].split('=')[1]) : 1
+  );
 
-  const [orderFrq, setOrderFrq] = useState();
-  // location.search ? Number(location.search.slice(1).split('&')[1].split('=')[1]) : 1;
+  const [orderFrq, setOrderFrq] = useState(
+    location.search ? Number(location.search.slice(1).split('&')[1].split('=')[1]) : 1
+  );
 
-  const [orderPer, setOrderPer] = useState();
-  // location.search ? location.search.slice(1).split('&')[2].split('=')[1] : 'Weekly';
+  const [orderPer, setOrderPer] = useState(
+    location.search ? location.search.slice(1).split('&')[2].split('=')[1] : 'Weekly'
+  );
 
   console.log(qty, orderFrq, orderPer);
 
@@ -81,6 +84,19 @@ const CartScreen = ({ match, location, history }) => {
                   <Col md={2}>
                     <Form.Control
                       as="select"
+                      value={item.orderPer}
+                      onChange={(e) => setOrderPer(e.target.value)}
+                    >
+                      {arrayOfTime.map((x, index) => (
+                        <option key={index} className="signup-bundle-options" value={x}>
+                          {x}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Col>{' '}
+                  <Col md={2}>
+                    <Form.Control
+                      as="select"
                       value={orderFrq}
                       onChange={(e) => setOrderFrq(e.target.value)}
                     >
@@ -97,20 +113,7 @@ const CartScreen = ({ match, location, history }) => {
                           </option>
                         ))}
                     </Form.Control>
-                    <small>{cartItems.orderPer}</small>
-                  </Col>
-                  <Col md={2.5}>
-                    <Form.Control
-                      as="select"
-                      value={item.orderPer}
-                      onChange={(e) => setOrderPer(e.target.value)}
-                    >
-                      {arrayOfTime.map((x, index) => (
-                        <option key={index} className="signup-bundle-options" value={x}>
-                          {x}
-                        </option>
-                      ))}
-                    </Form.Control>
+                    <small>Per {orderPer}</small>
                   </Col>
                   <Col md={1}>
                     <Button
