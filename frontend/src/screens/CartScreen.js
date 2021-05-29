@@ -14,10 +14,12 @@ const CartScreen = ({ match, location, history }) => {
     location.search ? Number(location.search.slice(1).split('&')[1].split('=')[1]) : 1
   );
   const [orderPer, setOrderPer] = useState(
-    location.search ? location.search.slice(1).split('&')[2].split('=')[1] : 1
+    location.search ? location.search.slice(1).split('&')[2].split('=')[1] : 'Weekly'
   );
 
   const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
+  const arrayOfFrequencyWeekly = [1, 2, 3];
+  const arrayOfFrequencyTwoWeeks = [1, 2, 3, 4];
 
   const dispatch = useDispatch();
 
@@ -67,7 +69,7 @@ const CartScreen = ({ match, location, history }) => {
                       value={item.qty}
                       onChange={(e) => setQty(e.target.value)}
                     >
-                      {[...Array(item.countInStock - orderFrq).keys()].map((x) => (
+                      {[...Array(item.countInStock).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
                           {x + 1}
                         </option>
@@ -78,14 +80,21 @@ const CartScreen = ({ match, location, history }) => {
                   <Col md={2}>
                     <Form.Control
                       as="select"
-                      value={item.orderFrq}
+                      value={orderFrq}
                       onChange={(e) => setOrderFrq(e.target.value)}
                     >
-                      {[...Array(item.countInStock - qty).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
+                      {(orderPer === 'Weekly' || orderPer === 'Monthly') &&
+                        arrayOfFrequencyWeekly.map((x) => (
+                          <option key={x} value={x}>
+                            {x}
+                          </option>
+                        ))}
+                      {orderPer === 'Every 2 Weeks' &&
+                        arrayOfFrequencyTwoWeeks.map((x) => (
+                          <option key={x} value={x}>
+                            {x}
+                          </option>
+                        ))}
                     </Form.Control>
                     <small>Per {orderPer}</small>
                   </Col>
@@ -122,8 +131,9 @@ const CartScreen = ({ match, location, history }) => {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>
-                Subtotal ({cartItems.reduce((acc, item) => acc + item.qty + item.orderFrq, 0)})
-                items
+                Subtotal (
+                {cartItems.reduce((acc, item) => acc + Number(item.qty) + Number(item.orderFrq), 0)}
+                ) items
               </h2>
               €
               {cartItems
