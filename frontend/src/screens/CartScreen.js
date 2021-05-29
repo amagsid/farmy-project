@@ -31,6 +31,8 @@ const CartScreen = ({ match, location, history }) => {
   const { cartItems } = cart;
 
   useEffect(() => {
+    history.push(`/cart/${cartItems[0].product}?qty=${qty}&frq=${orderFrq}&orderper=${orderPer}`);
+
     if (bundleId) {
       history.push(`/cart/${bundleId}?qty=${qty}&frq=${orderFrq}&orderper=${orderPer}`);
       dispatch(addToCart(bundleId, qty, orderFrq, orderPer));
@@ -81,7 +83,7 @@ const CartScreen = ({ match, location, history }) => {
                     </Form.Control>
                     <small>Quantity</small>
                   </Col>
-                  <Col md={2}>
+                  <Col md={3}>
                     <Form.Control
                       as="select"
                       value={item.orderPer}
@@ -93,8 +95,9 @@ const CartScreen = ({ match, location, history }) => {
                         </option>
                       ))}
                     </Form.Control>
-                  </Col>{' '}
-                  <Col md={2}>
+                    <small>How Often</small>
+                  </Col>
+                  <Col md={1.5}>
                     <Form.Control
                       as="select"
                       value={orderFrq}

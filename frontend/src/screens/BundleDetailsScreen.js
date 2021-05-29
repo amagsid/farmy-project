@@ -26,6 +26,9 @@ const BundleDetailsScreen = ({ match, history }) => {
 
   const dispatch = useDispatch();
 
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
   const bundleDetails = useSelector((state) => state.bundleDetails);
   const { loading, error, bundle } = bundleDetails;
 
@@ -199,10 +202,15 @@ const BundleDetailsScreen = ({ match, history }) => {
                       onClick={addToCartHandler}
                       className="btn-block"
                       type="button"
-                      disabled={bundle.countInStock === 0}
+                      disabled={bundle.countInStock === 0 || cartItems.length > 0}
                     >
                       Add To Cart
                     </Button>
+                    {cartItems.length > 0 && (
+                      <Message variant="info">
+                        You already have one bundle in your cart. <Link to="/cart">Checkout</Link>
+                      </Message>
+                    )}
                   </ListGroup.Item>
                 </ListGroup>
               </Card>
@@ -261,7 +269,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                     <Loader />
                   ) : (
                     <>
-                      {userInfo && subscriptions.length > 0 ? (
+                      {userInfo && subscriptions && subscriptions.length > 0 ? (
                         <Form onSubmit={submitHandler}>
                           <h6>
                             Enjoying Farmy? Leave us a review. Can we do something better? Let us
