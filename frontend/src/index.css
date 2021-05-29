@@ -7,11 +7,14 @@ main {
 }
 
 header {
-  background-color: lightgreen;
+  background-color: #dbf2e3;
+}
+.white {
+  color: white
 }
 
 footer {
-  background-color: lightgreen;
+   background-color: #dbf2e3;
 }
 
 h3 {
