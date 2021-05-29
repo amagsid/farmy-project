@@ -18,7 +18,7 @@ const RegisterBundleScreen = ({ history }) => {
   const arrayOfNumbers = [1, 2, 3, 4, 5];
   const arrayOfFrequencyWeekly = [1, 2, 3];
   const arrayOfFrequencyTwoWeeks = [1, 2, 3, 4];
-  const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
+  const arrayOfTime = ['Weekly', 'Every-2-Weeks', 'Monthly'];
 
   const dispatch = useDispatch();
 
@@ -138,7 +138,7 @@ const RegisterBundleScreen = ({ history }) => {
                             {x}
                           </option>
                         ))}
-                      {orderPer === 'Every 2 Weeks' &&
+                      {orderPer === 'Every-2-Weeks' &&
                         arrayOfFrequencyTwoWeeks.map((x) => (
                           <option key={x} value={x}>
                             {x}

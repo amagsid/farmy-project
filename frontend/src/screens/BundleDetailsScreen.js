@@ -20,7 +20,7 @@ const BundleDetailsScreen = ({ match, history }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
-  const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
+  const arrayOfTime = ['Weekly', 'Every-2-Weeks', 'Monthly'];
   const arrayOfFrequencyWeekly = [1, 2, 3];
   const arrayOfFrequencyTwoWeeks = [1, 2, 3, 4];
 
@@ -186,7 +186,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                                   {x}
                                 </option>
                               ))}
-                            {orderPer === 'Every 2 Weeks' &&
+                            {orderPer === 'Every-2-Weeks' &&
                               arrayOfFrequencyTwoWeeks.map((x) => (
                                 <option key={x} value={x}>
                                   {x}

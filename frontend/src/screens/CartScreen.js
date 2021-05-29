@@ -19,9 +19,7 @@ const CartScreen = ({ match, location, history }) => {
     location.search ? location.search.slice(1).split('&')[2].split('=')[1] : 'Weekly'
   );
 
-  console.log(qty, orderFrq, orderPer);
-
-  const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
+  const arrayOfTime = ['Weekly', 'Every-2-Weeks', 'Monthly'];
   const arrayOfFrequencyWeekly = [1, 2, 3];
   const arrayOfFrequencyTwoWeeks = [1, 2, 3, 4];
 
@@ -31,12 +29,11 @@ const CartScreen = ({ match, location, history }) => {
   const { cartItems } = cart;
 
   useEffect(() => {
-    history.push(`/cart/${cartItems[0].product}?qty=${qty}&frq=${orderFrq}&orderper=${orderPer}`);
-
     if (bundleId) {
       history.push(`/cart/${bundleId}?qty=${qty}&frq=${orderFrq}&orderper=${orderPer}`);
       dispatch(addToCart(bundleId, qty, orderFrq, orderPer));
     }
+    history.push(`/cart/${bundleId}?qty=${qty}&frq=${orderFrq}&orderper=${orderPer}`);
   }, [dispatch, bundleId, qty, history, orderFrq, orderPer]);
 
   const removeFromCartHandler = (id) => {
@@ -109,7 +106,7 @@ const CartScreen = ({ match, location, history }) => {
                             {x}
                           </option>
                         ))}
-                      {orderPer === 'Every 2 Weeks' &&
+                      {orderPer === 'Every-2-Weeks' &&
                         arrayOfFrequencyTwoWeeks.map((x) => (
                           <option key={x} value={x}>
                             {x}
