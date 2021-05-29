@@ -21,6 +21,8 @@ const BundleDetailsScreen = ({ match, history }) => {
   const [comment, setComment] = useState('');
 
   const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
+  const arrayOfFrequencyWeekly = [1, 2, 3];
+  const arrayOfFrequencyTwoWeeks = [1, 2, 3, 4];
 
   const dispatch = useDispatch();
 
@@ -132,7 +134,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                             value={qty}
                             onChange={(e) => setQty(e.target.value)}
                           >
-                            {[...Array(bundle.countInStock - orderFrq).keys()].map((x) => (
+                            {[...Array(bundle.countInStock).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>
                                 {x + 1}
                               </option>
@@ -179,11 +181,18 @@ const BundleDetailsScreen = ({ match, history }) => {
                             value={orderFrq}
                             onChange={(e) => setOrderFrq(e.target.value)}
                           >
-                            {[...Array(bundle.countInStock - qty).keys()].map((x) => (
-                              <option key={x + 1} value={x + 1}>
-                                {x + 1}
-                              </option>
-                            ))}
+                            {(orderPer === 'Weekly' || orderPer === 'Monthly') &&
+                              arrayOfFrequencyWeekly.map((x) => (
+                                <option key={x} value={x}>
+                                  {x}
+                                </option>
+                              ))}
+                            {orderPer === 'Every 2 Weeks' &&
+                              arrayOfFrequencyTwoWeeks.map((x) => (
+                                <option key={x} value={x}>
+                                  {x}
+                                </option>
+                              ))}
                           </Form.Control>
                         </Col>
                       </Row>
