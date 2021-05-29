@@ -7,15 +7,16 @@ import { addToCart, removeFromCart } from '../actions/cartActions';
 
 const CartScreen = ({ match, location, history }) => {
   const bundleId = match.params.id;
-  const [qty, setQty] = useState(
-    location.search ? Number(location.search.slice(1).split('&')[0].split('=')[1]) : 1
-  );
-  const [orderFrq, setOrderFrq] = useState(
-    location.search ? Number(location.search.slice(1).split('&')[1].split('=')[1]) : 1
-  );
-  const [orderPer, setOrderPer] = useState(
-    location.search ? location.search.slice(1).split('&')[2].split('=')[1] : 'Weekly'
-  );
+  const [qty, setQty] = useState();
+  // location.search ? Number(location.search.slice(1).split('&')[0].split('=')[1]) : 1;
+
+  const [orderFrq, setOrderFrq] = useState();
+  // location.search ? Number(location.search.slice(1).split('&')[1].split('=')[1]) : 1;
+
+  const [orderPer, setOrderPer] = useState();
+  // location.search ? location.search.slice(1).split('&')[2].split('=')[1] : 'Weekly';
+
+  console.log(qty, orderFrq, orderPer);
 
   const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
   const arrayOfFrequencyWeekly = [1, 2, 3];
@@ -96,7 +97,7 @@ const CartScreen = ({ match, location, history }) => {
                           </option>
                         ))}
                     </Form.Control>
-                    <small>Per {orderPer}</small>
+                    <small>{cartItems.orderPer}</small>
                   </Col>
                   <Col md={2.5}>
                     <Form.Control
