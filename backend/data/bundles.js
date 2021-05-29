@@ -2,7 +2,7 @@ const bundles = [
   {
     name: 'Vitamin`s Boost',
     image:
-      'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80',
+      'https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-1.2.1&ixid=MnwxM[…]G90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=966&q=80',
     description:
       'A careful selection of fresh seasonal fruits and veggies that will help you to get your daily dose of vitamins! You can make a delicious breakfast smoothie, healthy salad for lunch or nice side dish for dinner!',
     category: ['Vegan', 'Vegetarian', 'Low-carb'],

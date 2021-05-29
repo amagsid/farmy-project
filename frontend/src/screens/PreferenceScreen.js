@@ -32,7 +32,7 @@ const PreferenceScreen = ({ history }) => {
     if (!userInfo) {
       history.push('/login');
     } else {
-      if (!user || !user.name || !subscriptions) {
+      if (!user || !user.name || !subscriptions || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
 
         dispatch(getUserDetails('profile'));

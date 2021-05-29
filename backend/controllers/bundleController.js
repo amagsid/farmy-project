@@ -60,7 +60,6 @@ const getBundles = asyncHandler(async (req, res) => {
     ? {
         rating: {
           $gte: ratingQuery,
-          $lt: ratingQuery + 1,
         },
       }
     : {};
