@@ -18,9 +18,9 @@ const fridayIngredients = [
     countInStock: 150,
   },
   {
-    name: 'Green Olives',
+    name: 'Olives Mix',
     image:
-      'https://images.unsplash.com/photo-1612879988258-0d819c297621?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80',
+      'https://images.pexels.com/photos/4109910/pexels-photo-4109910.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
     description: 'Organic Olives',
     category: ['Fruit', 'Fruits', 'Healthy'],
     price: 3.99,
@@ -38,7 +38,7 @@ const fridayIngredients = [
   {
     name: 'Brie Cheese',
     image:
-      'https://images.unsplash.com/photo-1618439832239-24b550c7af56?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGJyaWV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+      'https://images.pexels.com/photos/5732760/pexels-photo-5732760.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
     description: 'Organic Brie Cheese',
     category: ['Cheese', 'Protein'],
     price: 4.99,

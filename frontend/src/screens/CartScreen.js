@@ -73,7 +73,7 @@ const CartScreen = ({ match, location, history }) => {
                         </option>
                       ))}
                     </Form.Control>
-                    <small>people</small>
+                    <small>Quantity</small>
                   </Col>
                   <Col md={2}>
                     <Form.Control

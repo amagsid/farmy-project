@@ -157,8 +157,8 @@ const SubscriptionScreen = ({ match, history, location }) => {
                           <Link to={`/bundles/${item.product}`}>{item.name}</Link>
                         </Col>
                         <Col md={6}>
-                          {item.qty} people x €{item.price} x {item.orderFrq} every {item.orderPer}=
-                          €{item.qty * item.price * item.orderFrq}
+                          {item.qty} bundles x €{item.price} x {item.orderFrq} every {item.orderPer}
+                          = €{item.qty * item.price * item.orderFrq}
                         </Col>
                       </Row>
                     </ListGroup.Item>

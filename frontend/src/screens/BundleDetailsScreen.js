@@ -21,8 +21,6 @@ const BundleDetailsScreen = ({ match, history }) => {
   const [comment, setComment] = useState('');
 
   const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
-  const arrayOfThree = [1, 2, 3];
-  const arrayOfFour = [1, 2, 3, 4];
 
   const dispatch = useDispatch();
 
@@ -112,7 +110,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                     <Row>
                       <Col>Price:</Col>
                       <Col>
-                        <strong>€{bundle.price}</strong>
+                        <strong>${bundle.price}</strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -181,18 +179,11 @@ const BundleDetailsScreen = ({ match, history }) => {
                             value={orderFrq}
                             onChange={(e) => setOrderFrq(e.target.value)}
                           >
-                            {(orderPer === 'Weekly' || orderPer === 'Monthly') &&
-                              arrayOfThree.map((x) => (
-                                <option key={x} value={x}>
-                                  {x}
-                                </option>
-                              ))}
-                            {orderPer === 'Every 2 Weeks' &&
-                              arrayOfFour.map((x) => (
-                                <option key={x} value={x}>
-                                  {x}
-                                </option>
-                              ))}
+                            {[...Array(bundle.countInStock - qty).keys()].map((x) => (
+                              <option key={x + 1} value={x + 1}>
+                                {x + 1}
+                              </option>
+                            ))}
                           </Form.Control>
                         </Col>
                       </Row>
