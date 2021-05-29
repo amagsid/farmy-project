@@ -102,9 +102,9 @@ const Header = () => {
             <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className="ml-auto">
               {userInfo && !userInfo.isAdmin && (
-                <LinkContainer to="/preferences" style={{ color: '#b36458' }}>
+                <LinkContainer to="/preferences">
                   <Nav.Link>
-                    <i className="fas fa-utensils"></i> Preferences{' '}
+                    <i className="fas fa-utensils"></i> Preferences
                     {userInfo.preferences?.diet === '' ? (
                       <sup>
                         <span className="badge badge-danger rounded-pill "> &middot; </span>
@@ -116,13 +116,13 @@ const Header = () => {
                 </LinkContainer>
               )}
               {userInfo && !userInfo.isAdmin && (
-                <LinkContainer to="/subscriptions" style={{ color: '#b36458' }}>
+                <LinkContainer to="/subscriptions">
                   <Nav.Link onClick={gaPlanEvent}>
                     <i className="fas fa-calendar-alt"></i> Plan
                   </Nav.Link>
                 </LinkContainer>
               )}
-              <LinkContainer to="/cart" style={{ color: '#b36458' }}>
+              <LinkContainer to="/cart">
                 <Nav.Link onClick={gaCartEvent}>
                   <i className="fas fa-shopping-cart"></i> Cart
                 </Nav.Link>

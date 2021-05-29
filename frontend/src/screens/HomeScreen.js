@@ -49,30 +49,35 @@ const HomeScreen = ({ match }) => {
             </Message>
           )}
 
-          <Carousel style={{ color: 'white', fontSize: 'large' }}>
+          <Carousel style={{ color: 'white', fontSize: 'large', height: '500px' }}>
             <Carousel.Item>
               <img
                 className=" "
-                src="https://i.ibb.co/gmGbMtP/istock-506164764-pesticide-epandage-1920-web.jpg"
-                alt="First slide"
+                src="https://images.unsplash.com/photo-1589923188900-85dae523342b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3000&q=80"
+                alt="support locals"
               />
               <Carousel.Caption>
-                <h3 style={{ color: 'white' }}>Support your locals</h3>
-                <p className="label">
-                  A lot of products are produced locally. We want to make sure you eat healthy, and
-                  pay less.
+                <h3 style={{ color: 'white' }} className="header">
+                  Support locals and pay less
+                </h3>
+                <p className="label" className="sub-header">
+                  Our products are produced locally. Our mission is to provide you healthy fresh
+                  ingredients while paying less
                 </p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://i.ibb.co/NZybdWC/davide-cantelli-jpkfc5-d-DI-unsplash.jpg"
-                alt="Second slide"
+                src="https://images.unsplash.com/photo-1614173417106-242690007604?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3200&q=80"
+                alt="healthy and fresh"
+                className="veggies-pic"
               />
               <Carousel.Caption>
-                <h3 style={{ color: 'white' }}>Healthy & hand-crafted</h3>
-                <p className="label">
+                <h3 style={{ color: 'white' }} className="header">
+                  The freshest, straight to you
+                </h3>
+                <p className="label" className="sub-header">
                   The healthy eating you deserve straight from your freezer. 100% taste. Zero faff
                   necessary.
                 </p>
@@ -85,8 +90,10 @@ const HomeScreen = ({ match }) => {
                 alt="Delivery"
               />
               <Carousel.Caption>
-                <h3 style={{ color: 'white' }}>Next day delivery</h3>
-                <p className="label">
+                <h3 style={{ color: 'white' }} className="header">
+                  Next-day delivery
+                </h3>
+                <p className="label" className="sub-header">
                   Sustainable packaging keeps everything cool for up to 24 hours, order by 9pm.
                   Flash frozen and delivered in a flash.
                 </p>
