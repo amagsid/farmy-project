@@ -16,7 +16,9 @@ const RegisterBundleScreen = ({ history }) => {
   const [houseHold, setHouseHold] = useState(1);
 
   const arrayOfNumbers = [1, 2, 3, 4, 5];
-  const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
+  const arrayOfFrequencyWeekly = [1, 2, 3];
+  const arrayOfFrequencyTwoWeeks = [1, 2, 3, 4];
+  const arrayOfTime = ['Weekly', 'Every-2-Weeks', 'Monthly'];
 
   const dispatch = useDispatch();
 
@@ -127,15 +129,21 @@ const RegisterBundleScreen = ({ history }) => {
                     <h3>How many times {orderPer}?</h3>
                     <Form.Control
                       as="select"
-                      className="signup-bundle-options rounded pl-4"
                       value={orderFrequency}
                       onChange={(e) => setOrderFrequency(e.target.value)}
                     >
-                      {arrayOfNumbers.map((x, index) => (
-                        <option key={index} className="signup-bundle-options" value={x}>
-                          {x}
-                        </option>
-                      ))}
+                      {(orderPer === 'Weekly' || orderPer === 'Monthly') &&
+                        arrayOfFrequencyWeekly.map((x) => (
+                          <option key={x} value={x}>
+                            {x}
+                          </option>
+                        ))}
+                      {orderPer === 'Every-2-Weeks' &&
+                        arrayOfFrequencyTwoWeeks.map((x) => (
+                          <option key={x} value={x}>
+                            {x}
+                          </option>
+                        ))}
                     </Form.Control>
                   </Row>
                 </ListGroup.Item>

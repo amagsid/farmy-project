@@ -143,7 +143,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         <ul>${filteredBundle
           .map(
             (bundle) => `<br>
-            <a href="http://localhost:3000/bundles/${bundle._id}">${bundle.name}</a>
+            <a href="${process.env.LINK_TO_PROFILE}${bundle._id}">${bundle.name}</a>
         <p>${bundle.description}</p>
         <img src="${bundle.image}" width="200" />
         <br>

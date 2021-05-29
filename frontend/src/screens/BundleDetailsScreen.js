@@ -20,9 +20,14 @@ const BundleDetailsScreen = ({ match, history }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
-  const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
+  const arrayOfTime = ['Weekly', 'Every-2-Weeks', 'Monthly'];
+  const arrayOfFrequencyWeekly = [1, 2, 3];
+  const arrayOfFrequencyTwoWeeks = [1, 2, 3, 4];
 
   const dispatch = useDispatch();
+
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
 
   const bundleDetails = useSelector((state) => state.bundleDetails);
   const { loading, error, bundle } = bundleDetails;
@@ -33,11 +38,7 @@ const BundleDetailsScreen = ({ match, history }) => {
   const { userInfo } = userLogin;
 
   const subscriptionListMy = useSelector((state) => state.subscriptionListMy);
-  const {
-    loading: loadingSubscriptions,
-    error: errorSubscriptions,
-    subscriptions,
-  } = subscriptionListMy;
+  const { loading: loadingSubscriptions, subscriptions } = subscriptionListMy;
 
   const bundleReviewCreate = useSelector((state) => state.bundleReviewCreate);
   const {
@@ -132,7 +133,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                             value={qty}
                             onChange={(e) => setQty(e.target.value)}
                           >
-                            {[...Array(bundle.countInStock - orderFrq).keys()].map((x) => (
+                            {[...Array(bundle.countInStock).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>
                                 {x + 1}
                               </option>
@@ -179,11 +180,18 @@ const BundleDetailsScreen = ({ match, history }) => {
                             value={orderFrq}
                             onChange={(e) => setOrderFrq(e.target.value)}
                           >
-                            {[...Array(bundle.countInStock - qty).keys()].map((x) => (
-                              <option key={x + 1} value={x + 1}>
-                                {x + 1}
-                              </option>
-                            ))}
+                            {(orderPer === 'Weekly' || orderPer === 'Monthly') &&
+                              arrayOfFrequencyWeekly.map((x) => (
+                                <option key={x} value={x}>
+                                  {x}
+                                </option>
+                              ))}
+                            {orderPer === 'Every-2-Weeks' &&
+                              arrayOfFrequencyTwoWeeks.map((x) => (
+                                <option key={x} value={x}>
+                                  {x}
+                                </option>
+                              ))}
                           </Form.Control>
                         </Col>
                       </Row>
@@ -194,10 +202,15 @@ const BundleDetailsScreen = ({ match, history }) => {
                       onClick={addToCartHandler}
                       className="btn-block"
                       type="button"
-                      disabled={bundle.countInStock === 0}
+                      disabled={bundle.countInStock === 0 || cartItems.length > 0}
                     >
                       Add To Cart
                     </Button>
+                    {cartItems.length > 0 && (
+                      <Message variant="info">
+                        You already have one bundle in your cart. <Link to="/cart">Checkout</Link>
+                      </Message>
+                    )}
                   </ListGroup.Item>
                 </ListGroup>
               </Card>
@@ -231,33 +244,35 @@ const BundleDetailsScreen = ({ match, history }) => {
           <Row>
             <Col md={6}>
               <h4>Here's what our customers say about us..</h4>
-              {bundle.reviews.length === 0 && <Message>No Reviews</Message>}
-              <ListGroup variant="flush">
-                {bundle.reviews.map((review) => (
-                  <ListGroup.Item key={review._id}>
-                    <strong>{review.name}</strong>
-                    <Rating value={review.rating} />
-                    <p>{review.createdAt.substring(0, 10)}</p>
-                    <p>{review.comment}</p>
-                  </ListGroup.Item>
-                ))}
+              {bundle.reviews.length === 0 ? (
+                <Message>No Reviews</Message>
+              ) : (
+                <ListGroup variant="flush">
+                  {bundle.reviews.map((review) => (
+                    <ListGroup.Item key={review._id}>
+                      <strong>{review.name}</strong>
+                      <Rating value={review.rating} />
+                      <p>{review.createdAt.substring(0, 10)}</p>
+                      <p>{review.comment}</p>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              )}
+              <ListGroup>
                 <ListGroup.Item>
                   {successBundleReview && (
                     <Message variant="success">Review submitted successfully</Message>
                   )}
-
                   {loadingBundleReview && <Loader />}
                   {errorBundleReview && <Message variant="danger">{errorBundleReview}</Message>}
                   {loadingSubscriptions ? (
                     <Loader />
-                  ) : errorSubscriptions ? (
-                    <Message variant="danger">{errorSubscriptions}</Message>
                   ) : (
                     <>
-                      {userInfo && subscriptions.length > 0 ? (
+                      {userInfo && subscriptions && subscriptions.length > 0 ? (
                         <Form onSubmit={submitHandler}>
                           <h6>
-                            Enjoying Farmy? leave us a review. Can we do something better? let us
+                            Enjoying Farmy? Leave us a review. Can we do something better? Let us
                             know!
                           </h6>
                           <Form.Group controlId="rating">
