@@ -233,7 +233,6 @@ const BundleDetailsScreen = ({ match, history }) => {
           </Container>
           <Container>
             <h3>Meet The Farmer</h3>
-            {bundle.ingredients && console.log(bundle.ingredients[0].farms[randomIndex])}
             {bundle.ingredients && (
               <FarmDetails farmId={bundle.ingredients[0]?.farms[randomIndex]} />
             )}
@@ -260,19 +259,16 @@ const BundleDetailsScreen = ({ match, history }) => {
                   {successBundleReview && (
                     <Message variant="success">Review submitted successfully</Message>
                   )}
-
                   {loadingBundleReview && <Loader />}
                   {errorBundleReview && <Message variant="danger">{errorBundleReview}</Message>}
                   {loadingSubscriptions ? (
                     <Loader />
-                  ) : errorSubscriptions ? (
-                    <Message variant="danger">{errorSubscriptions}</Message>
                   ) : (
                     <>
                       {userInfo && subscriptions.length > 0 ? (
                         <Form onSubmit={submitHandler}>
                           <h6>
-                            Enjoying Farmy? leave us a review. Can we do something better? let us
+                            Enjoying Farmy? Leave us a review. Can we do something better? Let us
                             know!
                           </h6>
                           <Form.Group controlId="rating">
