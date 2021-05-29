@@ -160,7 +160,6 @@ sup {
 a {
   color: #1a1a1a;
   text-decoration: none;
-  background-color: transparent;
 }
 a:hover {
   color: black;
@@ -2574,7 +2573,6 @@ textarea.form-control.is-invalid {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: transparent;
   border: 0px solid transparent;
   padding: 0.75rem 1.5rem;
   font-size: 0.875rem;
@@ -9554,12 +9552,12 @@ button.bg-dark:focus {
 .text-lowercase {
   text-transform: lowercase !important;
 }
-.text-uppercase {
+/* .text-uppercase {
   text-transform: uppercase !important;
 }
 .text-capitalize {
   text-transform: capitalize !important;
-}
+} */
 .font-weight-light {
   font-weight: 300 !important;
 }
@@ -9823,7 +9821,6 @@ h3,
 h4,
 h5,
 h6 {
-  text-transform: uppercase;
   letter-spacing: 3px;
 }
 .text-secondary {

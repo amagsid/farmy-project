@@ -49,13 +49,9 @@ const HomeScreen = ({ match }) => {
             </Message>
           )}
 
-          <Carousel style={{ color: 'white', fontSize: 'large', height: '500px' }}>
+          <Carousel style={{ color: 'white', fontSize: 'large', height: '460px' }}>
             <Carousel.Item>
-              <img
-                className=" "
-                src="https://images.unsplash.com/photo-1589923188900-85dae523342b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3000&q=80"
-                alt="support locals"
-              />
+              <img className=" " src="https://i.ibb.co/6bFf3Ln/locals.jpg" alt="support locals" />
               <Carousel.Caption>
                 <h3 style={{ color: 'white' }} className="header">
                   Support locals and pay less
@@ -69,7 +65,7 @@ const HomeScreen = ({ match }) => {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://images.unsplash.com/photo-1614173417106-242690007604?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3200&q=80"
+                src="https://images.unsplash.com/photo-1518843875459-f738682238a6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3426&q=80"
                 alt="healthy and fresh"
                 className="veggies-pic"
               />
@@ -78,15 +74,15 @@ const HomeScreen = ({ match }) => {
                   The freshest, straight to you
                 </h3>
                 <p className="label" className="sub-header">
-                  The healthy eating you deserve straight from your freezer. 100% taste. Zero faff
-                  necessary.
+                  Always fresh, ready in no time. 100% taste. 0% fuss.
                 </p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://i.ibb.co/jkNdx3H/Farmy.jpg"
+                className="car-img"
+                src="https://i.ibb.co/cFPjk9H/Farmy2.jpg"
                 alt="Delivery"
               />
               <Carousel.Caption>
@@ -107,10 +103,10 @@ const HomeScreen = ({ match }) => {
             />
           ) : (
             userInfo && (
-              <h2 style={{ color: '#808080	' }} className="border text-center">
-                Please fill in{' '}
+              <h2 style={{ color: '#808080	' }} className="border text-center prerefrence-box">
+                Please fill in
                 <Link to="/preferences" style={{ color: '#808080	' }}>
-                  preferences
+                  <span style={{ color: '#b36458' }}> preferences </span>
                 </Link>{' '}
                 to see recommendations
               </h2>
@@ -122,7 +118,7 @@ const HomeScreen = ({ match }) => {
 
           {userInfo && (
             <>
-              <Container className="mb-5">
+              <Container className="mb-5 latest-bundles">
                 <h1>Latest Bundles</h1>
                 <Row>
                   {bundlesListLatest.map((bundle) => (
@@ -151,7 +147,7 @@ const HomeScreen = ({ match }) => {
                         <Bundle bundle={bundle} />
                       </Link>
                       <LinkContainer to={`/bundles/${bundle._id}`}>
-                        <Button variant="outline-success" size="lg" block>
+                        <Button className="large-btn" variant="outline-success" size="lg" block>
                           Subscribe
                         </Button>
                       </LinkContainer>
