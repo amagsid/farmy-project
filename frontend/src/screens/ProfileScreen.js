@@ -102,10 +102,10 @@ const ProfileScreen = ({ location, history }) => {
         {timeInHours > 0 && timeInHours < 12
           ? 'Good morning'
           : timeInHours >= 12 && timeInHours <= 15
-          ? 'good afternoon'
+          ? 'Good afternoon'
           : timeInHours >= 16 && timeInHours <= 24
-          ? 'good evening'
-          : 'hello'}
+          ? 'Good evening'
+          : 'Hello'}
         , {user.name}!
       </h2>
       {message && <Message variant="danger">{message}</Message>}
