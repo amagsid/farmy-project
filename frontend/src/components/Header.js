@@ -94,13 +94,7 @@ const Header = () => {
         <Container style={{ color: '#ffffff' }}>
           <LinkContainer to="/">
             <Navbar.Brand onClick={gaLogoEvent}>
-              <img
-                src="https://i.ibb.co/mBnWcKg/Farmy-copy-1.png"
-                width="80"
-                
-                // className="d-inline-block align-top"
-                alt="Farmy logo"
-              />
+              <img src="https://i.ibb.co/mBnWcKg/Farmy-copy-1.png" width="80" alt="Farmy logo" />
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -108,9 +102,9 @@ const Header = () => {
             <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className="ml-auto">
               {userInfo && !userInfo.isAdmin && (
-                <LinkContainer to="/preferences" style={{ color: '#b36458' }}>
+                <LinkContainer to="/preferences">
                   <Nav.Link>
-                    <i className="fas fa-utensils"></i> Preferences{' '}
+                    <i className="fas fa-utensils"></i> Preferences
                     {userInfo.preferences?.diet === '' ? (
                       <sup>
                         <span className="badge badge-danger rounded-pill "> &middot; </span>
@@ -128,7 +122,7 @@ const Header = () => {
                   </Nav.Link>
                 </LinkContainer>
               )}
-              <LinkContainer to="/cart" style={{ color: 'white' }}>
+              <LinkContainer to="/cart">
                 <Nav.Link onClick={gaCartEvent}>
                   <i className="fas fa-shopping-cart"></i> Cart
                 </Nav.Link>

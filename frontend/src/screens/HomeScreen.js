@@ -41,46 +41,53 @@ const HomeScreen = ({ match }) => {
       {error && errorLatest && <Message variant="danger">{error}</Message>}
       {!keyword ? (
         <>
-          {userInfo && <Message variant="success">Welcome {userInfo.name}!</Message>}
+          {userInfo && (
+            <Message style={{ color: '#b36458' }} variant="success">
+              Welcome {userInfo.name}!
+            </Message>
+          )}
 
-          <Carousel style={{ color: 'white', fontSize: 'large' }}>
+          <Carousel style={{ color: 'white', fontSize: 'large', height: '460px' }}>
             <Carousel.Item>
-              <img
-                className=" "
-                src="https://i.ibb.co/gmGbMtP/istock-506164764-pesticide-epandage-1920-web.jpg"
-                alt="First slide"
-              />
+              <img className=" " src="https://i.ibb.co/6bFf3Ln/locals.jpg" alt="support locals" />
               <Carousel.Caption>
-                <h3 style={{ color: 'white' }}>Support your locals</h3>
-                <p className="label">
-                  A lot of products are produced locally. We want to make sure you eat healthy, and
-                  pay less.
+                <h3 style={{ color: 'white' }} className="header">
+                  Support locals and pay less
+                </h3>
+                <p className="label" className="sub-header">
+                  Our products are produced locally. Our mission is to provide you healthy fresh
+                  ingredients while paying less
                 </p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://i.ibb.co/NZybdWC/davide-cantelli-jpkfc5-d-DI-unsplash.jpg"
-                alt="Second slide"
+                src="https://images.unsplash.com/photo-1518843875459-f738682238a6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3426&q=80"
+                alt="healthy and fresh"
+                className="veggies-pic"
               />
               <Carousel.Caption>
-                <h3 style={{ color: 'white' }}>Healthy & hand-crafted</h3>
-                <p className="label">
-                  The healthy eating you deserve straight from your freezer. 100% taste. Zero faff
-                  necessary.
+                <h3 style={{ color: 'white' }} className="header">
+                  The freshest, straight to you
+                </h3>
+                <p className="label" className="sub-header">
+                  Always fresh, ready in no time. 100% taste. 0% fuss.
                 </p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://i.ibb.co/jkNdx3H/Farmy.jpg"
+                className="car-img"
+                src="https://i.ibb.co/cFPjk9H/Farmy2.jpg"
                 alt="Delivery"
               />
               <Carousel.Caption>
-                <h3 style={{ color: 'white' }}>Next day delivery</h3>
-                <p className="label">
+                <h3 style={{ color: 'white' }} className="header">
+                  Next-day delivery
+                </h3>
+                <p className="label" className="sub-header">
                   Sustainable packaging keeps everything cool for up to 24 hours, order by 9pm.
                   Flash frozen and delivered in a flash.
                 </p>
@@ -94,10 +101,10 @@ const HomeScreen = ({ match }) => {
             />
           ) : (
             userInfo && (
-              <h2 style={{ color: '#808080	' }} className="border text-center">
-                Please fill in{' '}
+              <h2 style={{ color: '#808080	' }} className="border text-center prerefrence-box">
+                Please fill in
                 <Link to="/preferences" style={{ color: '#808080	' }}>
-                  preferences
+                  <span style={{ color: '#b36458' }}> preferences </span>
                 </Link>{' '}
                 to see recommendations
               </h2>
@@ -109,7 +116,7 @@ const HomeScreen = ({ match }) => {
 
           {userInfo && (
             <>
-              <Container className="mb-5">
+              <Container className="mb-5 latest-bundles">
                 <h1>Latest Bundles</h1>
                 <Row>
                   {bundlesListLatest.map((bundle) => (
@@ -138,7 +145,7 @@ const HomeScreen = ({ match }) => {
                         <Bundle bundle={bundle} />
                       </Link>
                       <LinkContainer to={`/bundles/${bundle._id}`}>
-                        <Button variant="outline-success" size="lg" block>
+                        <Button className="large-btn" variant="outline-success" size="lg" block>
                           Subscribe
                         </Button>
                       </LinkContainer>
