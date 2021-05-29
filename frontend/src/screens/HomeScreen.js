@@ -10,9 +10,7 @@ import Filter from '../components/Filter';
 import { listBundles, listLatestBundles } from '../actions/bundleActions';
 import Bundle from '../components/Bundle';
 import FeedBack from '../components/FeedBack';
-import IntroductionCard from '../components/IntroductionCard';
 import feedback from '../feedback.json';
-import introduction from '../introduction.json';
 import FarmsMap from '../components/FarmsMap';
 import FarmStory from '../components/FarmStory';
 import PersonalizedRecommendations from '../components/PersonalizedRecommendations';
@@ -39,8 +37,6 @@ const HomeScreen = ({ match }) => {
   return (
     <>
       <Meta />
-      {/* {loading && loadingLatest && <Loader />}
-      {error && errorLatest && <Message variant="danger">{error}</Message>} */}
       {loading && loadingLatest ? (
         <Loader />
       ) : error && errorLatest ? (

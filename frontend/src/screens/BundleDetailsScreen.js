@@ -35,11 +35,7 @@ const BundleDetailsScreen = ({ match, history }) => {
   const { userInfo } = userLogin;
 
   const subscriptionListMy = useSelector((state) => state.subscriptionListMy);
-  const {
-    loading: loadingSubscriptions,
-    error: errorSubscriptions,
-    subscriptions,
-  } = subscriptionListMy;
+  const { loading: loadingSubscriptions, subscriptions } = subscriptionListMy;
 
   const bundleReviewCreate = useSelector((state) => state.bundleReviewCreate);
   const {
