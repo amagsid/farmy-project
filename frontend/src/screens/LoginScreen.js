@@ -70,10 +70,11 @@ const LoginScreen = ({ location, history }) => {
       <h1>Sign In</h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
-      <Form onSubmit={submitHandler}>
+      <Form className="mb-2" onSubmit={submitHandler}>
         <Form.Group controlId="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
+            className="inputBG"
             type="email"
             placeholder="Enter email"
             value={email}
@@ -84,6 +85,7 @@ const LoginScreen = ({ location, history }) => {
         <Form.Group controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
+            className="inputBG"
             type="password"
             placeholder="Enter password"
             value={password}

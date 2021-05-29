@@ -90,17 +90,25 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar expand="lg" collapseOnSelect >
-        <Container style={{color: "#ffffff"}}>
-          <LinkContainer to="/" >
-            <Navbar.Brand onClick={gaLogoEvent} >Farmy</Navbar.Brand>
+      <Navbar expand="lg" collapseOnSelect className="py-2">
+        <Container style={{ color: '#ffffff' }}>
+          <LinkContainer to="/">
+            <Navbar.Brand onClick={gaLogoEvent}>
+              <img
+                src="https://i.ibb.co/mBnWcKg/Farmy-copy-1.png"
+                width="80"
+                
+                // className="d-inline-block align-top"
+                alt="Farmy logo"
+              />
+            </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className="ml-auto">
               {userInfo && !userInfo.isAdmin && (
-                <LinkContainer to="/preferences">
+                <LinkContainer to="/preferences" style={{ color: '#b36458' }}>
                   <Nav.Link>
                     <i className="fas fa-utensils"></i> Preferences{' '}
                     {userInfo.preferences?.diet === '' ? (
@@ -120,7 +128,7 @@ const Header = () => {
                   </Nav.Link>
                 </LinkContainer>
               )}
-              <LinkContainer to="/cart">
+              <LinkContainer to="/cart" style={{ color: 'white' }}>
                 <Nav.Link onClick={gaCartEvent}>
                   <i className="fas fa-shopping-cart"></i> Cart
                 </Nav.Link>

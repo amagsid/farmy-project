@@ -126,7 +126,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                     <ListGroup.Item>
                       <Row>
                         <Col>Quantity</Col>
-                        <Col>
+                        <Col md={10} className="m-1">
                           <Form.Control
                             as="select"
                             value={qty}
@@ -146,7 +146,7 @@ const BundleDetailsScreen = ({ match, history }) => {
                     <ListGroup.Item>
                       <Row>
                         <Col>How often</Col>
-                        <Col>
+                        <Col md={10} className="m-1">
                           <Form.Control
                             as="select"
                             value={orderPer}
@@ -165,8 +165,15 @@ const BundleDetailsScreen = ({ match, history }) => {
                   {bundle.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>Times per {orderPer}</Col>
                         <Col>
+                          Times per{' '}
+                          {orderPer === 'Weekly'
+                            ? 'Week'
+                            : orderPer === 'Monthly'
+                            ? 'Month'
+                            : '2 Weeks'}
+                        </Col>
+                        <Col md={10} className="m-1">
                           <Form.Control
                             as="select"
                             value={orderFrq}

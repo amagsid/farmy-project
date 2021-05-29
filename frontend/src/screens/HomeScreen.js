@@ -45,31 +45,15 @@ const HomeScreen = ({ match }) => {
         <>
           {userInfo && <Message variant="success">Welcome {userInfo.name}!</Message>}
 
-          {/* <h1>pay less to eat healthy</h1>
-            <Row>
-              {introduction &&
-                introduction.map((card, index) => {
-                  return (
-                    <Col key={index}>
-                      <IntroductionCard
-                        image={card.image}
-                        heading={card.heading}
-                        description={card.description}
-                      />
-                    </Col>
-                  );
-                })}
-            </Row> */}
-
-          <Carousel>
+          <Carousel style={{ color: 'white', fontSize: 'large' }}>
             <Carousel.Item>
               <img
                 className=" "
-                src="https://images.unsplash.com/photo-1558689509-900d3d3cc727?ixlib=rb-1.2.1&ixid=MnwxMjA3[…]90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2106&q=80"
+                src="https://i.ibb.co/gmGbMtP/istock-506164764-pesticide-epandage-1920-web.jpg"
                 alt="First slide"
               />
               <Carousel.Caption>
-                <h3 className="label">Support your locals</h3>
+                <h3 style={{ color: 'white' }}>Support your locals</h3>
                 <p className="label">
                   A lot of products are produced locally. We want to make sure you eat healthy, and
                   pay less.
@@ -79,25 +63,25 @@ const HomeScreen = ({ match }) => {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://images.unsplash.com/photo-1499529112087-3cb3b73cec95?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3367&q=80"
+                src="https://i.ibb.co/NZybdWC/davide-cantelli-jpkfc5-d-DI-unsplash.jpg"
                 alt="Second slide"
               />
               <Carousel.Caption>
-                <h3>Healthy & hand-crafted</h3>
+                <h3 style={{ color: 'white' }}>Healthy & hand-crafted</h3>
                 <p className="label">
                   The healthy eating you deserve straight from your freezer. 100% taste. Zero faff
-                  necessaryt.
+                  necessary.
                 </p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://i.ibb.co/0mQhScV/image-delivery.jpg"
+                src="https://i.ibb.co/jkNdx3H/Farmy.jpg"
                 alt="Delivery"
               />
               <Carousel.Caption>
-                <h3>Next day delivery</h3>
+                <h3 style={{ color: 'white' }}>Next day delivery</h3>
                 <p className="label">
                   Sustainable packaging keeps everything cool for up to 24 hours, order by 9pm.
                   Flash frozen and delivered in a flash.
@@ -166,7 +150,7 @@ const HomeScreen = ({ match }) => {
             )}
           </Container>
 
-          <Container className="mb-5">
+          <Container className="mb-4">
             <h1>Our Farmers</h1>
             <FarmsMap />
             <FarmStory />
@@ -182,7 +166,7 @@ const HomeScreen = ({ match }) => {
           {bundles.length ? (
             <Row>
               {bundles.map((bundle) => (
-                <Col key={bundle._id}>
+                <Col key={bundle._id} md={4}>
                   <Link to={`/bundles/${bundle._id}`}>
                     <Bundle bundle={bundle} />
                   </Link>

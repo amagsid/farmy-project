@@ -44,6 +44,7 @@ const Filter = ({ keyword }) => {
           <Col sm={12} md={6} lg={6} xl={3}>
             <Form.Group controlId="category">
               <Form.Control
+                className="inputBG"
                 as="select"
                 onChange={(e) => setCategory(e.target.value)}
                 value={category}
@@ -58,7 +59,12 @@ const Filter = ({ keyword }) => {
           </Col>
           <Col sm={12} md={6} lg={6} xl={3}>
             <Form.Group controlId="rating">
-              <Form.Control as="select" onChange={(e) => setRating(e.target.value)} value={rating}>
+              <Form.Control
+                className="inputBG"
+                as="select"
+                onChange={(e) => setRating(e.target.value)}
+                value={rating}
+              >
                 {ratingsArray.map((ratingOption) => (
                   <option key={ratingOption} value={ratingOption}>
                     Rating: {ratingOption}
@@ -71,7 +77,9 @@ const Filter = ({ keyword }) => {
           <Col sm={12} md={6} lg={6} xl={3}>
             <InputGroup>
               <InputGroup.Append>
-                <InputGroup.Text id="min-price">Min price</InputGroup.Text>
+                <InputGroup.Text id="min-price" className="inputBG">
+                  Min price
+                </InputGroup.Text>
               </InputGroup.Append>
               <FormControl
                 placeholder="Min price"
@@ -85,7 +93,9 @@ const Filter = ({ keyword }) => {
           <Col sm={12} md={6} lg={6} xl={3}>
             <InputGroup>
               <InputGroup.Append>
-                <InputGroup.Text id="max-price">Max price</InputGroup.Text>
+                <InputGroup.Text id="max-price" className="inputBG">
+                  Max price
+                </InputGroup.Text>
               </InputGroup.Append>
               <FormControl
                 placeholder="Max price"

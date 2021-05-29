@@ -2,9 +2,19 @@ main {
   min-height: 80vh;
   background-color: rgb(245, 250, 245);
 }
+.inputBG {
+  background-color: white;
+}
 
 header {
-  background-color: rgb(122, 169, 122);
+  background-color: #dbf2e3;
+}
+.white {
+  color: white
+}
+
+footer {
+   background-color: #dbf2e3;
 }
 
 h3 {
@@ -32,7 +42,9 @@ h2 {
 
 /* carousel */
 
-.carousel-item-next, .carousel-item-prev, .carousel-item.active {
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
   display: flex;
 }
 

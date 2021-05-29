@@ -6,8 +6,8 @@ import Rating from './Rating';
 const Bundle = ({ bundle }) => {
   return (
     <Card className="my-3 p-3 rounded">
-      <LinkContainer to={`/bundles/${bundle._id}`}>
-        <Card.Img src={bundle.image} variant="top" height="200px" widht="200px"/>
+      <LinkContainer to={`/bundles/${bundle._id}`} style={{ cursor: 'pointer' }}>
+        <Card.Img src={bundle.image} variant="top" height="200px" width="200px" />
       </LinkContainer>
 
       <Card.Body>

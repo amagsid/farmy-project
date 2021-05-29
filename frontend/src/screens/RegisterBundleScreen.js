@@ -10,13 +10,13 @@ import ReactGA from 'react-ga';
 const { REACT_APP_GUA_ID } = process.env;
 
 const RegisterBundleScreen = ({ history }) => {
-  const [orderPer, setOrderPer] = useState('week');
+  const [orderPer, setOrderPer] = useState('Weekly');
   const [orderFrequency, setOrderFrequency] = useState(1);
   const [selectedBundleId, setSelectedBundleId] = useState('');
   const [houseHold, setHouseHold] = useState(1);
 
   const arrayOfNumbers = [1, 2, 3, 4, 5];
-  const arrayOfTime = ['Week', '2 Weeks', 'Month'];
+  const arrayOfTime = ['Weekly', 'Every 2 Weeks', 'Monthly'];
 
   const dispatch = useDispatch();
 
@@ -79,7 +79,7 @@ const RegisterBundleScreen = ({ history }) => {
                           <Image src={bundle.image} alt={bundle.name} fluid rounded />
                         </Col>
                         <Col md={7}>{bundle.name}</Col>
-                        <Col md={2}>${bundle.price}</Col>
+                        <Col md={2}>€{bundle.price}</Col>
                       </Row>
                     </Button>
                   </Link>
@@ -124,7 +124,7 @@ const RegisterBundleScreen = ({ history }) => {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row className="pl-5 pb-5">
-                    <h3>How many times per {orderPer}?</h3>
+                    <h3>How many times {orderPer}?</h3>
                     <Form.Control
                       as="select"
                       className="signup-bundle-options rounded pl-4"
@@ -146,7 +146,7 @@ const RegisterBundleScreen = ({ history }) => {
             {selectedBundleId !== '' && (
               <Message variant="info">
                 You will receive <em className="font-weight-bold">{selectedBundle.name}</em> bundle{' '}
-                <em className="font-weight-bold">{orderFrequency}</em> times every{' '}
+                <em className="font-weight-bold">{orderFrequency}</em> times{' '}
                 <em className="font-weight-bold">{orderPer}</em> and for{' '}
                 <em className="font-weight-bold">{houseHold}</em> people
               </Message>
